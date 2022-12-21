@@ -10,6 +10,7 @@ import com.codestates.backend.pre_project.profile.Profile;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -22,6 +23,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
@@ -43,7 +45,7 @@ public class Member {
     private LocalDateTime memberLastDate;
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-    private Profile profile = new Profile(this);
+    private Profile profile = new Profile();
 
 //    public void setProfile(Profile profile) {
 //        this.profile = profile;
@@ -53,7 +55,7 @@ public class Member {
     private Likes likes = new Likes(this);
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-    private Point point = new Point(this);
+    private Point point = new Point(this, profile);
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Question> questions = new ArrayList<>();

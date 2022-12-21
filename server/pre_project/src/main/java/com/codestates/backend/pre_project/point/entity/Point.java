@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.bytebuddy.implementation.bind.annotation.Default;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,6 +17,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicInsert
 public class Point {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,17 +36,12 @@ public class Point {
     @JoinColumn(name = "PROFILE_ID")
     private Profile profile;
 
-    public Point(Profile profile) {
-        this.profile = profile;
-        if (profile.getPoint() != this) {
-            profile.setPoint(this);
-        }
-    }
+    public Point( @NotNull Member member, Profile profile) {
 
-    public Point(Member member) {
         this.member = member;
         if (member.getPoint() != this) {
             member.setPoint(this);
         }
+
     }
 }
