@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useState } from "react";
 
 const Section = styled.div`
-  box-sizing: border-box;
   border-left: ${(props) => props.flag ? '1px solid rgb(214 217 220)' : '0px'};
   max-width: ${(props) => props.flag ? "1100px" : "1854px"};
   width: ${(props) => props.flag ? "calc(100% - 164px)" : "100%"};

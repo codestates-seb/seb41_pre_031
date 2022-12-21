@@ -9,7 +9,6 @@ main{
 nav{
   width: 164px;
   height: 100%;
-  height: 100vh;
 }
 
 @media (max-width:980px){
