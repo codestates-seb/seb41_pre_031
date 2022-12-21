@@ -1,3 +1,23 @@
-.App {
-  text-align: center;
+main{
+  display: flex;
+  margin: 0 auto;
+  padding-top: 50px;
+  max-width: 1264px;
+  width: 100%;
+}
+
+nav{
+  width: 164px;
+  height: 100%;
+  height: 100vh;
+}
+
+@media (max-width:980px){
+
+}
+
+@media (max-width:640px){
+ nav{
+  display: none;
+ }
 }
