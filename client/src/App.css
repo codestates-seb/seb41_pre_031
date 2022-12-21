@@ -6,7 +6,7 @@ main{
   width: 100%;
 }
 
-nav{
+aside{
   width: 164px;
   height: 100%;
 }
@@ -16,7 +16,7 @@ nav{
 }
 
 @media (max-width:640px){
- nav{
+  aside{
   display: none;
  }
 }

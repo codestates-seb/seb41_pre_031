@@ -21,7 +21,7 @@ function App() {
       <input></input>
       {/* 헤더 */}
       <main>
-        {flag ? <nav></nav> : null}
+        {flag ? <aside></aside> : null}
         <Section flag={flag}></Section>
       </main>
       {/* 푸터 */}
