@@ -100,8 +100,8 @@ public class MemberControllerTest {
 
             // when / then
             mockMvc.perform(
-                            get("/members/{member-id}")
-                                    .accept(MediaType.APPLICATION_JSON)   /** 중복 */
+                            get("/members/{memberId}",memberId)
+                                    .accept(MediaType.APPLICATION_JSON)
                     )
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.data.email").value(resultMember.getEmail()))
