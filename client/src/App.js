@@ -1,4 +1,3 @@
-import "./App.css";
 import styled from "styled-components";
 import Header from "./components/Header";
 import { useState } from "react";
