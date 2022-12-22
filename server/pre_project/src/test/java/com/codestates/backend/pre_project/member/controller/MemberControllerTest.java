@@ -1,11 +1,14 @@
 package com.codestates.backend.pre_project.member.controller;
 
 import com.codestates.backend.pre_project.helper.StubData;
+import com.codestates.backend.pre_project.helper.MemberControllerTestHelper;
+import com.codestates.backend.pre_project.helper.ControllerTestHelper;
 import com.codestates.backend.pre_project.member.dto.MemberDto;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.member.mapper.MemberMapper;
 import com.codestates.backend.pre_project.member.repository.MemberRepository;
 import com.codestates.backend.pre_project.member.service.MemberService;
+import com.codestates.backend.pre_project.util.ApiDocumentUtils;
 import com.google.gson.Gson;
 import com.jayway.jsonpath.JsonPath;
 import org.hamcrest.MatcherAssert;
@@ -20,6 +23,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.operation.preprocess.Preprocessors;
@@ -60,6 +64,10 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 
 @Transactional
 @SpringBootTest
@@ -104,13 +112,28 @@ public class MemberControllerTest implements MemberControllerTestHelper {
                                 .content(content)
                 );
 
-                //then
-                actions
-                        .andExpect(status().isCreated())
-                        .andExpect(jsonPath("$.data.email").value(post.getEmail()))
-                        .andExpect(jsonPath("$.data.password").value(post.getPassword()))
-                        .andExpect(jsonPath("$.data.memberName").value(post.getMemberName()));
-        }
+        //then
+        actions
+                .andExpect(status().isCreated())
+                //.andExpect(header().string("Location", is(startsWith("/members/signup"))))
+                .andExpect(jsonPath("$.data.email").value(post.getEmail()))
+                .andExpect(jsonPath("$.data.password").value(post.getPassword()))
+                .andExpect(jsonPath("$.data.memberName").value(post.getMemberName()))
+                .andDo(document("post-member",
+                        getRequestPreProcessor(),
+                        getResponsePreProcessor(),
+                        requestFields(
+                                List.of(
+                                        fieldWithPath("email").type(STRING).description("이메일"),
+                                        fieldWithPath("memberName").type(STRING).description("이름"),
+                                        fieldWithPath("password").type(STRING).description("비밀 번호")
+                                )
+                        )
+//                                responseHeaders(
+//                                        headerWithName(HttpHeaders.LOCATION).description("Location header. 등록된 리소스의 URI")
+//                                )
+                ));
+    }
 
     @Test
     void patchMemberTest() throws Exception {
@@ -233,12 +256,26 @@ public class MemberControllerTest implements MemberControllerTestHelper {
         //then
         MvcResult result = actions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data").isArray())
+                .andDo(
+                        document(
+                                "get-members",
+                                getRequestPreProcessor(),
+                                getResponsePreProcessor(),
+                                requestParameters(
+                                        getDefaultRequestParameterDescriptors()
+                                ),
+                                responseFields(
+                                        getFullPageResponseDescriptors(
+                                                getDefaultMemberResponseDescriptors(DataResponseType.LIST)
+                                        )
+                                )
+                        )
+                )
                 .andReturn();
 
         List list = JsonPath.parse(result.getResponse().getContentAsString()).read("$.data");
         System.out.println(list);
-        MatcherAssert.assertThat(list.size(), is(2));
+        assertThat(list.size(), is(2));
 
         //given
 //            MemberDto.Post post1 = new MemberDto.Post("abcd1@gmail.com", "qhdks!1234", "강신찬");
@@ -316,5 +353,8 @@ public class MemberControllerTest implements MemberControllerTestHelper {
 //                    .andExpect(jsonPath("$").doesNotExist())
 //                    .andReturn();
 
-        }
+    }
+
 }
+
+
