@@ -15,7 +15,14 @@ const Section = styled.div`
 	}
 `;
 
+const Main = styled.main`
+	display: flex;
+	padding-top: 50px;
+`;
+
 const LeftSide = styled.aside`
+	width: 164px;
+	height: 100%;
 	border-right: 1px solid rgb(214 217 220);
 	@media screen and (max-width: ${BREAK_POINT_MOBILE}px) {
 		display: none;
