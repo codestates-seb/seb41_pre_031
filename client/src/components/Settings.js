@@ -42,14 +42,14 @@ const SettingNav = styled.ul`
 `;
 const SettingMain = styled.div``;
 
-const Settings = () => {
+const Settings = ({id}) => {
   const [openTab, setOpenTab] = useState([
     {
       id: 0,
       name: "Edit profile",
-      url: "edit/12",
+      url: "profile/edit/"+id,
     },
-    { id: 1, name: "Delete profile", url: "delete/12" },
+    { id: 1, name: "Delete profile", url: "profile/delete/"+id },
   ]);
   const [checked, setChecked] = useState(0);
   function tabHandle(index) {
@@ -69,16 +69,20 @@ const Settings = () => {
                 tabHandle(index);
               }}
             >
-              <Link to={`/users/${data.url}`}>{data.name}</Link>
+              {/* <Link to={`/users/${data.url}`}>{data.name}</Link> */}
+              {data.name}
             </li>
           );
         })}
       </SettingNav>
       <SettingMain>
-        <Routes>
-          <Route path="/users/edit/:id" element={<Edit />} />
-          <Route path="/users/delete/:id" element={<Delete />} />
-        </Routes>
+        {/* <Routes>
+          <Route path="/users/profile/edit/:id/*" element={<Edit />} />
+          <Route path="/users/profile/delete/:id/*" element={<Delete />} />
+        </Routes> */}
+        {
+            checked === 0 ? <Edit/> : <Delete/>
+        }
       </SettingMain>
     </Setting>
   );

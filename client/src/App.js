@@ -36,15 +36,17 @@ function App() {
     return (
         <>
             <Header />
-            <main className="container">
+            <Main className="container">
                 {flag ? <LeftSide></LeftSide> : null}
                 <Section flag={flag}>
                     <Routes>
-                        <Route path="/users/:id" element={<UserProfile />} />
-                        <Route path="/users/*" element={<UserProfile />} />
+                        <Route
+                            path="/users/profile/:id/*"
+                            element={<UserProfile />}
+                        />
                     </Routes>
                 </Section>
-            </main>
+            </Main>
             {/* 푸터 */}
         </>
     );
