@@ -38,9 +38,6 @@ public class Profile {
     private Member member;
 
     @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL)
-    private Point point = new Point(this);
+    private Point point;
 
-    public Profile(Member member) {
-        this.member = member;
-    }
 }
