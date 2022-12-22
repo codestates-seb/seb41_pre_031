@@ -24,7 +24,7 @@ public class Point {
     private long pointId;
 
     @Column
-    private long pointCount;
+    private int pointCount;
 
     @NotNull
     @OneToOne

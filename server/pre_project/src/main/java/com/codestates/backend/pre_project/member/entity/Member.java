@@ -65,4 +65,11 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
+
+    public Member(long memberId, String email, String password, String memberName) {
+        this.memberId = memberId;
+        this.email = email;
+        this.password = password;
+        this.memberName = memberName;
+    }
 }
