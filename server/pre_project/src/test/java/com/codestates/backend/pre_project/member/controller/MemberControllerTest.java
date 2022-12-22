@@ -3,6 +3,7 @@ package com.codestates.backend.pre_project.member.controller;
 import com.codestates.backend.pre_project.member.dto.MemberDto;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.member.mapper.MemberMapper;
+import com.codestates.backend.pre_project.member.repository.MemberRepository;
 import com.google.gson.Gson;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,9 @@ public class MemberControllerTest {
 
         @Autowired
         private MemberMapper mapper;
+
+        @Autowired
+        private MemberRepository memberRepository;
 
         @Test
         void postMemberTest() throws Exception {
@@ -88,12 +92,12 @@ public class MemberControllerTest {
 
             // when / then
             mockMvc.perform(
-                            get("/members/{member-id}")
-                                    .accept(MediaType.APPLICATION_JSON)   /** 중복 */
+                            get("/members/{memberId}",memberId)
+                                    .accept(MediaType.APPLICATION_JSON)
                     )
                     .andExpect(status().isOk())
                     .andExpect(jsonPath("$.data.email").value(resultMember.getEmail()))
-                    .andExpect(jsonPath("$.data.name").value(resultMember.getName()));
+                    .andExpect(jsonPath("$.data.memberName").value(resultMember.getMemberName()));
 
 
         }
