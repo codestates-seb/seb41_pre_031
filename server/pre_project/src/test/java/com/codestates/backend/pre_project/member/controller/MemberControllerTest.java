@@ -11,6 +11,9 @@ import com.jayway.jsonpath.JsonPath;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.mockito.BDDMockito;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -48,13 +51,10 @@ public class MemberControllerTest {
         @Autowired
         private Gson gson;
 
-        @Autowired
+        @MockBean
         private MemberService memberService;
 
-        @Autowired
-        private MemberRepository memberRepository;
-
-        @Autowired
+        @MockBean
         private MemberMapper mapper;
 
         @Test
@@ -71,7 +71,7 @@ public class MemberControllerTest {
                 given(mapper.memberToMemberResponseDto(Mockito.any(Member.class))).willReturn(responseBody);
 
                 String content = gson.toJson(post);
-
+                //URI uri = getURI();
 
                 //when
                 ResultActions actions =
@@ -144,86 +144,125 @@ public class MemberControllerTest {
                     .andExpect(jsonPath("$.data.password").value(member.getPassword()));
 
             // given
-            MemberDto.Post post = new MemberDto.Post("vdcf2000@gmail.com",
-                    "asdf123","강신찬");
-            Member member = mapper.memberPostDtoToMember(post);
-
-
-            Member resultMember = memberRepository.save(member);
-
-            long memberId = resultMember.getMemberId();
-
-            // when / then
-            mockMvc.perform(
-                            get("/members/{memberId}",memberId)
-                                    .accept(MediaType.APPLICATION_JSON)
-                    )
-                    .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.data.email").value(resultMember.getEmail()))
-                    .andExpect(jsonPath("$.data.memberName").value(resultMember.getMemberName()));
+//            MemberDto.Post post = new MemberDto.Post("vdcf2000@gmail.com",
+//                    "asdf123","강신찬");
+//            Member member = mapper.memberPostDtoToMember(post);
+//
+//
+//            Member resultMember = memberRepository.save(member);
+//
+//            long memberId = resultMember.getMemberId();
+//
+//            // when / then
+//            mockMvc.perform(
+//                            get("/members/{memberId}",memberId)
+//                                    .accept(MediaType.APPLICATION_JSON)
+//                    )
+//                    .andExpect(status().isOk())
+//                    .andExpect(jsonPath("$.data.email").value(resultMember.getEmail()))
+//                    .andExpect(jsonPath("$.data.memberName").value(resultMember.getMemberName()));
 
 
         }
 
     @Test
         void getMembersTest() throws Exception {
-                //given
-            MemberDto.Post post1 = new MemberDto.Post("abcd1@gmail.com", "qhdks!1234", "강신찬");
-            MemberDto.Post post2 = new MemberDto.Post("abcd2@gmail.com", "qhdks!1234", "김정희");
-            MemberDto.Post post3 = new MemberDto.Post("abcd3@gmail.com", "qhdks!1234", "김현성");
+            //give
+        Page<Member> pageMembers = StubData.MockMember.getMultiResultMember();
 
-            Member member1 = mapper.memberPostDtoToMember(post1);
-            Member member2 = mapper.memberPostDtoToMember(post2);
-            Member member3 = mapper.memberPostDtoToMember(post3);
+        List<MemberDto.Response> responses = StubData.MockMember.getMultiResponseBody();
 
-            Member resultMember1 = memberRepository.save(member1);
-            Member resultMember2 = memberRepository.save(member2);
-            Member resultMember3 = memberRepository.save(member3);
+        given(memberService.findMembers(Mockito.anyInt(), Mockito.anyInt())).willReturn(pageMembers);
+        given(mapper.membersToMemberResponses(Mockito.anyList())).willReturn(responses);
+
+        String page = "1";
+        String size = "10";
+        MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
+        queryParams.add("page", page);
+        queryParams.add("size", size);
 
 
-               //when
-        ResultActions actions =
-                mockMvc.perform(
-                        get("/members")
-                                .param("page","1")
-                                .param("size","10")
-                                .accept(MediaType.APPLICATION_JSON)
-                                .contentType(MediaType.APPLICATION_JSON)
-                );
+            //when
+        ResultActions actions = mockMvc.perform(
+                get("/members")
+                        .params(queryParams)
+                        .accept(MediaType.APPLICATION_JSON));
 
-                //then
+            //then
         MvcResult result = actions
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data").isArray())
                 .andReturn();
-        String content = result.getResponse().getContentAsString();
-        System.out.println(content);
-        System.out.println("*******************************");
+
+        List list = JsonPath.parse(result.getResponse().getContentAsString()).read("$.data");
+        System.out.println(list);
+        MatcherAssert.assertThat(list.size(), is(2));
+
+                //given
+//            MemberDto.Post post1 = new MemberDto.Post("abcd1@gmail.com", "qhdks!1234", "강신찬");
+//            MemberDto.Post post2 = new MemberDto.Post("abcd2@gmail.com", "qhdks!1234", "김정희");
+//            MemberDto.Post post3 = new MemberDto.Post("abcd3@gmail.com", "qhdks!1234", "김현성");
+//
+//            Member member1 = mapper.memberPostDtoToMember(post1);
+//            Member member2 = mapper.memberPostDtoToMember(post2);
+//            Member member3 = mapper.memberPostDtoToMember(post3);
+//
+//            Member resultMember1 = memberRepository.save(member1);
+//            Member resultMember2 = memberRepository.save(member2);
+//            Member resultMember3 = memberRepository.save(member3);
+//
+//
+//               //when
+//        ResultActions actions =
+//                mockMvc.perform(
+//                        get("/members")
+//                                .param("page","1")
+//                                .param("size","10")
+//                                .accept(MediaType.APPLICATION_JSON)
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                );
+//
+//                //then
+//        MvcResult result = actions
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.data").isArray())
+//                .andReturn();
+//        String content = result.getResponse().getContentAsString();
+//        System.out.println(content);
+//        System.out.println("*******************************");
         }
 
         @Test
         void deleteMemberTest() throws Exception {
+            //given
+            long memberId = 1L;
+            doNothing().when(memberService).deleteMember(memberId);
+            //when
+            ResultActions actions = mockMvc.perform(delete("/members/{member-id}", memberId));
+            //then
+            actions.andExpect(status().isNoContent());
+
                 //given
-            MemberDto.Post post = new MemberDto.Post("vdcf2000@gmail.com",
-                    "asdf123","강신찬");
-            Member member = mapper.memberPostDtoToMember(post);
-            Member resultMember1 = memberRepository.save(member);
-
-            long memberId = memberRepository.findByEmail("vdcf2000@gmail.com").get().getMemberId();
-
-                //when
-            ResultActions actions =
-                    mockMvc.perform(
-                    delete("/members/" + memberId)
-                            .accept(MediaType.APPLICATION_JSON)
-                            .contentType(MediaType.APPLICATION_JSON)
-            );
-
-                //then
-            MvcResult result = actions
-                    .andExpect(status().isNoContent())
-                    .andExpect(jsonPath("$").doesNotExist())
-                    .andReturn();
+//            MemberDto.Post post = new MemberDto.Post("vdcf2000@gmail.com",
+//                    "asdf123","강신찬");
+//            Member member = mapper.memberPostDtoToMember(post);
+//            Member resultMember1 = memberRepository.save(member);
+//
+//            long memberId = memberRepository.findByEmail("vdcf2000@gmail.com").get().getMemberId();
+//
+//                //when
+//            ResultActions actions =
+//                    mockMvc.perform(
+//                    delete("/members/" + memberId)
+//                            .accept(MediaType.APPLICATION_JSON)
+//                            .contentType(MediaType.APPLICATION_JSON)
+//            );
+//
+//                //then
+//            MvcResult result = actions
+//                    .andExpect(status().isNoContent())
+//                    .andExpect(jsonPath("$").doesNotExist())
+//                    .andReturn();
 
         }
 }
