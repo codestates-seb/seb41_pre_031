@@ -23,11 +23,14 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
 
 import java.net.URI;
+import java.util.List;
 
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.*;
@@ -105,6 +108,12 @@ public class MemberControllerTest {
             String content = gson.toJson(patch);
 
                 //when
+            ResultActions actions = mockMvc.perform(
+                    patch("/members/{member_id}",memberId)
+                            .accept(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(content)
+            );
 
                 //then
             actions.andExpect(status().isOk())
