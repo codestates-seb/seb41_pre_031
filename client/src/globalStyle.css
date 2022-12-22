@@ -61,12 +61,18 @@
 	--font-medium: 600;
 	--font-bold: 700;
 }
+/* layout */
 body {
 	min-height: 100%;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
 		"Segoe UI", "Liberation Sans", sans-serif;
 	font-weight: var(--font-normal);
 	font-size: var(--font-body1-size);
+}
+.container {
+	margin: 0 auto;
+	max-width: 1264px;
+	width: 100%;
 }
 /* input */
 input {
