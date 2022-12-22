@@ -1,6 +1,7 @@
 :root {
 	/* colors */
 	--lightgray: #babfc4;
+	--lightgray2: #e3e6e8;
 	--gray: #6a737c;
 	--darkgray: #525960;
 	--black: #0c0d0e;
@@ -18,7 +19,7 @@
 	--red: #d0393e;
 	--green: #5eba7d;
 	/* main colors */
-	--primary-color: var(--blue1);
+	--primary-color: var(--blue);
 	--primary2-color: var(--skyblue);
 	--secondary-color: var(--orange);
 	/* ui colors */
@@ -37,9 +38,12 @@
 	--button-secondary-hover-on-color: var(--navy);
 	--button-link-color: var(--darkblue);
 	--nav-link-color: var(--darkgray);
+	--nav-link-hover-color: var(--lightgray2);
 	--border-color: var(--lightgray);
 	--caption-color: var(gray);
 	--label-color: var(--black);
+	/* box shadow */
+	--button-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4);
 	/* line-height */
 	--lh-initial: 13;
 	--line-height-sm: calc((var(--lh-initial)+2) / var(--lh-initial));
@@ -55,12 +59,20 @@
 	/* font weight */
 	--font-normal: 400;
 	--font-medium: 600;
+	--font-bold: 700;
 }
+/* layout */
 body {
+	min-height: 100%;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
 		"Segoe UI", "Liberation Sans", sans-serif;
 	font-weight: var(--font-normal);
 	font-size: var(--font-body1-size);
+}
+.container {
+	margin: 0 auto;
+	max-width: 1264px;
+	width: 100%;
 }
 /* input */
 input {
@@ -87,8 +99,15 @@ input[type="text"],
 	font-size: var(--font-caption-size);
 	color: var(--caption-color);
 }
+/* anchor */
+a {
+	font-size: var(--font-body1-size);
+	color: var(--dark);
+	text-decoration: none;
+}
 /* button */
 button {
+	border-radius: 3px;
 	line-height: var(--line-height-sm);
 	font-size: var(--button-size);
 	padding: 10px;
@@ -96,6 +115,8 @@ button {
 .btnPrimary {
 	background-color: var(--button-primary-color);
 	color: var(--button-primary-on-color);
+	border: 1px solid transparent;
+	box-shadow: var(--button-shadow);
 }
 .btnPrimary:hover {
 	background-color: var(--button-primary-hover-color);
@@ -104,6 +125,7 @@ button {
 	border: 1px solid var(--button-secondary-border-color);
 	background-color: var(--button-secondary-color);
 	color: var(--button-secondary-on-color);
+	box-shadow: var(--button-shadow);
 }
 .btnSecondary:hover {
 	background-color: var(--button-secondary-hover-color);
