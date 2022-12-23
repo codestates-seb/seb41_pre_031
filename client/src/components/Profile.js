@@ -83,6 +83,7 @@ const ProfileMain = styled.div`
         margin-bottom: 1px;
     }
     .filterBtn {
+        cursor: pointer;
         border: 1px solid rgb(159 166 173);
         padding: 6.6px;
         margin-right: -1px;
@@ -137,6 +138,7 @@ const List = styled.div`
         line-height: 2;
     }
     .listTitle {
+        cursor: pointer;
         margin: 0 6px;
         padding-right: 12px;
         flex-grow: 1;

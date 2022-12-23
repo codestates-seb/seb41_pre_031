@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link, Route, Routes, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Profile from "../components/Profile";
 import Settings from "../components/Settings";
@@ -62,6 +61,7 @@ const ProfileTab = styled.div`
         border-radius: 20px;
         background-color: var(--white);
         color: var(--nav-link-color);
+        cursor: pointer;
     }
     .tabChecked {
         color: var(--white);
@@ -89,8 +89,6 @@ const UserProfile = () => {
     function tabHandle(index) {
         setChecked(index);
     }
-
-    let { id } = useParams();
 
     return (
         <ProfileBox>
@@ -163,26 +161,14 @@ const UserProfile = () => {
                                     tabHandle(index);
                                 }}
                             >
-                                {/* <Link to={`/users/${data.url}`}> */}
-                                    {data.name}
-                                {/* </Link> */}
+                                {data.name}
                             </li>
                         );
                     })}
                 </ul>
             </ProfileTab>
             <ProfileBody>
-                {checked === 0 ? <Profile/> : <Settings/>}
-                {/* <Routes>
-                    <Route
-                        path="/"
-                        element={<Profile id={id} />}
-                    />
-                    <Route
-                        path="12"
-                        element={<Settings id={id} />}
-                    />
-                </Routes> */}
+                {checked === 0 ? <Profile /> : <Settings />}
             </ProfileBody>
         </ProfileBox>
     );
