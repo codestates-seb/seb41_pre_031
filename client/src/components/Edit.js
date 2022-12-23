@@ -55,9 +55,46 @@ const MainBody = styled.form`
         margin: 8px 0;
     }
     textarea{
-        
+        padding: 10px;
+        margin: 7px 0 0;
+        height: 200px;
+        line-height: 1.3;
+        width: 100%;
+    }
+    .linkBox{
+        display: flex;
+        flex-direction: column;
+        margin: -2px 0;
+    }
+    .linkInputBox{
+        display: flex;
+        position: relative;
+        margin: 2px 0;
+    }
+    .linkInputBox input{
+        padding: 7.8px 9.1px 7.8px 32px;
     }
 `;
+
+const BtnBox = styled.div`
+    padding: 10px 0 15px 0;
+    .btnBox{
+        display: flex;
+        flex-wrap: wrap;
+        margin: -4px;
+    }
+    button{
+        cursor: pointer;
+    }
+    .link{
+        cursor: pointer;
+        padding: 10.4px;
+        margin: 4px 4px 4px 6px;
+    }
+    .link:hover{
+        color: var(--link-color);
+    }
+`
 
 const Edit = () => {
     return (
@@ -104,8 +141,21 @@ const Edit = () => {
                     </div>
                 </div>
                 <div className="subTitle">GitHub Link</div>
-                <div className="subBox"></div>
+                <div className="subBox">
+                    <div className="linkBox">
+                        <label>GitHub link</label>
+                        <div className="linkInputBox">
+                            <input type="text" maxlength="200" tabindex="12"/>
+                        </div>
+                    </div>
+                </div>
             </MainBody>
+            <BtnBox>
+                <div className="btnBox">
+                    <button className="btnPrimary">Save profile</button>
+                    <a className="link">Cancel</a>
+                </div>
+            </BtnBox>
         </>
     );
 };
