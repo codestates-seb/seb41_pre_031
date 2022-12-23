@@ -7,32 +7,37 @@ import Pagination from "../components/Pagination";
 import "../globalStyle.css";
 
 const Container = styled.div`
-    padding: 2.4rem 1.6rem;
+    /* padding: 2.4rem 1.6rem; */
 
-    .content{
-      margin-bottom: 2rem;
+    .content {
+        margin-bottom: 4rem;
     }
 `;
 
 const TopContainer = styled.div`
     margin: 0 0 1.2rem;
+    padding: 2.4rem 0 0 1.6rem;
     display: flex;
     justify-content: space-between;
+
+    .askBtn {
+        margin-right: 16px;
+    }
 `;
 
 const QuestionContainer = styled.ul`
     padding: 0px;
 
     .questionCount {
-        padding-bottom: 1.2rem;
+        padding: 0 0 1.2rem 1.6rem;
         /* border-bottom: 1px solid hsl(210, 8%, 90%); */
-        border-bottom: 1px solid var(--lightgray);
+        border-bottom: 1px solid var(--lightgray2);
         font-size: var(--font-head3-size);
     }
 `;
 
 const PageContainer = styled.div`
-    margin: 2rem 0;
+    margin: 4rem 0 3rem 1.6rem;
     display: flex;
     justify-content: space-between;
 `;
@@ -72,23 +77,25 @@ const AllQuestions = () => {
     return (
         <>
             <Container>
-              <div className="content">
-                <TopContainer>
-                    <span>
-                        <Title title="All Questions" />
-                    </span>
-                    <span>
-                        <button className="btnPrimary">Ask Question</button>
-                    </span>
-                </TopContainer>
-                <QuestionContainer>
-                    <div className="questionCount">{data.length} questions</div>
-                    <div>
-                        {data.slice(offset, offset + limit).map((el) => (
-                            <Question key={el.questionId} question={el} />
-                        ))}
-                    </div>
-                </QuestionContainer>
+                <div className="content">
+                    <TopContainer>
+                        <span>
+                            <Title title="All Questions" />
+                        </span>
+                        <span className="askBtn">
+                            <button className="btnPrimary">Ask Question</button>
+                        </span>
+                    </TopContainer>
+                    <QuestionContainer>
+                        <div className="questionCount">
+                            {data.length} questions
+                        </div>
+                        <div>
+                            {data.slice(offset, offset + limit).map((el) => (
+                                <Question key={el.questionId} question={el} />
+                            ))}
+                        </div>
+                    </QuestionContainer>
                 </div>
                 <PageContainer>
                     <Pagination

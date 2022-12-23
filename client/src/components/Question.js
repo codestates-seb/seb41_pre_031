@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 const Container = styled.li`
-    border-bottom: 1px solid hsl(210, 8%, 90%);
-    /* width: 100%; */
-    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--lightgray2);
+    width: 100%;
+    padding: 16px;
     display: flex;
 `;
 
@@ -29,6 +29,7 @@ const QuestionContent = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
+    /* padding: 0.1rem; */
 
     .questionTitle {
         font-size: var(--font-head3-size);
@@ -51,16 +52,28 @@ const QuestionContent = styled.div`
 
 const SubInfo = styled.div`
     width: 100%;
-    display: flex;
-    justify-content: space-between;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: space-between; */
 `;
 
-const TagName = styled.span`
+const Tag = styled.button`
     font-size: var(--font-caption-size);
-    margin-bottom: 1.3rem;
+    color: var(--darkblue2);
+    background: var(--skyblue);
+    margin-bottom: 13px;
+    height: 23.59px;
+    padding: 0.4rem 0.6rem;
+    width: fit-content;
+`;
+
+const MemberContainer = styled.div`
+    display: flex;
+    margin-bottom: 0.2rem;
 `;
 
 const Member = styled.div`
+    margin-left: auto;
     font-size: 12px;
     .memberName {
         margin: 0.2rem;
@@ -99,19 +112,21 @@ const Question = ({ question }) => {
                         {question.questionBody}...
                     </div>
                     <SubInfo>
-                        <TagName>{question.tagName}</TagName>
-                        <Member>
-                            <span className="memberName">
-                                {question.memberName}
-                            </span>
-                            <span className="pointCount">
-                                {question.pointCount}{" "}
-                            </span>
-                            <span className="text"> asked </span>
-                            <span className="questionDate">
-                                {question.questionRegDate} ago
-                            </span>
-                        </Member>
+                        <Tag>{question.tagName}</Tag>
+                        <MemberContainer>
+                            <Member>
+                                <span className="memberName">
+                                    {question.memberName}
+                                </span>
+                                <span className="pointCount">
+                                    {question.pointCount}{" "}
+                                </span>
+                                <span className="text"> asked </span>
+                                <span className="questionDate">
+                                    {question.questionRegDate} ago
+                                </span>
+                            </Member>
+                        </MemberContainer>
                     </SubInfo>
                 </QuestionContent>
             </Container>

@@ -31,12 +31,12 @@ const TopQuestions = () => {
         <>
             <Container>
                 <TopContainer>
-                  <span>
-                    <Title title="Top Questions" />
-                  </span>
-                  <span>
-                  <button className="btnPrimary">Ask Question</button>
-                  </span>
+                    <span>
+                        <Title title="Top Questions" />
+                    </span>
+                    <span>
+                        <button className="btnPrimary">Ask Question</button>
+                    </span>
                 </TopContainer>
                 <QuestionContainer>
                     <div className="borderLine"></div>
