@@ -1,4 +1,4 @@
-package com.codestates.backend.pre_project.post.comment;
+package com.codestates.backend.pre_project.post.comment.entity;
 
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.answer.Answer;
