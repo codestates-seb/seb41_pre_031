@@ -1,10 +1,16 @@
 import styled from "styled-components";
+import { BREAK_POINT_TABLET } from "../data/breakpoints";
 
 const Container = styled.li`
     border-bottom: 1px solid var(--lightgray2);
     width: 100%;
     padding: 16px;
     display: flex;
+
+    @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+        flex-direction: column;
+        padding-left: 25.6px;
+    }
 `;
 
 const QuestionInfo = styled.div`
@@ -22,6 +28,12 @@ const QuestionInfo = styled.div`
     }
     .view {
         color: var(--gray);
+    }
+
+    @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+        flex-direction: row;
+        align-items: baseline;
+        width: 484px;
     }
 `;
 
