@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Header from "./components/Header";
 import Nav from "./components/Nav";
+import Footer from "./components/Footer";
 import { useState } from "react";
 import { BREAK_POINT_MOBILE } from "./data/breakpoints";
 
@@ -8,11 +9,6 @@ const Wrap = styled.div`
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	footer {
-		width: 100%;
-		height: 240px;
-		background: #333;
-	}
 `;
 
 const Section = styled.div`
@@ -63,6 +59,7 @@ function App() {
 				) : null}
 				<Section flag={flag}></Section>
 			</Main>
+			<Footer />
 		</Wrap>
 	);
 }
