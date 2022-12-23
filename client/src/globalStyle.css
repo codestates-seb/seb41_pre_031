@@ -4,6 +4,7 @@
 	--lightgray2: #e3e6e8;
 	--gray: #6a737c;
 	--darkgray: #525960;
+	--darkgray2: #9199a1;
 	--black: #0c0d0e;
 	--dark: #232629;
 	--white: #fff;
@@ -43,6 +44,8 @@
 	--border-color: var(--lightgray);
 	--caption-color: var(gray);
 	--label-color: var(--black);
+	--footer-bg-color: var(--dark);
+	--footer-bg-on-color: var(--darkgray2);
 	/* box shadow */
 	--button-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4);
 	/* line-height */
