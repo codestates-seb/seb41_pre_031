@@ -47,6 +47,7 @@ const QuestionContent = styled.div`
     .questionBody {
         font-size: var(--font-body1-size);
         margin-bottom: 0.8rem;
+        line-height: 1rem;
     }
 `;
 
@@ -96,6 +97,13 @@ const Member = styled.div`
 `;
 
 const Question = ({ question }) => {
+    const textLimit = (text, limit = 200) => {
+        if (text.length > limit) {
+            return `${text.substring(0, limit)}...`;
+        }
+        return `${text}...`;
+    };
+
     return (
         <>
             <Container>
@@ -109,7 +117,7 @@ const Question = ({ question }) => {
                         {question.questionTitle}
                     </div>
                     <div className="questionBody">
-                        {question.questionBody}...
+                        {textLimit(question.questionBody)}
                     </div>
                     <SubInfo>
                         <Tag>{question.tagName}</Tag>
