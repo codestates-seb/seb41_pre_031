@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import Header from "./components/Header";
 import Nav from "./components/Nav";
+import Footer from "./components/Footer";
 import { useState } from "react";
 import { BREAK_POINT_MOBILE } from "./data/breakpoints";
 import UserProfile from "./pages/UserProfile";
 import { Routes, Route } from "react-router";
 
 const Wrap = styled.div`
+<<<<<<< HEAD
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -15,6 +17,11 @@ const Wrap = styled.div`
         height: 240px;
         background: #333;
     }
+=======
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+>>>>>>> c7f0a1b553077007bc77711476b5113248fcdd1c
 `;
 
 const Section = styled.div`
@@ -71,6 +78,7 @@ function App() {
                     </Routes>
                 </Section>
             </Main>
+            <Footer />
         </Wrap>
     );
 }
