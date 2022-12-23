@@ -1,7 +1,7 @@
 import Title from "../components/Title";
 import { useState } from "react";
 import styled from "styled-components";
-import dummyQuestions from "../data/dummyData";
+import dummyQuestions from "../data/dummyQuestions";
 import Question from "../components/Question";
 
 const Container = styled.div`
