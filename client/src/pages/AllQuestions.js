@@ -16,7 +16,7 @@ const Container = styled.div`
 
 const TopContainer = styled.div`
     margin: 0 0 1.2rem;
-    padding: 2.4rem 0 0 1.6rem;
+    padding: 2rem 0 0 1.6rem;
     display: flex;
     justify-content: space-between;
 
@@ -44,6 +44,7 @@ const PageContainer = styled.div`
 
 const Button = styled.button`
     margin: 0 0.2rem;
+    font-size: var(--font-button-size);
 
     &[aria-current] {
         background: var(--orange);
@@ -61,6 +62,7 @@ const Button = styled.button`
 
 const PerpageText = styled.span`
     padding: 0 0.8rem;
+    font-size: var(--font-button-size);
 `;
 
 const AllQuestions = () => {

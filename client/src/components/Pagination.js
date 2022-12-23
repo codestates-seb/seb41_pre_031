@@ -8,6 +8,7 @@ const Dot = styled.span`
 
 const Button = styled.button`
     margin: 0 0.2rem;
+    font-size: var(--font-button-size);
 
     &[aria-current] {
         background: var(--orange);
