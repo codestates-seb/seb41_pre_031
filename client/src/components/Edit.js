@@ -136,7 +136,7 @@ const Edit = () => {
                         </div>
                         <div className="fromItem">
                             <label htmlFor="about">About me</label>
-                            <textarea id="about" cols="92" rows="15" tabindex="4" placeholder></textarea>
+                            <textarea id="about" cols="92" rows="15" tabIndex="4"></textarea>
                         </div>
                     </div>
                 </div>
@@ -145,7 +145,7 @@ const Edit = () => {
                     <div className="linkBox">
                         <label>GitHub link</label>
                         <div className="linkInputBox">
-                            <input type="text" maxlength="200" tabindex="12"/>
+                            <input type="text" maxLength="200"/>
                         </div>
                     </div>
                 </div>
