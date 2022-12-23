@@ -9,6 +9,7 @@ const HeaderWrap = styled.header`
 	position: fixed;
 	width: 100%;
 	height: 50px;
+    z-index: 100;
 	border-top: 3px solid var(--orange);
 	background: #f8f9f9;
 	box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
