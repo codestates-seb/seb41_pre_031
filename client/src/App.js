@@ -63,7 +63,6 @@ function App() {
 				) : null}
 				<Section flag={flag}></Section>
 			</Main>
-			<footer></footer>
 		</Wrap>
 	);
 }
