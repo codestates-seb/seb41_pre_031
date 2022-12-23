@@ -7,8 +7,6 @@ import Pagination from "../components/Pagination";
 import "../globalStyle.css";
 
 const Container = styled.div`
-    /* padding: 2.4rem 1.6rem; */
-
     .content {
         margin-bottom: 4rem;
     }
@@ -30,7 +28,6 @@ const QuestionContainer = styled.ul`
 
     .questionCount {
         padding: 0 0 1.2rem 1.6rem;
-        /* border-bottom: 1px solid hsl(210, 8%, 90%); */
         border-bottom: 1px solid var(--lightgray2);
         font-size: var(--font-head3-size);
     }
@@ -71,7 +68,6 @@ const AllQuestions = () => {
     const [page, setPage] = useState(1);
     // 보여줄 최대 게시글 수
     const [limit, setLimit] = useState(15);
-    // const [total, setTotal] = useState(1);
 
     // 첫 게시물의 index
     const offset = (page - 1) * limit;

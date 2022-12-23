@@ -41,11 +41,9 @@ const QuestionContent = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    /* padding: 0.1rem; */
 
     .questionTitle {
         font-size: var(--font-head3-size);
-        /* margin: 0.2rem 0 0.5rem; */
         margin-bottom: 0.6rem;
         padding-right: 2.4rem;
         color: var(--darkblue);
@@ -65,9 +63,6 @@ const QuestionContent = styled.div`
 
 const SubInfo = styled.div`
     width: 100%;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* justify-content: space-between; */
 `;
 
 const Tag = styled.button`

@@ -26,7 +26,6 @@ const QuestionContainer = styled.ul`
 
     .borderLine {
         padding-bottom: 1.2rem;
-        /* border-bottom: 1px solid hsl(210, 8%, 90%); */
         border-bottom: 1px solid var(--lightgray2);
     }
 `;

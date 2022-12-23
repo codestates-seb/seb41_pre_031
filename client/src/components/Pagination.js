@@ -155,20 +155,6 @@ const Pagination = ({ total, limit, page, setPage }) => {
                     </>
                 )}
 
-                {/* {Array(pagesNum)
-                    .fill()
-                    .map((el, index) => (
-                        <Button
-                            key={index + 1}
-                            onClick={() => {
-                                setPage(index + 1);
-                                window.scrollTo({ top: 0 });
-                            }}
-                            aria-current={page === index + 1 ? "page" : null}
-                        >
-                            {index + 1}
-                        </Button>
-                    ))} */}
                 {page === pagesNum ? null : (
                     <Button
                         onClick={() => {
