@@ -36,7 +36,8 @@
 	--button-secondary-border-color: var(--grayblue);
 	--button-secondary-hover-color: var(--darkskyblue);
 	--button-secondary-hover-on-color: var(--navy);
-	--button-link-color: var(--darkblue);
+	--link-color: var(--darkblue);
+	--link-hover-color: var(--bule);
 	--nav-link-color: var(--darkgray);
 	--nav-link-hover-color: var(--lightgray2);
 	--border-color: var(--lightgray);
@@ -62,12 +63,18 @@
 	--font-bold: 700;
 }
 /* layout */
+html {
+	height: 100%;
+}
 body {
-	min-height: 100%;
+	height: 100%;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
 		"Segoe UI", "Liberation Sans", sans-serif;
 	font-weight: var(--font-normal);
 	font-size: var(--font-body1-size);
+}
+#root {
+	height: 100%;
 }
 .container {
 	margin: 0 auto;
@@ -106,7 +113,8 @@ a {
 	text-decoration: none;
 }
 /* button */
-button {
+button,
+.buttonLink {
 	border-radius: 3px;
 	line-height: var(--line-height-sm);
 	font-size: var(--button-size);
@@ -132,5 +140,8 @@ button {
 	color: var(--button-secondary-hover-on-color);
 }
 .link {
-	color: var(--button-link-color);
+	color: var(--link-color);
+}
+.link:hover {
+	color: var(--link-hover-color);
 }

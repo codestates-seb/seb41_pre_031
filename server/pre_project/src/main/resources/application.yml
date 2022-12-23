@@ -1,11 +1,13 @@
 spring:
-    h2:
-        console:
-            enabled: true
-            path: /h2
-    datasource:
-        url: jdbc:h2:mem:test
     jpa:
         hibernate:
-            ddl-auto: create  # (1) ??? ?? ??
-        show-sql: true      # (2) SQL ?? ??
+            ddl-auto: create-drop  # 스키마 자동 생성
+        show-sql: true      # SQL 쿼리 출력
+        properties:
+            hibernate:
+                format_sql: true  # SQL pretty print
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/stackOfFlow?serverTimezone=Asia/Seoul # 포트넘버, 스키마이름
+        username: ${MYSQL_NAME} # 환경변수로 넣었습니다.
+        password: ${MYSQL_SECRET}

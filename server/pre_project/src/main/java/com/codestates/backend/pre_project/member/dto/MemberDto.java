@@ -42,6 +42,7 @@ public class MemberDto {
         private long memberId;
         private String email;
         private String memberName;
-        private String pointCount;
+        private String password;
+//        private String pointCount;
     }
 }
