@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Header from "./components/Header";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+import Users from "./pages/Users";
 import { useState } from "react";
 import { BREAK_POINT_MOBILE } from "./data/breakpoints";
 import UserProfile from "./pages/UserProfile";
@@ -65,6 +66,10 @@ function App() {
                         <Route
                             path="/users/profile/:id/*"
                             element={<UserProfile />}
+                        />
+                        <Route
+                            path="/users"
+                            element={<Users />}
                         />
                     </Routes>
                 </Section>
