@@ -9,6 +9,7 @@ const Setting = styled.div`
   margin-bottom: 48px;
 `;
 const SettingNav = styled.ul`
+    min-width: 161.27px;
   margin-right: 32px;
   li a {
     display: block;
@@ -29,6 +30,10 @@ const SettingNav = styled.ul`
     background-color: var(--white);
     color: var(--nav-link-color);
   }
+  .inLi{
+    display:flex;
+    padding: 2px 12px;
+  }
   .tabChecked {
     color: var(--white);
     background-color: var(--orange);
@@ -38,6 +43,10 @@ const SettingNav = styled.ul`
   }
   .tabBtn.tabChecked:hover {
     background-color: var(--orange);
+  }
+  .deleteBox{
+    width: calc(100% - 196px);
+    flex-grow: 1;
   }
 `;
 const SettingMain = styled.div``;
@@ -58,7 +67,7 @@ const Settings = ({id}) => {
 
   return (
     <Setting>
-      <SettingNav className="tabBox">
+      <SettingNav>
         <li className="tabTitle">PERSONAL INFORMATION</li>
         {openTab.map((data, index) => {
           return (
@@ -70,7 +79,7 @@ const Settings = ({id}) => {
               }}
             >
               {/* <Link to={`/users/${data.url}`}>{data.name}</Link> */}
-              {data.name}
+              <div className="inLi">{data.name}</div>
             </li>
           );
         })}
@@ -81,7 +90,7 @@ const Settings = ({id}) => {
           <Route path="/users/profile/delete/:id/*" element={<Delete />} />
         </Routes> */}
         {
-            checked === 0 ? <Edit/> : <Delete/>
+            checked === 0 ? <Edit/> : <Delete className="deleteBox"/>
         }
       </SettingMain>
     </Setting>
