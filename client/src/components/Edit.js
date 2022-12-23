@@ -145,7 +145,7 @@ const Edit = () => {
                     <div className="linkBox">
                         <label>GitHub link</label>
                         <div className="linkInputBox">
-                            <input type="text" maxLength="200"/>
+                            <input type="text" maxLength="200"/> 
                         </div>
                     </div>
                 </div>
