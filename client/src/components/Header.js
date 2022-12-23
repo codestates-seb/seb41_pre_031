@@ -14,6 +14,7 @@ const HeaderWrap = styled.header`
 	box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
 		0 2px 8px hsla(0, 0%, 0%, 0.05);
 	.container {
+		position: relative;
 		display: flex;
 		align-items: center;
 		height: 100%;
@@ -21,7 +22,6 @@ const HeaderWrap = styled.header`
 `;
 
 const Logo = styled.a`
-	display: block;
 	padding: 0 8px;
 	height: 100%;
 	display: flex;
@@ -92,7 +92,7 @@ const MenuBtn = styled.button`
 `;
 
 const GnbWrap = styled.div`
-	position: fixed;
+	position: absolute;
 	left: 0;
 	top: 50px;
 	width: 240px;
