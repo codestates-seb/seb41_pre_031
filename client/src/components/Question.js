@@ -46,7 +46,7 @@ const QuestionContent = styled.div`
     .questionTitle {
         font-size: var(--font-head3-size);
         /* margin: 0.2rem 0 0.5rem; */
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.6rem;
         padding-right: 2.4rem;
         color: var(--darkblue);
 
@@ -108,7 +108,7 @@ const Member = styled.div`
     }
 `;
 
-const Question = ({ question }) => {
+const Question = ({ question, page }) => {
     const textLimit = (text, limit = 200) => {
         if (text.length > limit) {
             return `${text.substring(0, limit)}...`;
@@ -128,9 +128,11 @@ const Question = ({ question }) => {
                     <div className="questionTitle">
                         {question.questionTitle}
                     </div>
-                    <div className="questionBody">
-                        {textLimit(question.questionBody)}
-                    </div>
+                    {page === "TopQuestion" ? null : (
+                        <div className="questionBody">
+                            {textLimit(question.questionBody)}
+                        </div>
+                    )}
                     <SubInfo>
                         <Tag>{question.tagName}</Tag>
                         <MemberContainer>
