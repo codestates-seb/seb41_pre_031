@@ -8,20 +8,9 @@ import UserProfile from "./pages/UserProfile";
 import { Routes, Route } from "react-router";
 
 const Wrap = styled.div`
-<<<<<<< HEAD
     display: flex;
     flex-direction: column;
     height: 100%;
-    footer {
-        width: 100%;
-        height: 240px;
-        background: #333;
-    }
-=======
-	display: flex;
-	flex-direction: column;
-	height: 100%;
->>>>>>> c7f0a1b553077007bc77711476b5113248fcdd1c
 `;
 
 const Section = styled.div`
@@ -39,7 +28,6 @@ const Main = styled.main`
     display: flex;
     flex: 1;
     /* flex-wrap: nowrap; */
-    overflow: auto;
     padding-top: 50px;
 `;
 
@@ -51,6 +39,9 @@ const LeftSide = styled.aside`
     border-right: 1px solid rgb(214 217 220);
     nav {
         width: 100%;
+        position: sticky;
+        height: 133px;
+        top: 73px;
     }
     @media screen and (max-width: ${BREAK_POINT_MOBILE}px) {
         display: none;
