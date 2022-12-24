@@ -3,7 +3,7 @@ package com.codestates.backend.pre_project.post.question;
 import com.codestates.backend.pre_project.likes.entity.Likes;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.comment.Comment;
-import com.codestates.backend.pre_project.post.answer.Answer;
+import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

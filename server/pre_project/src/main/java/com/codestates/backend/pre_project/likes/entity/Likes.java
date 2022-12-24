@@ -1,7 +1,7 @@
 package com.codestates.backend.pre_project.likes.entity;
 
 import com.codestates.backend.pre_project.member.entity.Member;
-import com.codestates.backend.pre_project.post.answer.Answer;
+import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.question.Question;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

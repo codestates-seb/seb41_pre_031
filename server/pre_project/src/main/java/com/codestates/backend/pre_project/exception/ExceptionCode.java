@@ -4,7 +4,8 @@ import lombok.Getter;
 
 public enum ExceptionCode {
     MEMBER_NOT_FOUND(404, "Member not found"),
-    MEMBER_EXISTS(409, "Member exists");
+    MEMBER_EXISTS(409, "Member exists"),
+    EDIT_NOT_ALLOWED(400, "No permission");
     //COFFEE_NOT_FOUND(404, "Coffee not found"),
     //COFFEE_CODE_EXISTS(409, "Coffee Code exists"),
     //ORDER_NOT_FOUND(404, "Order not found"),

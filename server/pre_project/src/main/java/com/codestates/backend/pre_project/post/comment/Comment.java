@@ -1,13 +1,12 @@
 package com.codestates.backend.pre_project.post.comment;
 
 import com.codestates.backend.pre_project.member.entity.Member;
-import com.codestates.backend.pre_project.post.answer.Answer;
+import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.question.Question;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
