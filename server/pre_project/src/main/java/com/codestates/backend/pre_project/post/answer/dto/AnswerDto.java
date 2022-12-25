@@ -2,6 +2,7 @@ package com.codestates.backend.pre_project.post.answer.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 
@@ -19,6 +20,7 @@ public class AnswerDto {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Patch {
         private long answerId;
 

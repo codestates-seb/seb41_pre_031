@@ -1,4 +1,4 @@
-package com.codestates.backend.pre_project.advcie;
+package com.codestates.backend.pre_project.advice;
 
 import com.codestates.backend.pre_project.exception.BusinessLogicException;
 import com.codestates.backend.pre_project.response.ErrorResponse;
@@ -84,6 +84,16 @@ public class GlobalExceptionAdvice {
         //  슬랙 등으로 알려주는 로직이 있는게 좋습니다.
 
         final ErrorResponse response = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return response;
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleFindAnswerException(Exception e) {
+        log.error("# handle Exception", e);
+
+        final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST);
 
         return response;
     }
