@@ -1,4 +1,4 @@
-package com.codestates.backend.pre_project.profile;
+package com.codestates.backend.pre_project.profile.entity;
 
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.point.entity.Point;

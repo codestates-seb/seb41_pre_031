@@ -5,7 +5,7 @@ import com.codestates.backend.pre_project.point.entity.Point;
 import com.codestates.backend.pre_project.post.answer.Answer;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.question.Question;
-import com.codestates.backend.pre_project.profile.Profile;
+import com.codestates.backend.pre_project.profile.entity.Profile;
 
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
