@@ -10,7 +10,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -40,8 +39,31 @@ public interface QuestionMapper {
 
     Question questionPatchDtoToQuestion(QuestionDto.Patch requestBody);
 
-    @Mapping(source = "member.memberId", target = "memberId")
-    QuestionDto.Response questionToQuestionResponseDto(Question question);
+
+    default QuestionDto.Response questionToQuestionResponseDto(Question question){
+            List<QuestionTag> questionTags = question.getQuestionTags();
+            QuestionDto.Response questionResponseDto = new QuestionDto.Response();
+            questionResponseDto.setQuestionId(question.getQuestionId());
+            questionResponseDto.setQuestionBody(question.getQuestionBody());
+            questionResponseDto.setQuestionLikes(question.getQuestionLikes());
+            questionResponseDto.setMemberId(question.getMember().getMemberId());
+            questionResponseDto.setQuestionTags(
+                    questionTagsToQuestionTagResponseDtos(questionTags)
+            );
+            return questionResponseDto;
+    }
+
+   default List<QuestionTagResponseDto> questionTagsToQuestionTagResponseDtos(List<QuestionTag> questionTags){
+        return questionTags
+                .stream()
+                .map(questionTag -> QuestionTagResponseDto
+                        .builder()
+                        .tagId(questionTag.getTag().getTagId())
+                        .tagName(questionTag.getTag().getTagName())
+                        .questionId(questionTag.getQuestion().getQuestionId())
+                        .build())
+                .collect(Collectors.toList());
+    }
 
     List<QuestionDto.Response> questionToQuestionResponse(List<Question> questions);
 

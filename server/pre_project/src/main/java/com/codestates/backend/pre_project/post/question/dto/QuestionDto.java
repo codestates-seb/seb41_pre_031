@@ -28,6 +28,8 @@ public class QuestionDto {
             private List<QuestionTagDto> questionTags;
     }
 
+    @Getter
+    @Setter
     public static class Patch{
         private long questionId;
 
@@ -42,6 +44,8 @@ public class QuestionDto {
 
     }
 
+    @Getter
+    @Setter
     public static class Response{
         private long questionId;
 
@@ -52,7 +56,7 @@ public class QuestionDto {
         private String questionBody;
 
         @Valid
-        private List<QuestionTagDto> questionTags;
+        private List<QuestionTagResponseDto> questionTags;
 
         private LocalDateTime questionRegDate;
 
