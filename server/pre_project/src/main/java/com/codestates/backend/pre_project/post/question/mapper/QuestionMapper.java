@@ -8,11 +8,13 @@ import com.codestates.backend.pre_project.post.question.dto.QuestionDto;
 import com.codestates.backend.pre_project.post.question.dto.QuestionTagResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
+
+@Mapper(componentModel = "spring" , unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface QuestionMapper {
 
     default Question questionPostDtoToQuestion(QuestionDto.Post requestBody){
