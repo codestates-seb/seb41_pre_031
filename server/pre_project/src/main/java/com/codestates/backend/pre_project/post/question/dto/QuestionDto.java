@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 public class QuestionDto {
@@ -56,6 +57,8 @@ public class QuestionDto {
         private LocalDateTime questionRegDate;
 
         private LocalDateTime questionLastDate;
+
+        private long questionLikes;
 
     }
 }

@@ -58,7 +58,7 @@ public class Question {
     private List<Likes> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private Set<QuestionTag> questionTags = new HashSet<>();
+    private List<QuestionTag> questionTags = new LinkedList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
@@ -71,4 +71,10 @@ public class Question {
         this.answerNum = (this.answerNum == null ? 0 : this.answerNum);
     }
 
+    public void setMember(Member member) {
+        this.member = member;
+        if(!this.member.getQuestions().contains(this)){
+            this.member.getQuestions().add(this);
+        }
+    }
 }
