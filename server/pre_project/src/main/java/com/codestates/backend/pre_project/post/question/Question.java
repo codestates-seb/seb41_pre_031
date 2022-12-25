@@ -13,8 +13,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Builder
@@ -37,7 +36,10 @@ public class Question {
     private long questionView;
 
     @Column(nullable = false)
-    private long questionLikes;
+    private Long answerNum; //게시판 답변 수
+
+    @Column(nullable = false)
+    private Long questionLikes; //게시판 좋아요 수
 
     @CreatedDate
     private LocalDateTime questionRegDate;
@@ -56,10 +58,23 @@ public class Question {
     private List<Likes> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<QuestionTag> questionTags = new ArrayList<>();
+    private List<QuestionTag> questionTags = new LinkedList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 //    @Column(nullable = false)
 //    private long memberId;
+
+    @PrePersist
+    public void prePersist() {
+        this.questionLikes = (this.questionLikes == null ? 0 : this.questionLikes);
+        this.answerNum = (this.answerNum == null ? 0 : this.answerNum);
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+        if(!this.member.getQuestions().contains(this)){
+            this.member.getQuestions().add(this);
+        }
+    }
 }
