@@ -51,12 +51,20 @@ public interface CommentControllerTestHelper extends ControllerTestHelper{
         );
     }
 
-    default List<FieldDescriptor> getDefaultCommentPatchRequestDescriptors() {
+    default List<FieldDescriptor> getDefaultCommentAnswerPatchRequestDescriptors() {
         return List.of(
-                fieldWithPath("commentId").type(JsonFieldType.NUMBER).description("댓글 식별 ID").ignored(),
-                fieldWithPath("commentBody").type(JsonFieldType.STRING).description("댓글 본문 내용").optional()
+                fieldWithPath("answerId").type(JsonFieldType.NUMBER).description("댓글의 answer 식별 ID"),
+                fieldWithPath("commentBody").type(JsonFieldType.STRING).description("댓글 본문 내용")
         );
     }
+
+    default List<FieldDescriptor> getDefaultCommentQuestionPatchRequestDescriptors() {
+        return List.of(
+                fieldWithPath("questionId").type(JsonFieldType.NUMBER).description("댓글의 question 식별 ID"),
+                fieldWithPath("commentBody").type(JsonFieldType.STRING).description("댓글 본문 내용")
+        );
+    }
+
 
     default List<FieldDescriptor> getDefaultCommentResponseDescriptors(DataResponseType dataResponseType) {
         String parentPath = getDataParentPath(dataResponseType);

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-12-26T10:35:19+0900",
+    date = "2022-12-26T21:44:41+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.15 (Oracle Corporation)"
 )
 @Component
@@ -21,13 +21,13 @@ public class CommentMapperImpl implements CommentMapper {
             return null;
         }
 
-        Comment comment = new Comment();
+        Comment.CommentBuilder comment = Comment.builder();
 
-        comment.setCommentBody( questionPost.getCommentBody() );
-        comment.setMember( questionPost.getMember() );
-        comment.setQuestion( questionPost.getQuestion() );
+        comment.commentBody( questionPost.getCommentBody() );
+        comment.member( questionPost.getMember() );
+        comment.question( questionPost.getQuestion() );
 
-        return comment;
+        return comment.build();
     }
 
     @Override
@@ -36,13 +36,13 @@ public class CommentMapperImpl implements CommentMapper {
             return null;
         }
 
-        Comment comment = new Comment();
+        Comment.CommentBuilder comment = Comment.builder();
 
-        comment.setCommentBody( answerPost.getCommentBody() );
-        comment.setMember( answerPost.getMember() );
-        comment.setAnswer( answerPost.getAnswer() );
+        comment.commentBody( answerPost.getCommentBody() );
+        comment.member( answerPost.getMember() );
+        comment.answer( answerPost.getAnswer() );
 
-        return comment;
+        return comment.build();
     }
 
     @Override
@@ -51,11 +51,11 @@ public class CommentMapperImpl implements CommentMapper {
             return null;
         }
 
-        Comment comment = new Comment();
+        Comment.CommentBuilder comment = Comment.builder();
 
-        comment.setCommentBody( questionPatch.getCommentBody() );
+        comment.commentBody( questionPatch.getCommentBody() );
 
-        return comment;
+        return comment.build();
     }
 
     @Override
@@ -64,11 +64,11 @@ public class CommentMapperImpl implements CommentMapper {
             return null;
         }
 
-        Comment comment = new Comment();
+        Comment.CommentBuilder comment = Comment.builder();
 
-        comment.setCommentBody( answerPatch.getCommentBody() );
+        comment.commentBody( answerPatch.getCommentBody() );
 
-        return comment;
+        return comment.build();
     }
 
     @Override

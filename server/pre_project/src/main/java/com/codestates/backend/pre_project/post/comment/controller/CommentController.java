@@ -68,7 +68,7 @@ public class CommentController {
                 new SingleResponseDto<>(mapper.commentToCommentDtoResponse(comment)),HttpStatus.OK);
     }
 
-    @PatchMapping("/answers/comments/{question-id}")
+    @PatchMapping("/answers/comments/{answer-id}")
     public ResponseEntity questionPatchComment(
             @PathVariable("answer-id") @Positive long answerId,
             @Valid @RequestBody CommentDto.AnswerPatch requestBody){
@@ -99,7 +99,7 @@ public class CommentController {
         );
     }
 
-    @DeleteMapping("/{comment-id}")
+    @DeleteMapping("/comments/{comment-id}")
     public ResponseEntity deleteComment(@PathVariable("comment-id") @Positive long commentId) {
         commentService.deleteComment(commentId);
 

@@ -244,8 +244,7 @@ public class MemberControllerTest implements MemberControllerTestHelper {
                                         )
                                 )
                         )
-                )
-                .andReturn();
+                ).andReturn();
 
         List list = JsonPath.parse(result.getResponse().getContentAsString()).read("$.data");
         System.out.println(list);

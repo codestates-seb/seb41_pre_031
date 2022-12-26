@@ -6,6 +6,7 @@ import com.codestates.backend.pre_project.post.question.Question;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
@@ -18,7 +19,7 @@ public class CommentDto {
     @NoArgsConstructor
     public static class QuestionPost {
         @NotBlank
-        @Range(max= 500)
+        @Length(max = 500)
         private String commentBody;
 
         @NotBlank
@@ -47,7 +48,7 @@ public class CommentDto {
     @NoArgsConstructor
     public static class AnswerPost {
         @NotBlank
-        @Range(max= 500)
+        @Length(max = 500)
         private String commentBody;
 
         @Positive
@@ -72,8 +73,9 @@ public class CommentDto {
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class QuestionPatch {
-        @Range(max= 500)
+        @Length(max = 500)
         private String commentBody;
 
         private long questionId;
@@ -83,8 +85,9 @@ public class CommentDto {
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class AnswerPatch {
-        @Range(max= 500)
+        @Length(max = 500)
         private String commentBody;
 
         private long answerId;

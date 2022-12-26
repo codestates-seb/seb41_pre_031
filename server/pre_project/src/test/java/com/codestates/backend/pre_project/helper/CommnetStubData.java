@@ -58,6 +58,16 @@ public class CommnetStubData {
             );
         }
 
+        public static CommentDto.Response getSingleResponseBody() {
+            return new CommentDto.Response(
+                    1,
+                    1,
+                    1,
+                    1,
+                    "this is commentBody, why? who are you?"
+            );
+        }
+
         public static CommentDto.Response getQuestionSingleResponseBody() {
             return new CommentDto.Response(
                     1,
@@ -82,7 +92,7 @@ public class CommnetStubData {
         }
 
         public static Comment getSingleResultComment(long commentId) {
-            Comment comment = new Comment(1L,"comment body",new Member(),
+            Comment comment = new Comment(1L,"this is commentBody, why? who are you?",new Member(),
                     LocalDateTime.now(), new Question(), new Answer());
             comment.setCommentId(commentId);
 
