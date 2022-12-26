@@ -1,21 +1,14 @@
 package com.codestates.backend.pre_project.member.controller;
 
-import com.codestates.backend.pre_project.helper.StubData;
 import com.codestates.backend.pre_project.helper.MemberControllerTestHelper;
-import com.codestates.backend.pre_project.helper.ControllerTestHelper;
+import com.codestates.backend.pre_project.helper.MemberStubData;
 import com.codestates.backend.pre_project.member.dto.MemberDto;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.member.mapper.MemberMapper;
-import com.codestates.backend.pre_project.member.repository.MemberRepository;
 import com.codestates.backend.pre_project.member.service.MemberService;
-import com.codestates.backend.pre_project.util.ApiDocumentUtils;
 import com.google.gson.Gson;
 import com.jayway.jsonpath.JsonPath;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -23,51 +16,34 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.restdocs.operation.preprocess.Preprocessors;
-import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.restdocs.payload.PayloadDocumentation;
-import org.springframework.restdocs.request.ParameterDescriptor;
-import org.springframework.restdocs.request.RequestDocumentation;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.util.UriComponentsBuilder;
 
 
 import javax.transaction.Transactional;
 
-import java.net.URI;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.codestates.backend.pre_project.util.ApiDocumentUtils.getRequestPreProcessor;
 import static com.codestates.backend.pre_project.util.ApiDocumentUtils.getResponsePreProcessor;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.BDDMockito.*;
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
-import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.JsonFieldType.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.request.RequestDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
-import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 
 @Transactional
 @SpringBootTest
@@ -90,8 +66,8 @@ public class MemberControllerTest implements MemberControllerTestHelper {
     @Test
     void postMemberTest() throws Exception {
         //given
-        MemberDto.Post post = (MemberDto.Post) StubData.MockMember.getRequestBody(HttpMethod.POST);
-        MemberDto.Response responseBody = StubData.MockMember.getSingleResponseBody();
+        MemberDto.Post post = (MemberDto.Post) MemberStubData.MockMember.getRequestBody(HttpMethod.POST);
+        MemberDto.Response responseBody = MemberStubData.MockMember.getSingleResponseBody();
 
         given(mapper.memberPostDtoToMember(Mockito.any(MemberDto.Post.class))).willReturn(new Member());
 
@@ -101,16 +77,15 @@ public class MemberControllerTest implements MemberControllerTestHelper {
         given(mapper.memberToMemberResponseDto(Mockito.any(Member.class))).willReturn(responseBody);
 
         String content = gson.toJson(post);
-        //URI uri = getURI();
+        System.out.println(content);
+        System.out.println("####################");
 
         //when
         ResultActions actions =
-                mockMvc.perform(
-                        post("/members/signup")
-                                .accept(MediaType.APPLICATION_JSON)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(content)
-                );
+                mockMvc.perform(post("/members/signup")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content));
 
         //then
         actions
@@ -140,9 +115,9 @@ public class MemberControllerTest implements MemberControllerTestHelper {
         //given
         long memberId = 1L;
 
-        MemberDto.Patch patch = (MemberDto.Patch) StubData.MockMember.getRequestBody(HttpMethod.PATCH);
+        MemberDto.Patch patch = (MemberDto.Patch) MemberStubData.MockMember.getRequestBody(HttpMethod.PATCH);
         MemberDto.Response response =
-                StubData.MockMember.getSingleResponseBody(memberId, null, "김현성", "asdf123");
+                MemberStubData.MockMember.getSingleResponseBody(memberId, null, "김현성", "asdf123");
 
         given(mapper.memberPatchDtoToMember(Mockito.any(MemberDto.Patch.class))).willReturn(new Member());
 
@@ -157,7 +132,6 @@ public class MemberControllerTest implements MemberControllerTestHelper {
 
         //then
         actions.andExpect(status().isOk())
-                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.memberId").value(patch.getMemberId()))
                 .andExpect(jsonPath("$.data.memberName").value(patch.getMemberName()))
                 .andExpect(jsonPath("$.data.password").value(patch.getPassword()))
@@ -181,8 +155,8 @@ public class MemberControllerTest implements MemberControllerTestHelper {
     void getMemberTest() throws Exception {
         //given
         long memberId = 1L;
-        Member member = StubData.MockMember.getSingleResultMember(memberId);
-        MemberDto.Response response = StubData.MockMember.getSingleResponseBody();
+        Member member = MemberStubData.MockMember.getSingleResultMember(memberId);
+        MemberDto.Response response = MemberStubData.MockMember.getSingleResponseBody();
 
         given(memberService.findMember(Mockito.anyLong())).willReturn(new Member());
         given(mapper.memberToMemberResponseDto(Mockito.any(Member.class))).willReturn(response);
@@ -236,9 +210,9 @@ public class MemberControllerTest implements MemberControllerTestHelper {
     @Test
     void getMembersTest() throws Exception {
         //give
-        Page<Member> pageMembers = StubData.MockMember.getMultiResultMember();
+        Page<Member> pageMembers = MemberStubData.MockMember.getMultiResultMember();
 
-        List<MemberDto.Response> responses = StubData.MockMember.getMultiResponseBody();
+        List<MemberDto.Response> responses = MemberStubData.MockMember.getMultiResponseBody();
 
         given(memberService.findMembers(Mockito.anyInt(), Mockito.anyInt())).willReturn(pageMembers);
         given(mapper.membersToMemberResponses(Mockito.anyList())).willReturn(responses);

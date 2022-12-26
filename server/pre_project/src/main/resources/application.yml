@@ -1,7 +1,7 @@
 spring:
     jpa:
         hibernate:
-            ddl-auto: create-drop  # 스키마 자동 생성
+            ddl-auto: create  # 스키마 자동 생성
         show-sql: true      # SQL 쿼리 출력
         properties:
             hibernate:

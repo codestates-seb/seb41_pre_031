@@ -95,6 +95,7 @@ public class CommentDto {
     @Data
     @AllArgsConstructor
     public static class Response {
+        private long commentId;
         private long memberId;
         private long answerId;
         private long questionId;

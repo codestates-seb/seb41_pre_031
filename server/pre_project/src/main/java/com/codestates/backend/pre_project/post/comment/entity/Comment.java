@@ -4,18 +4,22 @@ import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.answer.Answer;
 import com.codestates.backend.pre_project.post.question.Question;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Comment {
 
     @Id
@@ -43,6 +47,11 @@ public class Comment {
     @ManyToOne
     @JoinTable(name = "ANSWER_ID")
     private Answer answer;
+
+    public Comment(long commentId, String commentBody) {
+        this.commentId = commentId;
+        this.commentBody = commentBody;
+    }
 
 
 }

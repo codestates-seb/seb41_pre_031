@@ -3,6 +3,7 @@ package com.codestates.backend.pre_project.helper;
 import com.codestates.backend.pre_project.member.dto.MemberDto;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.point.entity.Point;
+import com.codestates.backend.pre_project.response.SingleResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;

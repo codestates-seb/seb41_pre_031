@@ -27,9 +27,26 @@ public interface CommentControllerTestHelper extends ControllerTestHelper{
         return Arrays.asList(parameterWithName("comment-id").description("댓글 식별자 ID"));
     }
 
-    default List<FieldDescriptor> getDefaultCommentPostRequestDescriptors() {
+    default List<ParameterDescriptor> getCommentAnswerRequestPathParameterDescriptor() {
+        return Arrays.asList(parameterWithName("answer-id").description("댓글의 answer 식별자 ID"));
+    }
+
+    default List<ParameterDescriptor> getCommentQuestionRequestPathParameterDescriptor() {
+        return Arrays.asList(parameterWithName("question-id").description("댓글의 question 식별자 ID"));
+    }
+
+    default List<FieldDescriptor> getDefaultCommentAnswerPostRequestDescriptors() {
         return List.of(
-                fieldWithPath("commentId").type(JsonFieldType.NUMBER).description("댓글 식별 ID"),
+                fieldWithPath("answerId").type(JsonFieldType.NUMBER).description("댓글의 answer 식별 ID"),
+                fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("댓글의 member 식별 ID"),
+                fieldWithPath("commentBody").type(JsonFieldType.STRING).description("댓글 본문 내용")
+        );
+    }
+
+    default List<FieldDescriptor> getDefaultCommentQuestionPostRequestDescriptors() {
+        return List.of(
+                fieldWithPath("questionId").type(JsonFieldType.NUMBER).description("댓글의 question 식별 ID"),
+                fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("댓글의 member 식별 ID"),
                 fieldWithPath("commentBody").type(JsonFieldType.STRING).description("댓글 본문 내용")
         );
     }
@@ -46,8 +63,9 @@ public interface CommentControllerTestHelper extends ControllerTestHelper{
 
         return List.of(
                 fieldWithPath(parentPath.concat("commentId")).type(JsonFieldType.NUMBER).description("댓글 식별자"),
-                fieldWithPath(parentPath.concat("answerId")).type(JsonFieldType.NUMBER).description("질문글 식별자"),
-                fieldWithPath(parentPath.concat("questionId")).type(JsonFieldType.NUMBER).description("답글 식별자"),
+                fieldWithPath(parentPath.concat("memberId")).type(JsonFieldType.NUMBER).description("댓글의 member 식별 ID"),
+                fieldWithPath(parentPath.concat("answerId")).type(JsonFieldType.NUMBER).description("댓글의 answer 식별 ID"),
+                fieldWithPath(parentPath.concat("questionId")).type(JsonFieldType.NUMBER).description("댓글의 question 식별 ID"),
                 fieldWithPath(parentPath.concat("commentBody")).type(JsonFieldType.STRING).description("댓글 본문 내용")
         );
     }
