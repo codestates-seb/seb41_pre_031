@@ -2,8 +2,8 @@ package com.codestates.backend.pre_project.member.entity;
 
 import com.codestates.backend.pre_project.likes.entity.Likes;
 import com.codestates.backend.pre_project.point.entity.Point;
-import com.codestates.backend.pre_project.post.answer.Answer;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
+import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.question.Question;
 import com.codestates.backend.pre_project.profile.entity.Profile;
 
@@ -13,6 +13,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.codestates.backend.pre_project.post.answer;
+package com.codestates.backend.pre_project.post.answer.entity;
 
 import com.codestates.backend.pre_project.likes.entity.Likes;
 import com.codestates.backend.pre_project.member.entity.Member;
@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +30,7 @@ public class Answer {
     private String answerBody;
 
     @Column(nullable = false)
-    private long answerLikes;
+    private int answerLikes;
 
     @CreatedDate
     private LocalDateTime answerRegDate;
