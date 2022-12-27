@@ -1,0 +1,8 @@
+[source,options="nowrap"]
+----
+{
+  "commentBody" : "this is commentBody and Answer class",
+  "memberId" : 1,
+  "answerId" : 1
+}
+----

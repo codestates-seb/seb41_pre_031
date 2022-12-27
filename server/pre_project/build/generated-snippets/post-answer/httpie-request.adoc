@@ -1,0 +1,10 @@
+[source,bash]
+----
+$ echo '{
+  "commentBody" : "this is commentBody and Answer class",
+  "memberId" : 1,
+  "answerId" : 1
+}' | http POST 'http://localhost:8080/answers/comments/1' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Accept:application/json'
+----

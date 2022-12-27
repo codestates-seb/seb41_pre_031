@@ -26,6 +26,14 @@ public interface ControllerTestHelper<T> {
                 .content(content);
     }
 
+    default RequestBuilder postRequestBuilder(String url, long resourceId,
+                                              String content) {
+        return  post(url, resourceId)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content);
+    }
+
     default RequestBuilder patchRequestBuilder(String url, long resourceId, String content) {
         return patch(url, resourceId)
                 .accept(MediaType.APPLICATION_JSON)
