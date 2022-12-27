@@ -624,6 +624,8 @@ const AskQuestion = ({ setFlag }) => {
                                                 onClick={() => {
                                                     setNextStepSecond(true);
                                                     setBodySidebox(false);
+                                                    setTagSidebox(true);
+                                                    setTitleSidebox(false);
                                                 }}
                                             >
                                                 Next
