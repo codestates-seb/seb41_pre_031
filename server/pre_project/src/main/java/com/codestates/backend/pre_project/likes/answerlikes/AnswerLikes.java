@@ -1,4 +1,4 @@
-package com.codestates.backend.pre_project.likes.entity;
+package com.codestates.backend.pre_project.likes.answerlikes;
 
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
@@ -16,11 +16,11 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Likes {
+public class AnswerLikes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long likesId;
+    private long answerlikesId;
 
     @OneToOne
     @JoinColumn(name ="MEMBER_ID")
@@ -28,13 +28,9 @@ public class Likes {
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "QUESTION_ID")
-    private Question question;
-
-    @ManyToOne
     @JoinColumn(name = "ANSWER_ID")
     private Answer answer;
-    public Likes(Member member) {
-        this.member = member;
-    }
+
+    @Column(name = "ANSWERLIKESCOUNT")
+    public long answerLikesCount;
 }

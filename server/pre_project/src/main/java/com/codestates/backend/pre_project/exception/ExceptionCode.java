@@ -15,7 +15,7 @@ public enum ExceptionCode {
     //NOT_IMPLEMENTATION(501, "Not Implementation"),
     //INVALID_MEMBER_STATUS(400, "Invalid member status"),  // TO 추가된 부분
 
-    EDIT_NOT_ALLOWED(400, "No permission"),
+    NO_PERMISSION(400, "No permission"),
     ANSWER_NOT_FOUND(404, "Answer not found"),
 
     QUESTION_NOT_FOUND(404, "Question not found");

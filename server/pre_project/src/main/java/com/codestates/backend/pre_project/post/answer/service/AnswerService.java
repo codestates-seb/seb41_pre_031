@@ -71,7 +71,7 @@ public class AnswerService {
                 answerRepository.findById(answerId);
         Answer findAnswer =
                 optionalAnswer.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.EDIT_NOT_ALLOWED));
+                        new BusinessLogicException(ExceptionCode.NO_PERMISSION));
         return findAnswer;
     }
 //    Author의 memberId가 사용자와 다를 때 글 수정이 되지 않도록 한다.
