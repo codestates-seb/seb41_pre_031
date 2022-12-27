@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import TextEdit from "../components/TextEdit";
 import PencilIconSearch from "../icons/askPageIconSearch"
 import { BREAK_POINT_TABLET } from "../data/breakpoints";
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
     display: flex;
@@ -416,7 +417,7 @@ const BottomButton = styled.div`
 `
 
 
-const AskQuestion = ({flag, setFlag}) => {
+const AskQuestion = ({setFlag}) => {
     useEffect(() => {
         setFlag(false);
     }, [])

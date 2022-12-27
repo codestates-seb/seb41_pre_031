@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainBeforeLogin from "./pages/MainBeforeLogin";
 import AllQuestions from "./pages/AllQuestions";
 import TopQuestions from "./pages/TopQuestions";
+import AskQuestion from "./pages/AskQuestion";
 
 const Wrap = styled.div`
 	display: flex;
@@ -70,6 +71,7 @@ function App() {
 						<Route path="/users" element={<Users />} />
 						<Route path="/users/profile/:id/*" element={<UserProfile />} />
 						<Route path="/questions" element={<AllQuestions setFlag={setFlag} />} />
+                        <Route path="/questions/ask" element={<AskQuestion setFlag={setFlag} />} />
 					</Routes>
 				</Section>
 			</Main>
