@@ -1,36 +1,32 @@
-package com.codestates.backend.pre_project.likes.answerlikes;
+package com.codestates.backend.pre_project.likes;
 
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.question.Question;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Builder
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class AnswerLikes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long answerlikesId;
+    private Long answerlikesId;
 
-    @OneToOne
-    @JoinColumn(name ="MEMBER_ID")
+    @ManyToOne
+    @JoinColumn(name = "answer")
+    private Answer answer;
+
+    @ManyToOne
+    @JoinColumn(name ="member")
     @NotNull
     private Member member;
 
-    @ManyToOne
-    @JoinColumn(name = "ANSWER_ID")
-    private Answer answer;
-
-    @Column(name = "ANSWERLIKESCOUNT")
-    public long answerLikesCount;
+    @Column
+    private int count = 0;
 }

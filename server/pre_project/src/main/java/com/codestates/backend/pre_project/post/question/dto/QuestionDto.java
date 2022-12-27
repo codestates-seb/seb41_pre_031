@@ -67,7 +67,7 @@ public class QuestionDto {
 
         private LocalDateTime questionLastDate;
 
-        private long questionLikes;
+//        private long ;
 
     }
 }

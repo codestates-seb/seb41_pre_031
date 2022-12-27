@@ -17,6 +17,7 @@ public enum ExceptionCode {
 
     NO_PERMISSION(400, "No permission"),
     ANSWER_NOT_FOUND(404, "Answer not found"),
+    ALREADY_LIKE_ADDED(404, "Already added to like"),
 
     QUESTION_NOT_FOUND(404, "Question not found");
     @Getter

@@ -42,7 +42,9 @@ public class QuestionStubData {
         public static Object getRequestBody(HttpMethod method){
             return stubRequestBody.get(method);
         }
-        public static QuestionDto.Response getSingleRequestBody(long questionId, long memberId, String questionTitle, String questionBody, List<QuestionTagResponseDto> questionTags, LocalDateTime questionRegDate, LocalDateTime questionLastDate, long questionLikes) {
+//        public static QuestionDto.Response getSingleRequestBody(long questionId, long memberId, String questionTitle, String questionBody, List<QuestionTagResponseDto> questionTags, LocalDateTime questionRegDate, LocalDateTime questionLastDate, long ) {
+//public static QuestionDto.Response getSingleRequestBody(long questionId, long memberId, String questionTitle, String questionBody, List<QuestionTagResponseDto> questionTags, LocalDateTime questionRegDate, LocalDateTime questionLastDate, long ) {
+public static QuestionDto.Response getSingleRequestBody(long questionId, long memberId, String questionTitle, String questionBody, List<QuestionTagResponseDto> questionTags, LocalDateTime questionRegDate, LocalDateTime questionLastDate) {
             List<QuestionTagResponseDto> questionTagResponseDtos = new LinkedList<>();
             questionTagResponseDtos.add(new QuestionTagResponseDto(1L, 1L, "JAVA"));
             long optionalQuestionId = Optional.ofNullable(questionId).orElse(1L);
@@ -51,10 +53,11 @@ public class QuestionStubData {
             String optionalQuestionBody = Optional.ofNullable(questionBody).orElse("열심히 하는 중");
             LocalDateTime optionalRegDate = Optional.ofNullable(questionRegDate).orElse(LocalDateTime.of(2022, 12, 27, 2, 54));
             LocalDateTime optionalLastDate = Optional.ofNullable(questionLastDate).orElse(LocalDateTime.of(2022, 12, 27, 2, 54));
-            long optionalQuestionLikes = Optional.ofNullable(questionLikes).orElse(0L);
+//            long optionalQuestionLikes = Optional.ofNullable(questionLikes).orElse(0L);
             List<QuestionTagResponseDto> optionalQuestionTagDto = Optional.ofNullable(questionTags).orElse(questionTagResponseDtos);
 
-            return new QuestionDto.Response(optionalQuestionId, optionalMemberId, optionalQuestiontitle, optionalQuestionBody, optionalQuestionTagDto, optionalRegDate, optionalLastDate, optionalQuestionLikes);
+//            return new QuestionDto.Response(optionalQuestionId, optionalMemberId, optionalQuestiontitle, optionalQuestionBody, optionalQuestionTagDto, optionalRegDate, optionalLastDate, optionalQuestionLikes);
+    return new QuestionDto.Response(optionalQuestionId, optionalMemberId, optionalQuestiontitle, optionalQuestionBody, optionalQuestionTagDto, optionalRegDate, optionalLastDate);
         }
 
         public static Question getSingleResultQuestion(long questionId) {
