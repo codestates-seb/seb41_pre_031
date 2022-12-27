@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import TextEdit from "../components/TextEdit";
 import PencilIconSearch from "../icons/askPageIconSearch"
 import { BREAK_POINT_TABLET } from "../data/breakpoints";
-import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
     display: flex;
@@ -26,12 +25,26 @@ const Head = styled.div`
     background-image: url(${background});
     background-repeat: no-repeat;
     background-position: right;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+
+    /* padding-left: 190px;
+
+    @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+        padding-left: 0;
+    } */
     .headTitle{
         margin: 2.9rem 0 3.4rem 0;
         font-size: 27px;
         font-weight: 550;
         color: #232629;
     }
+
+    @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+        background-image: none;
+    }
+
 `
 
 const TipContainer = styled.div`
@@ -58,6 +71,10 @@ const QuestionTip = styled.div`
     border-radius: 3px;
     color: #3B4045;
     width: 851.2px;
+
+    @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+        width: 100%;
+    }
 
     h2{
         font-size: 21px;
@@ -153,14 +170,14 @@ const Title = styled.div`
 const SideBox = styled.div`
     border: 1px solid var(--lightgray2);
     border-radius: 3px;
-    margin-left: 0.8rem;
+    margin-left: 1.2rem;
     width: 348.81px;
     /* height: 169.05px; */
     height: 153.36px;
     background: var(--white);
     box-shadow: 0 1px 2px hsla(0,0%,0%,0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05), 0 2px 8px hsla(0, 0%, 0%, 0.05);
 
-    @media screen and (max-width: 1202px) {
+    @media screen and (max-width: 1266px) {
         height: 180.36px;
     }
 
@@ -241,7 +258,7 @@ const Body = styled.div`
     }
 
     .button{
-        margin-top: 3.3rem;
+        margin-top: 4rem;
 
         button{
             cursor: pointer;
@@ -263,6 +280,7 @@ const Tags = styled.div`
     border-radius: 3px;
     background: var(--bg-color);
     width: 851.2px;
+    height: 170px;
 
     @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
         width: 100%;
@@ -352,21 +370,22 @@ const TagsInput = styled.div`
 const TagSideBox = styled.div`
     border: 1px solid var(--lightgray2);
     border-radius: 3px;
-    margin-left: 0.8rem;
+    margin-left: 1.2rem;
     width: 348.81px;
     /* height: 169.05px; */
     height: 220px;
     background: var(--white);
     box-shadow: 0 1px 2px hsla(0,0%,0%,0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05), 0 2px 8px hsla(0, 0%, 0%, 0.05);
 
-    @media screen and (max-width: 1202px) {
-        height: 180.36px;
+    @media screen and (max-width: 1229px) {
+        /* height: 220.36px; */
+        height: 270px;
     }
 
     @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
         margin: 0 0 1rem 0;
         width: 100%;
-        height: 134.758px;
+        height: 160px;
 
         /* .description{
             padding-top: 2px;
