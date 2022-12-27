@@ -12,6 +12,11 @@ const Container = styled.div`
     /* background: hsl(210,8%,97.5%); */
     background: #f8f9f9;
     width: 100%;
+    align-items: center;
+
+    @media screen and (max-width: 1272px) {
+       align-items : stretch;
+    }
 `
 
 const Content = styled.div`
@@ -35,6 +40,7 @@ const Head = styled.div`
         padding-left: 0;
     } */
     .headTitle{
+        width: 851.2px;
         margin: 2.9rem 0 3.4rem 0;
         font-size: 27px;
         font-weight: 550;
@@ -498,11 +504,11 @@ const AskQuestion = ({setFlag}) => {
     return (
         <>
         <Container>            
+            <Content>
             <Head>
                 <div className="headTitle">Ask a public question</div>
                 <div className="background"></div>
             </Head>
-            <Content>
 
                 <TipContainer>
 
