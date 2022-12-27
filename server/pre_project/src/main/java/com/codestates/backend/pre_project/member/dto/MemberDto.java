@@ -2,6 +2,7 @@ package com.codestates.backend.pre_project.member.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.Email;
@@ -12,6 +13,7 @@ public class MemberDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Post {
         @NotBlank(message = "이메일은 공백이 아니어야 합니다.")
         @Email
@@ -26,6 +28,7 @@ public class MemberDto {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Patch {
         private long memberId;
         

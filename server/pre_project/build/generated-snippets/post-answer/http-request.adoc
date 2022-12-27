@@ -1,0 +1,14 @@
+[source,http,options="nowrap"]
+----
+POST /answers/comments/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Content-Length: 100
+Host: localhost:8080
+
+{
+  "commentBody" : "this is commentBody and Answer class",
+  "memberId" : 1,
+  "answerId" : 1
+}
+----
