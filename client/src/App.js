@@ -62,7 +62,6 @@ function App() {
                     </LeftSide>
                 ) : null}
                 <Section flag={flag}>
-                    <TextEdit/>
                     <Routes>
                         <Route
                             path="/users/profile/:id/*"
