@@ -6,7 +6,7 @@ import { useState } from "react";
 import { BREAK_POINT_MOBILE } from "./data/breakpoints";
 import UserProfile from "./pages/UserProfile";
 import { Routes, Route } from "react-router";
-import TextEdit from "./components/TextEdit";
+import AllQuestions from "./pages/AllQuestions";
 
 const Wrap = styled.div`
     display: flex;
