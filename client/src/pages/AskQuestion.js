@@ -237,6 +237,7 @@ const Body = styled.div`
     border-radius: 3px;
     background: var(--bg-color);
     width: 851.2px;
+    height: 397.76px;
 
     @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
         width: 100%;
@@ -445,7 +446,10 @@ const AskQuestion = ({setFlag}) => {
     const [nextStepFirst, setNextStepFirst] = useState(false);
     const [nextStepSecond, setNextStepSecond] = useState(false);
     const [nextStepThird, setNextStepThird] = useState(false);
-    const [content, setContent] = useState("")
+    const [content, setContent] = useState("");
+    const [titleSidebox, setTitleSidebox] = useState(true);
+    const [bodySidebox, setBodySidebox] = useState(false);
+    const [tagSidebox, setTagSidebox] = useState(false);
 
     const onChange = (event) => {
         setText(event.target.value);
@@ -499,12 +503,14 @@ const AskQuestion = ({setFlag}) => {
                 <Title>
                     <div className="title">Title</div>
                     <div className="description">Be specific and imagine you’re asking a question to another person.</div>
-                    <div className="input"><input placeholder="e.g. Is there an R function for finding the index of an element in a vector?"></input></div>
-                    {/* button 조건문 */}
-                    <div className="button"><button className="buttonLink btnPrimary" onClick={() => setNextStepFirst(true)}>Next</button></div>
+                    <div className="input"><input placeholder="e.g. Is there an R function for finding the index of an element in a vector?" onClick={() => {setTitleSidebox(true); setBodySidebox(false); setTagSidebox(false)}}></input></div>
+                    {nextStepFirst === true ? null : (
+                        <div className="button"><button className="buttonLink btnPrimary" onClick={() => {setNextStepFirst(true); setTitleSidebox(false); setBodySidebox(true)}}>Next</button></div>
+                    )}
                 </Title>
 
-                <SideBox>               
+                {titleSidebox === true ? (
+                    <SideBox>               
                     <div className="title">Writing a good title</div>
                     <div className="sideContainer">
                         <div className="icon">
@@ -516,6 +522,7 @@ const AskQuestion = ({setFlag}) => {
                             </div>
                     </div>
             </SideBox>
+                ) : null}
 
                 </TitleContainer>
 
@@ -527,22 +534,27 @@ const AskQuestion = ({setFlag}) => {
                         <div className="title">What are the details of your problem?</div>
                         <div className="description">Introduce the problem and expand on what you put in the title. Minimum 20 characters.</div>
                         {/* editor */}
-                        <div className="editor"><TextEdit setContent={setContent}/></div>                   
-                        {/* button 조건문 */}
-                        <div className="button"><button className="buttonLink btnPrimary" onClick={() => setNextStepSecond(true)}>Next</button></div>
+                        <div className="editor" onClick={() => {setTitleSidebox(false); setBodySidebox(true); setTagSidebox(false)}}><TextEdit setContent={setContent}/></div>                   
+                        {nextStepSecond === true ? null : (
+                            <div className="button"><button className="buttonLink btnPrimary" onClick={() => {setNextStepSecond(true); setBodySidebox(false)}}>Next</button></div>
+                        )}
                     </Body>
-                    <SideBox>               
-                    <div className="title">Introduce the problem</div>
-                    <div className="sideContainer">
-                        <div className="icon">
-                            <PencilIconSearch />
-                        </div>
-                            <div className="description">
-                                {/* <p className="line1">Your title should summarize the problem.</p> */}
-                                <p className="line2">Explain how you encountered the problem you’re trying to solve, and any difficulties that have prevented you from solving it yourself.</p>
+
+                    {bodySidebox === true ? (
+                        <SideBox>               
+                        <div className="title">Introduce the problem</div>
+                        <div className="sideContainer">
+                            <div className="icon">
+                                <PencilIconSearch />
                             </div>
-                    </div>
-            </SideBox>
+                                <div className="description">
+                                    {/* <p className="line1">Your title should summarize the problem.</p> */}
+                                    <p className="line2">Explain how you encountered the problem you’re trying to solve, and any difficulties that have prevented you from solving it yourself.</p>
+                                </div>
+                        </div>
+                </SideBox>
+                    ) : null}
+
             </>
                 ) : (
                     <Opacity>
@@ -563,7 +575,7 @@ const AskQuestion = ({setFlag}) => {
                       <Tags>
                       <div className="title">Tags</div>
                       <div className="description">Add up to 5 tags to describe what your question is about. Start typing to see suggestions.</div>
-                      <TagsInput>
+                      <TagsInput onClick={() => {setTitleSidebox(false); setBodySidebox(false); setTagSidebox(true)}}>
                           <ul className="tags">
                           {tags.map((tag,index) => (
                               <li key={index} className="tag">
@@ -575,8 +587,12 @@ const AskQuestion = ({setFlag}) => {
                           <input className="tagInput" type="text" onKeyUp={(el) => {addTags(el.target.value)}} onChange={onChange} value={text} placeholder="e.g. (asp.net wordpress mongodb)">                            
                           </input>
                       </TagsInput>
-                      <div className="button"><button className="buttonLink btnPrimary" onClick={() => setNextStepThird(true)}>Next</button></div>
+                      {nextStepThird === true ? null : (
+                          <div className="button"><button className="buttonLink btnPrimary" onClick={() => setNextStepThird(true)}>Next</button></div>
+                      )}
                   </Tags>
+
+                {tagSidebox === true ? (
 
                 <TagSideBox>               
                 <div className="title">Adding tags</div>
@@ -591,6 +607,7 @@ const AskQuestion = ({setFlag}) => {
                         </div>
                 </div>
                 </TagSideBox>
+                ) : null}
                 </>
                 ) : (
                     <Opacity>
