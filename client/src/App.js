@@ -2,10 +2,12 @@ import styled from "styled-components";
 import Header from "./components/Header";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
+import Users from "./pages/Users";
 import { useState } from "react";
 import { BREAK_POINT_MOBILE } from "./data/breakpoints";
 import UserProfile from "./pages/UserProfile";
 import { Routes, Route } from "react-router";
+import AllQuestions from "./pages/AllQuestions";
 
 const Wrap = styled.div`
     display: flex;
@@ -66,6 +68,11 @@ function App() {
                             path="/users/profile/:id/*"
                             element={<UserProfile />}
                         />
+                        <Route
+                            path="/users"
+                            element={<Users />}
+                        />
+                        <Route path="/questions" element={<AllQuestions/>}/>
                     </Routes>
                 </Section>
             </Main>
