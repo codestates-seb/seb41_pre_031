@@ -2,7 +2,6 @@ package com.codestates.backend.pre_project.answer;
 
 import com.codestates.backend.pre_project.helper.AnswerControllerTestHelper;
 import com.codestates.backend.pre_project.helper.AnswerStubData;
-
 import com.codestates.backend.pre_project.post.answer.dto.AnswerDto;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.answer.mapper.AnswerMapper;
@@ -93,7 +92,7 @@ public class AnswerControllerTest implements AnswerControllerTestHelper {
                 .andExpect(jsonPath("$.data.memberId").value(post.getMemberId()))
                 .andDo(document("post-answer",
                         getRequestPreProcessor(),
-                        getResponsePreProcessor(), 
+                        getResponsePreProcessor(),
                         requestFields(
                                 getDefaultAnswerPostRequestDescriptors()
                         ),

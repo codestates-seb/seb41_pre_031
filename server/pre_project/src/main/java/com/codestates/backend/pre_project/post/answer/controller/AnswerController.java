@@ -6,6 +6,7 @@ import com.codestates.backend.pre_project.post.answer.dto.AnswerDto;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.answer.mapper.AnswerMapper;
 import com.codestates.backend.pre_project.post.answer.service.AnswerService;
+import com.codestates.backend.pre_project.response.SingleResponseDto;
 import com.codestates.backend.pre_project.response.MultiResponseDto;
 import com.codestates.backend.pre_project.response.SingleResponseDto;
 import org.springframework.data.domain.Page;

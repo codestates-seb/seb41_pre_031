@@ -2,10 +2,13 @@ package com.codestates.backend.pre_project.post.answer.service;
 
 import com.codestates.backend.pre_project.exception.BusinessLogicException;
 import com.codestates.backend.pre_project.exception.ExceptionCode;
+import com.codestates.backend.pre_project.likes.answer.AnswerLikes;
+import com.codestates.backend.pre_project.likes.answer.AnswerLikesService;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.member.service.MemberService;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.answer.repository.AnswerRepository;
+import com.codestates.backend.pre_project.post.question.Question;
 import com.codestates.backend.pre_project.utils.CustomBeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,15 +24,17 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
     private final MemberService memberService;
     private final CustomBeanUtils<Answer> beanUtils;
+    private final AnswerLikesService answerLikesService;
 //    삭제예정, 멤버서비스 통해서 구현.
 
 //    private final QuestionService questionService;
 
     public AnswerService(AnswerRepository answerRepository, MemberService memberService
-                         , CustomBeanUtils<Answer> beanUtils) {
+                         , CustomBeanUtils<Answer> beanUtils, AnswerLikesService answerLikesService) {
         this.answerRepository = answerRepository;
         this.memberService = memberService;
         this.beanUtils = beanUtils;
+        this.answerLikesService = answerLikesService;
     }
 
     public Answer createAnswer(Answer answer) {
@@ -71,9 +76,38 @@ public class AnswerService {
                 answerRepository.findById(answerId);
         Answer findAnswer =
                 optionalAnswer.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.EDIT_NOT_ALLOWED));
+                        new BusinessLogicException(ExceptionCode.NO_PERMISSION));
         return findAnswer;
     }
 //    Author의 memberId가 사용자와 다를 때 글 수정이 되지 않도록 한다.
 
+    public void addLikes(Answer answer, Member member) {
+        AnswerLikes answerLikes = answerLikesService.findByMemberAndAnswer(member, answer);
+
+        if (answerLikes.getCount()!=1){
+            answerLikes.setCount(answerLikes.getCount()+1);
+            answer.setAnswerLikes(answer.getAnswerLikes()+1);
+        }
+        answerLikes.setAnswer(answer);
+        answerLikes.setMember(member);
+        answerLikesService.saveAnswerLikes(answerLikes);
+        Question question = answer.getQuestion();
+//        questionService.downViewCount(question); 조회수 2개씩 올라가는 버그 있으면 사용
+        answerRepository.save(answer);
+    }
+
+    public void downLikes(Answer answer, Member member) {
+        AnswerLikes answerLikes = answerLikesService.findByMemberAndAnswer(member, answer);
+
+        if (answerLikes.getCount()!=-1){
+            answerLikes.setCount(answerLikes.getCount()-1);
+            answer.setAnswerLikes(answer.getAnswerLikes()-1);
+        }
+        answerLikes.setAnswer(answer);
+        answerLikes.setMember(member);
+        answerLikesService.saveAnswerLikes(answerLikes);
+        Question question = answer.getQuestion();
+//        questionService.downViewCount(question); 조회수 2개씩 올라가는 버그 있으면 사용
+        answerRepository.save(answer);
+    }
 }
