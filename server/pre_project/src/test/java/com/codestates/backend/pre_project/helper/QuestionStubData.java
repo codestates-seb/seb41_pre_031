@@ -53,11 +53,11 @@ public static QuestionDto.Response getSingleRequestBody(long questionId, long me
             String optionalQuestionBody = Optional.ofNullable(questionBody).orElse("열심히 하는 중");
             LocalDateTime optionalRegDate = Optional.ofNullable(questionRegDate).orElse(LocalDateTime.of(2022, 12, 27, 2, 54));
             LocalDateTime optionalLastDate = Optional.ofNullable(questionLastDate).orElse(LocalDateTime.of(2022, 12, 27, 2, 54));
-//            long optionalQuestionLikes = Optional.ofNullable(questionLikes).orElse(0L);
+            long optionalQuestionLikes = Optional.ofNullable(questionLikes).orElse(0L);
             List<QuestionTagResponseDto> optionalQuestionTagDto = Optional.ofNullable(questionTags).orElse(questionTagResponseDtos);
 
-//            return new QuestionDto.Response(optionalQuestionId, optionalMemberId, optionalQuestiontitle, optionalQuestionBody, optionalQuestionTagDto, optionalRegDate, optionalLastDate, optionalQuestionLikes);
-    return new QuestionDto.Response(optionalQuestionId, optionalMemberId, optionalQuestiontitle, optionalQuestionBody, optionalQuestionTagDto, optionalRegDate, optionalLastDate);
+            return new QuestionDto.Response(optionalQuestionId, optionalMemberId, optionalQuestiontitle, optionalQuestionBody, optionalQuestionTagDto, optionalRegDate, optionalLastDate, optionalQuestionLikes);
+//    return new QuestionDto.Response(optionalQuestionId, optionalMemberId, optionalQuestiontitle, optionalQuestionBody, optionalQuestionTagDto, optionalRegDate, optionalLastDate);
         }
 
         public static Question getSingleResultQuestion(long questionId) {

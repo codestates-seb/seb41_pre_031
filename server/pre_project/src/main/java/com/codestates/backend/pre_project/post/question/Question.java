@@ -1,6 +1,6 @@
 package com.codestates.backend.pre_project.post.question;
 
-import com.codestates.backend.pre_project.likes.AnswerLikes;
+import com.codestates.backend.pre_project.likes.question.QuestionLikes;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
@@ -56,8 +56,8 @@ public class Question {
             //= new ArrayList<>();
     //TODO
 
-//    @OneToMany(mappedBy = "question")
-//    private List<AnswerLikes> likes;
+    @OneToMany(mappedBy = "question")
+    private List<QuestionLikes> likes;
             //= new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)

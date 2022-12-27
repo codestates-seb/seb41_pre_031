@@ -1,6 +1,6 @@
 package com.codestates.backend.pre_project.member.entity;
 
-import com.codestates.backend.pre_project.likes.AnswerLikes;
+import com.codestates.backend.pre_project.likes.answer.AnswerLikes;
 import com.codestates.backend.pre_project.point.entity.Point;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;

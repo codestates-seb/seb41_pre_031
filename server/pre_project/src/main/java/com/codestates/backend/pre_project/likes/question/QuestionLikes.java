@@ -1,9 +1,11 @@
-package com.codestates.backend.pre_project.likes;
+package com.codestates.backend.pre_project.likes.question;
 
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.question.Question;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,15 +14,15 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AnswerLikes {
+public class QuestionLikes {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long answerlikesId;
+    private Long questionlikesId;
 
     @ManyToOne
-    @JoinColumn(name = "answer")
-    private Answer answer;
+    @JoinColumn(name = "question")
+    private Question question;
 
     @ManyToOne
     @JoinColumn(name ="member")

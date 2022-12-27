@@ -2,8 +2,8 @@ package com.codestates.backend.pre_project.post.answer.service;
 
 import com.codestates.backend.pre_project.exception.BusinessLogicException;
 import com.codestates.backend.pre_project.exception.ExceptionCode;
-import com.codestates.backend.pre_project.likes.AnswerLikes;
-import com.codestates.backend.pre_project.likes.AnswerLikesService;
+import com.codestates.backend.pre_project.likes.answer.AnswerLikes;
+import com.codestates.backend.pre_project.likes.answer.AnswerLikesService;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.member.service.MemberService;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
