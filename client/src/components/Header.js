@@ -4,25 +4,34 @@ import IconSearch from "./../icons/IconSearch";
 import Nav from "./Nav";
 import { BREAK_POINT_TABLET, BREAK_POINT_MOBILE } from "./../data/breakpoints";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const HeaderWrap = styled.header`
 	position: fixed;
 	width: 100%;
 	height: 50px;
-    z-index: 100;
+	z-index: 100;
 	border-top: 3px solid var(--orange);
 	background: #f8f9f9;
-	box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
-		0 2px 8px hsla(0, 0%, 0%, 0.05);
+	box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05), 0 2px 8px hsla(0, 0%, 0%, 0.05);
 	.container {
 		position: relative;
 		display: flex;
 		align-items: center;
 		height: 100%;
 	}
+	/* 네비게이션 노출시 닫기 위한 배경입니다. 문제시 삭제 */
+	.backDrop {
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 150;
+	}
 `;
 
-const Logo = styled.a`
+const Logo = styled(Link)`
 	padding: 0 8px;
 	height: 100%;
 	display: flex;
@@ -94,13 +103,22 @@ const MenuBtn = styled.button`
 
 const GnbWrap = styled.div`
 	position: absolute;
-	left: 0;
-	top: 50px;
+	left: calc((100% - 1264px) / 2);
+	top: 47px;
 	width: 240px;
 	padding: 24px 0 8px 0;
 	background: var(--bg-color);
-	box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
-		0 2px 8px hsla(0, 0%, 0%, 0.05);
+	box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05), 0 2px 8px hsla(0, 0%, 0%, 0.05);
+	@media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+		& {
+			left: 0;
+		}
+	}
+	@media screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+		& {
+			left: 0;
+		}
+	}
 `;
 
 const NavItems = styled.ul`
@@ -204,29 +222,30 @@ const BtnsWrap = styled.div`
 	}
 `;
 
-const Header = () => {
+const Header = ({ flag, setFlag }) => {
 	const [isMenuOn, setIsMenuOn] = useState(false);
 
-	const handleClickMenu = () => {
+	const handleClickMenu = (e) => {
 		setIsMenuOn(!isMenuOn);
 	};
 	return (
 		<HeaderWrap>
 			<div className="container">
 				{/* 로그인 전, 왼쪽 사이드바가 있을 경우 MenuBtn 삭제해야 함 */}
-				<MenuBtn
-					onClick={() => handleClickMenu()}
-					className={isMenuOn ? "active" : ""}
-				>
-					<span></span>
-				</MenuBtn>
+				{flag ? null : (
+					<MenuBtn onClick={(e) => handleClickMenu(e)} className={isMenuOn ? "active" : ""}>
+						<span></span>
+					</MenuBtn>
+				)}
 				{isMenuOn ? (
-					<GnbWrap>
-						<Nav />
-					</GnbWrap>
+					<div className="backDrop" onClick={(e) => handleClickMenu(e)}>
+						<GnbWrap>
+							<Nav />
+						</GnbWrap>
+					</div>
 				) : null}
 
-				<Logo>
+				<Logo to="/">
 					<span>Stack Overflow</span>
 				</Logo>
 				<NavItems>
