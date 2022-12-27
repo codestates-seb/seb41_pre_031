@@ -6,6 +6,7 @@ import { useState } from "react";
 import { BREAK_POINT_MOBILE } from "./data/breakpoints";
 import UserProfile from "./pages/UserProfile";
 import { Routes, Route } from "react-router";
+import TextEdit from "./components/TextEdit";
 
 const Wrap = styled.div`
     display: flex;
@@ -61,6 +62,7 @@ function App() {
                     </LeftSide>
                 ) : null}
                 <Section flag={flag}>
+                    <TextEdit/>
                     <Routes>
                         <Route
                             path="/users/profile/:id/*"
