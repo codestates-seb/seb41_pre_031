@@ -1,10 +1,11 @@
 package com.codestates.backend.pre_project.post.answer.entity;
 
-import com.codestates.backend.pre_project.likes.entity.Likes;
+import com.codestates.backend.pre_project.likes.answer.AnswerLikes;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.question.Question;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -20,6 +21,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @EntityListeners(AuditingEntityListener.class)
 public class Answer {
     @Id
@@ -47,11 +49,27 @@ public class Answer {
     private Question question;
 
     @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
-    private List<Likes> likes = new ArrayList<>();
+    private List<AnswerLikes> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
 //  @Column(nullable = false)
 //  private long memberId;
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public void setLikes(List<AnswerLikes> likes) {
+        this.likes = likes;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 }

@@ -20,7 +20,7 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Post{
 
-            private String qustionTitle;
+            private String questionTitle;
 
             private String questionBody;
 
@@ -67,7 +67,7 @@ public class QuestionDto {
 
         private LocalDateTime questionLastDate;
 
-        private long questionLikes;
+//        private long ;
 
     }
 }
