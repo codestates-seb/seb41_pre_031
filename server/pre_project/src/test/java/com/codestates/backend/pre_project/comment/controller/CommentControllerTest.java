@@ -1,4 +1,4 @@
-package com.codestates.backend.pre_project.member.controller;
+package com.codestates.backend.pre_project.comment.controller;
 
 import com.codestates.backend.pre_project.helper.CommentControllerTestHelper;
 import com.codestates.backend.pre_project.helper.CommnetStubData;
