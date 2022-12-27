@@ -1,0 +1,16 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 201 Created
+Content-Type: application/json
+Content-Length: 170
+
+{
+  "data" : {
+    "commentId" : 1,
+    "memberId" : 1,
+    "answerId" : 1,
+    "questionId" : 1,
+    "commentBody" : "this is commentBody and Answer class"
+  }
+}
+----

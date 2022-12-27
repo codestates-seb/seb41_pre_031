@@ -22,4 +22,13 @@ public class Tag {
 
     @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
     private List<QuestionTag> questionsTags;
+
+    @PrePersist
+    public void prePersist() {
+        for(int i=0; i< this.questionsTags.size(); i++){
+            if(this.questionsTags.get(i).getTag()==null){
+                this.questionsTags.get(i).setTag(this);
+            }
+        }
+    }
 }

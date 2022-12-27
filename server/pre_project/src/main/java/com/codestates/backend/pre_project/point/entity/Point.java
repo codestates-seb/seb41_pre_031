@@ -1,12 +1,11 @@
 package com.codestates.backend.pre_project.point.entity;
 
 import com.codestates.backend.pre_project.member.entity.Member;
-import com.codestates.backend.pre_project.profile.Profile;
+import com.codestates.backend.pre_project.profile.entity.Profile;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.bytebuddy.implementation.bind.annotation.Default;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;

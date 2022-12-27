@@ -24,4 +24,6 @@ public class QuestionTag {
     @ManyToOne
     @JoinColumn(name = "TAG_ID")
     private Tag tag;
+
+
 }
