@@ -6,13 +6,10 @@ import com.codestates.backend.pre_project.post.answer.dto.AnswerDto;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.answer.mapper.AnswerMapper;
 import com.codestates.backend.pre_project.post.answer.service.AnswerService;
-<<<<<<< HEAD
 import com.codestates.backend.pre_project.response.SingleResponseDto;
-=======
 import com.codestates.backend.pre_project.response.MultiResponseDto;
 import com.codestates.backend.pre_project.response.SingleResponseDto;
 import org.springframework.data.domain.Page;
->>>>>>> dev
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

@@ -5,6 +5,7 @@ import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.question.Question;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -64,7 +65,7 @@ public class Answer {
         this.question = question;
     }
 
-    public void setLikes(List<Likes> likes) {
+    public void setLikes(List<AnswerLikes> likes) {
         this.likes = likes;
     }
 
