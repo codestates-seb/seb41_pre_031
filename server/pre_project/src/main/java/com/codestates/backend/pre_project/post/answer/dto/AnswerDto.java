@@ -12,7 +12,12 @@ public class AnswerDto {
 
     @Getter
     @Setter
+    @AllArgsConstructor
     public static class Post {
+        private long questionId;
+
+        private long memberId;
+
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         @Range(max= 500)
         private String answerBody;
