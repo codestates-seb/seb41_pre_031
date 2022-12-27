@@ -12,10 +12,9 @@ public enum ExceptionCode {
     //NOT_IMPLEMENTATION(501, "Not Implementation"),
     //INVALID_MEMBER_STATUS(400, "Invalid member status"),  // TO 추가된 부분
 
-    QUESTION_NOT_FOUND(404, "Question not found"),
-    EDIT_NOT_ALLOWED(400, "No permission");
+    EDIT_NOT_ALLOWED(400, "No permission"),
 
-    QUESTION_NOT_FOUND(404, "Qustion not found");
+    QUESTION_NOT_FOUND(404, "Question not found");
 
     @Getter
     private int status;
