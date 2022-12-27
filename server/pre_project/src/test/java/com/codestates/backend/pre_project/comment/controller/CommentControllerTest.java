@@ -79,7 +79,7 @@ public class CommentControllerTest implements CommentControllerTestHelper {
         actions
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.commentBody").value(answerPost.getCommentBody()))
-                .andDo(document("post-answer",
+                .andDo(document("post-AnswerComment",
                         getRequestPreProcessor(),
                         getResponsePreProcessor(),
                         pathParameters(
@@ -121,7 +121,7 @@ public class CommentControllerTest implements CommentControllerTestHelper {
         actions
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.commentBody").value(questionPost.getCommentBody()))
-                .andDo(document("post-question",
+                .andDo(document("post-questionComment",
                                 getRequestPreProcessor(),
                                 getResponsePreProcessor(),
                                 pathParameters(
@@ -164,7 +164,7 @@ public class CommentControllerTest implements CommentControllerTestHelper {
         //then
         actions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.commentBody").value(patch.getCommentBody()))
-                .andDo(document("patch-answer",
+                .andDo(document("patch-answerComment",
                         getRequestPreProcessor(),
                         getResponsePreProcessor(),
                         pathParameters(
@@ -202,7 +202,7 @@ public class CommentControllerTest implements CommentControllerTestHelper {
         //then
         actions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.commentBody").value(patch.getCommentBody()))
-                .andDo(document("patch-question",
+                .andDo(document("patch-questionComment",
                         getRequestPreProcessor(),
                         getResponsePreProcessor(),
                         pathParameters(
@@ -235,7 +235,7 @@ public class CommentControllerTest implements CommentControllerTestHelper {
         actions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.commentBody").value(comment.getCommentBody()))
                 .andDo(
-                        document("get-answer",
+                        document("get-Comment",
                                 getRequestPreProcessor(),
                                 getResponsePreProcessor(),
                                 pathParameters(

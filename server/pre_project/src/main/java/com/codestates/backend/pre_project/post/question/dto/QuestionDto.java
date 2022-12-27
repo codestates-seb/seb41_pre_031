@@ -20,7 +20,7 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Post{
 
-            private String qustionTitle;
+            private String questionTitle;
 
             private String questionBody;
 
