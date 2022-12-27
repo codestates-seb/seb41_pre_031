@@ -15,6 +15,8 @@ public enum ExceptionCode {
     QUESTION_NOT_FOUND(404, "Question not found"),
     EDIT_NOT_ALLOWED(400, "No permission");
 
+    QUESTION_NOT_FOUND(404, "Qustion not found");
+
     @Getter
     private int status;
 

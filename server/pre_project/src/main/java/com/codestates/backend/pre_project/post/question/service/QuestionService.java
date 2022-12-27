@@ -7,6 +7,7 @@ import com.codestates.backend.pre_project.member.service.MemberService;
 import com.codestates.backend.pre_project.post.question.Question;
 import com.codestates.backend.pre_project.post.question.repository.QuestionRepository;
 import com.codestates.backend.pre_project.utils.CustomBeanUtils;
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -58,4 +59,6 @@ public class QuestionService {
         questionRepository.delete(findQuestion);
     }
 
+    //TODO
+    //조회수
 }
