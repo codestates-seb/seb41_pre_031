@@ -1,7 +1,7 @@
 package com.codestates.backend.pre_project.helper;
 
 import com.codestates.backend.pre_project.member.entity.Member;
-import com.codestates.backend.pre_project.post.answer.Answer;
+import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.comment.dto.CommentDto;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.question.Question;

@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @RestController
-@RequestMapping
+@RequestMapping("/posts")
 public class AnswerController {
     private final AnswerService answerService;
     private final AnswerMapper mapper;
@@ -38,7 +38,7 @@ public class AnswerController {
                 HttpStatus.CREATED);
     }
 
-    @PatchMapping("/answers/{answer-id}/edit")
+    @PatchMapping("/answers/{answer-id}")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") long answerId,
                                       @Valid @RequestBody AnswerDto.Patch requestBody) {
         requestBody.setAnswerId(answerId);
@@ -70,7 +70,7 @@ public class AnswerController {
 //                HttpStatus.OK);
 //    }
 
-    @DeleteMapping("/{answer-id}")
+    @DeleteMapping("/answers/{answer-id}")
     public ResponseEntity deleteAnswer(
             @PathVariable("answer-id") @Positive long answerId) {
         answerService.deleteAnswer(answerId);
