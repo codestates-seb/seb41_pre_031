@@ -9,7 +9,6 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding: 0 1.6rem 2.4rem 1.6rem;
-    /* background: hsl(210,8%,97.5%); */
     background: #f8f9f9;
     width: 100%;
     align-items: center;
@@ -32,13 +31,7 @@ const Head = styled.div`
     background-position: right;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
 
-    /* padding-left: 190px;
-
-    @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
-        padding-left: 0;
-    } */
     .headTitle{
         width: 851.2px;
         margin: 2.9rem 0 3.4rem 0;
@@ -68,12 +61,11 @@ const TipContainer = styled.div`
 
 const QuestionTip = styled.div`
     border: 1px solid var(--darkskyblue);
-    /* border: 1px solid #aeceea; */
     
     padding: 24px;
     margin: 1.2rem 0 1rem 0;
     background: #EBF4FB;
-    /* background: #edf4fa; */
+
     border-radius: 3px;
     color: #3B4045;
     width: 851.2px;
@@ -127,9 +119,7 @@ const TitleContainer = styled.div`
     .titleSideBlank{
         width: 348.81px;
         margin-left: 1.2rem;
-        /* @media screen and (max-width:) {
-            
-        } */
+
         @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
             display: none;
         }
@@ -155,7 +145,6 @@ const Title = styled.div`
 
     .description{
         font-size: var(--font-caption-size);
-        /* margin: 0.2rem 0; */
         margin: 0.5rem 0
     }
 
@@ -188,7 +177,6 @@ const SideBox = styled.div`
     border-radius: 3px;
     margin-left: 1.2rem;
     width: 348.81px;
-    /* height: 169.05px; */
     height: 153.36px;
     background: var(--white);
     box-shadow: 0 1px 2px hsla(0,0%,0%,0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05), 0 2px 8px hsla(0, 0%, 0%, 0.05);
@@ -202,9 +190,6 @@ const SideBox = styled.div`
         width: 100%;
         height: 134.758px;
 
-        /* .description{
-            padding-top: 2px;
-        } */
     }
 
     .title{
@@ -274,7 +259,6 @@ const Body = styled.div`
 
     .description{
         font-size: var(--font-caption-size);
-        /* margin: 0.2rem 0; */
         margin: 0.5rem 0;        
     }
 
@@ -326,7 +310,6 @@ const Tags = styled.div`
 
     .description{
         font-size: var(--font-caption-size);
-        /* margin: 0.2rem 0; */
         margin: 0.5rem 0
     }
 
@@ -393,9 +376,6 @@ const TagsInput = styled.div`
         ::placeholder{
             color: var(--lightgray);
         }
-        :focus{
-            /* border: ; */
-        }
     }
 `
 
@@ -404,13 +384,11 @@ const TagSideBox = styled.div`
     border-radius: 3px;
     margin-left: 1.2rem;
     width: 348.81px;
-    /* height: 169.05px; */
     height: 220px;
     background: var(--white);
     box-shadow: 0 1px 2px hsla(0,0%,0%,0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05), 0 2px 8px hsla(0, 0%, 0%, 0.05);
 
     @media screen and (max-width: 1229px) {
-        /* height: 220.36px; */
         height: 270px;
     }
 
@@ -418,10 +396,6 @@ const TagSideBox = styled.div`
         margin: 0 0 1rem 0;
         width: 100%;
         height: 160px;
-
-        /* .description{
-            padding-top: 2px;
-        } */
     }
 
     .title{
@@ -457,6 +431,11 @@ const TagSideBox = styled.div`
 `
 
 const BottomButton = styled.div`
+
+    button{
+        cursor: pointer;
+    }
+
     .btnPrimary{
         margin-right: 0.8rem;
     }
@@ -472,7 +451,7 @@ const AskQuestion = ({setFlag}) => {
     useEffect(() => {
         setFlag(false);
     }, [])
-    const [tags, setTags] = useState(["test"]);
+    const [tags, setTags] = useState([]);
     const [text, setText] = useState("");
     const [nextStepFirst, setNextStepFirst] = useState(false);
     const [nextStepSecond, setNextStepSecond] = useState(false);
@@ -580,7 +559,6 @@ const AskQuestion = ({setFlag}) => {
                                 <PencilIconSearch />
                             </div>
                                 <div className="description">
-                                    {/* <p className="line1">Your title should summarize the problem.</p> */}
                                     <p className="line2">Explain how you encountered the problem you’re trying to solve, and any difficulties that have prevented you from solving it yourself.</p>
                                 </div>
                         </div>
@@ -593,7 +571,6 @@ const AskQuestion = ({setFlag}) => {
                         <Body>
                     <div className="title">What are the details of your problem?</div>
                     <div className="description">Introduce the problem and expand on what you put in the title. Minimum 20 characters.</div>
-                    {/* editor toast ui  */}
                     <div className="editor"><TextEdit setContent={setContent}/></div>                   
                 </Body>
                     </Opacity>
