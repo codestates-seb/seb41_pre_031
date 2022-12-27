@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class QuestionStubData {
-    static Member member = StubData.MockMember.getSingleResultMember(1L);
+    static Member member = MemberStubData.MockMember.getSingleResultMember(1L);
 
     private static Map<HttpMethod, Object> stubRequestBody;
 
@@ -31,7 +31,7 @@ public class QuestionStubData {
         questionTagDtos.add(new QuestionTagDto(1L, 1L, "JAVA"));
         stubRequestBody = new HashMap<>();
         stubRequestBody.put(HttpMethod.POST, new QuestionDto.Post(
-                "버스 안에서", "열심히 하는 중", StubData.MockMember.getSingleResponseBody().getMemberId(), questionTagDtos
+                "버스 안에서", "열심히 하는 중", MemberStubData.MockMember.getSingleResponseBody().getMemberId(), questionTagDtos
         ));
         stubRequestBody.put(HttpMethod.PATCH,
                 new QuestionDto.Patch(1, 1, "버스 안에서", "조는 중", new LinkedList<QuestionTagDto>()));

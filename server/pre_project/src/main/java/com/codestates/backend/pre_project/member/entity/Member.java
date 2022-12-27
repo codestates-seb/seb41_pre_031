@@ -80,4 +80,7 @@ public class Member {
         this.password = password;
         this.memberName = memberName;
     }
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 }

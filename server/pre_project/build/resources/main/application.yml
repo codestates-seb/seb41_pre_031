@@ -11,3 +11,14 @@ spring:
         url: jdbc:mysql://localhost:3306/stackOfFlow?serverTimezone=Asia/Seoul # 포트넘버, 스키마이름
         username: ${MYSQL_NAME} # 환경변수로 넣었습니다.
         password: ${MYSQL_SECRET}
+server:
+    servlet:
+        encoding:
+            force-response: true
+mail:
+    address:
+        admin: admin@gmail.com
+jwt:
+    secret-key: ${JWT_SECRET_KEY} #환경변수 설정
+    access-token-expiration-minutes: 40
+    refresh-token-expiration-minutes: 420
