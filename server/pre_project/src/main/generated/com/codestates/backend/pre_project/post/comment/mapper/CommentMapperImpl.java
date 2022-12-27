@@ -1,7 +1,5 @@
 package com.codestates.backend.pre_project.post.comment.mapper;
 
-import com.codestates.backend.pre_project.likes.entity.Likes;
-import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.comment.dto.CommentDto;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import java.util.ArrayList;
@@ -11,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-12-27T13:25:47+0900",
+    date = "2022-12-26T21:44:41+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.15 (Oracle Corporation)"
 )
 @Component
@@ -42,7 +40,7 @@ public class CommentMapperImpl implements CommentMapper {
 
         comment.commentBody( answerPost.getCommentBody() );
         comment.member( answerPost.getMember() );
-        comment.answer( answerToAnswer( answerPost.getAnswer() ) );
+        comment.answer( answerPost.getAnswer() );
 
         return comment.build();
     }
@@ -106,31 +104,5 @@ public class CommentMapperImpl implements CommentMapper {
         }
 
         return list;
-    }
-
-    protected Answer answerToAnswer(com.codestates.backend.pre_project.post.answer.Answer answer) {
-        if ( answer == null ) {
-            return null;
-        }
-
-        Answer answer1 = new Answer();
-
-        answer1.setAnswerId( answer.getAnswerId() );
-        answer1.setAnswerBody( answer.getAnswerBody() );
-        answer1.setAnswerLikes( (int) answer.getAnswerLikes() );
-        answer1.setAnswerRegDate( answer.getAnswerRegDate() );
-        answer1.setAnswerLastDate( answer.getAnswerLastDate() );
-        answer1.setMember( answer.getMember() );
-        answer1.setQuestion( answer.getQuestion() );
-        List<Likes> list = answer.getLikes();
-        if ( list != null ) {
-            answer1.setLikes( new ArrayList<Likes>( list ) );
-        }
-        List<Comment> list1 = answer.getComments();
-        if ( list1 != null ) {
-            answer1.setComments( new ArrayList<Comment>( list1 ) );
-        }
-
-        return answer1;
     }
 }

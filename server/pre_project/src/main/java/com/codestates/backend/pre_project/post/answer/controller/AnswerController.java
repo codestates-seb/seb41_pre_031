@@ -6,7 +6,9 @@ import com.codestates.backend.pre_project.post.answer.dto.AnswerDto;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.answer.mapper.AnswerMapper;
 import com.codestates.backend.pre_project.post.answer.service.AnswerService;
+import com.codestates.backend.pre_project.response.MultiResponseDto;
 import com.codestates.backend.pre_project.response.SingleResponseDto;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @RestController
 @RequestMapping
@@ -50,7 +53,7 @@ public class AnswerController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/questions/{question-id}/answers")
+    @GetMapping("/questions/{answer-id}/answers")
     public ResponseEntity getAnswers(
             @PathVariable("answer-id") @Positive long answerId) {
         Answer answer = answerService.findAnswer(answerId);
@@ -59,18 +62,18 @@ public class AnswerController {
                 , HttpStatus.OK);
     }
 
-//    @GetMapping("/answers")
-//    public ResponseEntity getAnswers(@Positive @RequestParam int page,
-//                                     @Positive @RequestParam int size) {
-//        Page<Answer> pageAnswers = answerService.findAnswers(page - 1, size);
-//        List<Answer> answers = pageAnswers.getContent();
-//        return new ResponseEntity<>(
-//                new MultiResponseDto<>(mapper.answersToAnswerResponses(answers),
-//                        pageAnswers),
-//                HttpStatus.OK);
-//    }
+    @GetMapping("/answers")
+    public ResponseEntity getAnswers(@Positive @RequestParam int page,
+                                     @Positive @RequestParam int size) {
+        Page<Answer> pageAnswers = answerService.findAnswers(page - 1, size);
+        List<Answer> answers = pageAnswers.getContent();
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(mapper.answersToAnswersResponsesDtos(answers),
+                        pageAnswers),
+                HttpStatus.OK);
+    }
 
-    @DeleteMapping("/{answer-id}")
+    @DeleteMapping("/answers/{answer-id}")
     public ResponseEntity deleteAnswer(
             @PathVariable("answer-id") @Positive long answerId) {
         answerService.deleteAnswer(answerId);

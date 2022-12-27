@@ -7,6 +7,7 @@ import com.codestates.backend.pre_project.post.question.Tag;
 import com.codestates.backend.pre_project.post.question.dto.QuestionDto;
 import com.codestates.backend.pre_project.post.question.dto.QuestionTagDto;
 import com.codestates.backend.pre_project.post.question.dto.QuestionTagResponseDto;
+import com.codestates.backend.pre_project.post.question.mapper.QuestionMapper;
 import net.bytebuddy.asm.Advice;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -34,7 +35,7 @@ public class QuestionStubData {
                 "버스 안에서", "열심히 하는 중", MemberStubData.MockMember.getSingleResponseBody().getMemberId(), questionTagDtos
         ));
         stubRequestBody.put(HttpMethod.PATCH,
-                new QuestionDto.Patch(1, 1, "버스 안에서", "조는 중", new LinkedList<QuestionTagDto>()));
+                new QuestionDto.Patch(1L, 1L, "버스 안에서", "열심히 하는 중", new LinkedList<QuestionTagDto>()));
     }
 
     public static class MockQuestion {
@@ -42,16 +43,21 @@ public class QuestionStubData {
         public static Object getRequestBody(HttpMethod method){
             return stubRequestBody.get(method);
         }
-        public static QuestionDto.Response getSingleRequestBody(long questionId, long memberId, String questionTitle, String questionBody, List<QuestionTagResponseDto> questionTags, LocalDateTime questionRegDate, LocalDateTime questionLastDate, long questionLikes) {
+
+        public static QuestionDto.Response getSingleResponseBody(){
+            return new QuestionDto.Response(1L, 1L, "버스 안에서", "열심히 하는 중", new ArrayList<>(), LocalDateTime.of(2022, 12, 27, 2, 54), LocalDateTime.of(2022, 12, 27, 2, 54), 0L
+            );
+        }
+        public static QuestionDto.Response getSingleRequestBody(Long questionId, Long memberId, String questionTitle, String questionBody, List<QuestionTagResponseDto> questionTags, LocalDateTime questionRegDate, LocalDateTime questionLastDate, long questionLikes) {
             List<QuestionTagResponseDto> questionTagResponseDtos = new LinkedList<>();
             questionTagResponseDtos.add(new QuestionTagResponseDto(1L, 1L, "JAVA"));
-            long optionalQuestionId = Optional.ofNullable(questionId).orElse(1L);
-            long optionalMemberId = Optional.ofNullable(memberId).orElse(1L);
+            Long optionalQuestionId = Optional.ofNullable(questionId).orElse(1L);
+            Long optionalMemberId = Optional.ofNullable(memberId).orElse(1L);
             String optionalQuestiontitle = Optional.ofNullable(questionTitle).orElse("버스 안에서");
             String optionalQuestionBody = Optional.ofNullable(questionBody).orElse("열심히 하는 중");
             LocalDateTime optionalRegDate = Optional.ofNullable(questionRegDate).orElse(LocalDateTime.of(2022, 12, 27, 2, 54));
             LocalDateTime optionalLastDate = Optional.ofNullable(questionLastDate).orElse(LocalDateTime.of(2022, 12, 27, 2, 54));
-            long optionalQuestionLikes = Optional.ofNullable(questionLikes).orElse(0L);
+            Long optionalQuestionLikes = Optional.ofNullable(questionLikes).orElse(0L);
             List<QuestionTagResponseDto> optionalQuestionTagDto = Optional.ofNullable(questionTags).orElse(questionTagResponseDtos);
 
             return new QuestionDto.Response(optionalQuestionId, optionalMemberId, optionalQuestiontitle, optionalQuestionBody, optionalQuestionTagDto, optionalRegDate, optionalLastDate, optionalQuestionLikes);
@@ -68,7 +74,7 @@ public class QuestionStubData {
 
         public static Question getSingleResultQuestion(long questionId, Map<String, String> updatedInfo) {
             List<QuestionTag> questionTags = new LinkedList<>();
-            questionTags.add(new QuestionTag(1L, null, new Tag(1L, "JAVA", null)));
+            questionTags.add(new QuestionTag(1L, new Question(), new Tag(1L, "JAVA", new ArrayList<>())));
 
 
             String questionTitle = Optional.ofNullable(updatedInfo.get("questionName")).orElse("버스 안에서");
@@ -79,8 +85,10 @@ public class QuestionStubData {
         }
 
         public static Page<Question> getMultiResultQuestion() {
-            Question q1 = new Question(1L, "버스 안에서", "열심히 하는 중", 0L, 0L, 0L, LocalDateTime.of(2022, 12, 27, 2, 54), LocalDateTime.of(2022, 12, 27, 2, 54), member, null, null, null, null);
-            Question q2 = new Question(2L, "졸린데", "졸린데 자면 안될까요", 0L, 0L, 0L, LocalDateTime.of(2022, 12, 27, 3, 57), LocalDateTime.of(2022, 12, 27, 3, 57), member, null, null, null, null);
+            List<QuestionTag> questionTags = new LinkedList<>();
+            questionTags.add(new QuestionTag(1L, new Question(), new Tag(1L, "JAVA", new ArrayList<>())));
+            Question q1 = new Question(1L, "버스 안에서", "열심히 하는 중", 0L, 0L, 0L, LocalDateTime.of(2022, 12, 27, 2, 54), LocalDateTime.of(2022, 12, 27, 2, 54), member, null, null, questionTags, null);
+            Question q2 = new Question(2L, "졸린데", "졸린데 자면 안될까요", 0L, 0L, 0L, LocalDateTime.of(2022, 12, 27, 3, 57), LocalDateTime.of(2022, 12, 27, 3, 57), member, null, null, questionTags, null);
 
             return new PageImpl<>(List.of(q1, q2),
                     PageRequest.of(0, 10, Sort.by("questionRegDate")), 2);
