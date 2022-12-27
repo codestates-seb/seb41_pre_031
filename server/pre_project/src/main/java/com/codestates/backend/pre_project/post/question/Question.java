@@ -52,16 +52,21 @@ public class Question {
     private Member member;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<Comment> comments = new ArrayList<>();
+    private List<Comment> comments;
+            //= new ArrayList<>();
+    //TODO
 
     @OneToMany(mappedBy = "question")
-    private List<Likes> likes = new ArrayList<>();
+    private List<Likes> likes;
+            //= new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<QuestionTag> questionTags = new LinkedList<>();
+    private List<QuestionTag> questionTags;
+            //= new LinkedList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<Answer> answers = new ArrayList<>();
+    private List<Answer> answers;
+    //= new ArrayList<>();
 //    @Column(nullable = false)
 //    private long memberId;
 
@@ -69,6 +74,12 @@ public class Question {
     public void prePersist() {
         this.questionLikes = (this.questionLikes == null ? 0 : this.questionLikes);
         this.answerNum = (this.answerNum == null ? 0 : this.answerNum);
+
+        for(int i=0; i< this.questionTags.size(); i++){
+            if(this.questionTags.get(i).getQuestion()==null){
+                this.questionTags.get(i).setQuestion(this);
+            }
+        }
     }
 
     public void setMember(Member member) {
@@ -77,4 +88,5 @@ public class Question {
             this.member.getQuestions().add(this);
         }
     }
+
 }

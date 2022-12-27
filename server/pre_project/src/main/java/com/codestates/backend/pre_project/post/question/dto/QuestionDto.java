@@ -9,14 +9,16 @@ import lombok.Setter;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 public class QuestionDto {
 
     @Getter
+    @Setter
+    @AllArgsConstructor
     public static class Post{
-            private long questionId;
 
             private String qustionTitle;
 
@@ -26,10 +28,12 @@ public class QuestionDto {
 
             @Valid
             private List<QuestionTagDto> questionTags;
+
     }
 
     @Getter
     @Setter
+    @AllArgsConstructor
     public static class Patch{
         private long questionId;
 
@@ -45,6 +49,7 @@ public class QuestionDto {
     }
 
     @Getter
+    @AllArgsConstructor
     @Setter
     public static class Response{
         private long questionId;

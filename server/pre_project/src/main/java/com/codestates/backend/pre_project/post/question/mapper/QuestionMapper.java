@@ -10,12 +10,14 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 @Mapper(componentModel = "spring" , unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface QuestionMapper {
+
 
     default Question questionPostDtoToQuestion(QuestionDto.Post requestBody){
         Question question = new Question();
@@ -44,7 +46,14 @@ public interface QuestionMapper {
 
     default QuestionDto.Response questionToQuestionResponseDto(Question question){
             List<QuestionTag> questionTags = question.getQuestionTags();
-            QuestionDto.Response questionResponseDto = new QuestionDto.Response();
+            List<QuestionTagResponseDto> questionTagResponseDtos = new LinkedList<>();
+            for(int i=0; i<questionTags.size(); i++){
+                QuestionTag qt = questionTags.get(i);
+                questionTagResponseDtos.add(
+                        new QuestionTagResponseDto(qt.getTag().getTagId(), qt.getQuestion().getQuestionId(), qt.getTag().getTagName()
+                        ));
+            }
+            QuestionDto.Response questionResponseDto = new QuestionDto.Response(question.getQuestionId(),question.getMember().getMemberId(),question.getQuestionTitle(),question.getQuestionBody(),questionTagResponseDtos,question.getQuestionRegDate(),question.getQuestionLastDate(),question.getQuestionLikes());
             questionResponseDto.setQuestionId(question.getQuestionId());
             questionResponseDto.setQuestionBody(question.getQuestionBody());
             questionResponseDto.setQuestionLikes(question.getQuestionLikes());
