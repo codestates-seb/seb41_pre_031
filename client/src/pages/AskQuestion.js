@@ -52,7 +52,7 @@ const TipContainer = styled.div`
 
     .tipSideBox{
         width: 348.81px;
-        margin-left: 0.8rem;
+        margin-left: 1.2rem;
 
         @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
             display: none;
@@ -117,6 +117,16 @@ const TitleContainer = styled.div`
     display: flex;
     @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
         flex-direction: column;
+    }
+    .titleSideBlank{
+        width: 348.81px;
+        margin-left: 1.2rem;
+        /* @media screen and (max-width:) {
+            
+        } */
+        @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+            display: none;
+        }
     }
 `
 
@@ -223,6 +233,14 @@ const BodyContainer = styled.div`
     @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
         flex-direction: column;
     }
+
+    .bodySideBlank{
+        width: 348.81px;
+        margin-left: 1.2rem;
+        @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+            display: none;
+        }
+    }
 `
 
 const Opacity = styled.div`
@@ -271,6 +289,14 @@ const TagContainer = styled.div`
     display: flex;
     @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
         flex-direction: column;
+    }
+
+    .tagSideBlank{
+        width: 348.81px;
+        margin-left: 1.2rem;
+        @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+            display: none;
+        }
     }
 `
 
@@ -339,13 +365,12 @@ const TagsInput = styled.div`
             }
             .tagContent{
                 padding: 0 4px;
-                padding-top: 2px;
             }
             .tagRemove{
                 margin-left: 4px;
                 font-size: 18px;
-                font-weight: 700;
-                padding-top: 2px;
+                font-weight: 500;
+                padding-bottom: 2px;
                 :hover{
                     cursor: pointer;
                 }
@@ -508,6 +533,7 @@ const AskQuestion = ({setFlag}) => {
                         <div className="button"><button className="buttonLink btnPrimary" onClick={() => {setNextStepFirst(true); setTitleSidebox(false); setBodySidebox(true)}}>Next</button></div>
                     )}
                 </Title>
+                    {titleSidebox === true ? null : (<div className="titleSideBlank"></div>)}
 
                 {titleSidebox === true ? (
                     <SideBox>               
@@ -539,7 +565,7 @@ const AskQuestion = ({setFlag}) => {
                             <div className="button"><button className="buttonLink btnPrimary" onClick={() => {setNextStepSecond(true); setBodySidebox(false)}}>Next</button></div>
                         )}
                     </Body>
-
+                    {bodySidebox === true ? null : (<div className="bodySideBlank"></div>)}
                     {bodySidebox === true ? (
                         <SideBox>               
                         <div className="title">Introduce the problem</div>
@@ -622,6 +648,7 @@ const AskQuestion = ({setFlag}) => {
                 </Tags>
                     </Opacity>
                 )}
+                {tagSidebox === true ? null : (<div className="tagSideBlank"></div>)}
                 </TagContainer>
 
                 {nextStepThird === true ? (
