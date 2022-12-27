@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainBeforeLogin from "./pages/MainBeforeLogin";
 import AllQuestions from "./pages/AllQuestions";
 import TopQuestions from "./pages/TopQuestions";
+import Login from "./pages/Login";
 
 const Wrap = styled.div`
 	display: flex;
@@ -54,6 +55,7 @@ const Section = styled.div`
 function App() {
 	const [flag, setFlag] = useState(true); //왼쪽 side nav 유무 조작: 각 page 컴포넌트에서 useEffect 사용하세용
 	const [isLogin, setIsLogin] = useState(false); //임시 로그인 여부 판별
+	const [isFooter, setIsFooter] = useState(true); //footer 유무 조작
 
 	return (
 		<Wrap>
@@ -66,14 +68,15 @@ function App() {
 				) : null}
 				<Section flag={flag}>
 					<Routes>
-						<Route path="/" element={isLogin ? <TopQuestions /> : <MainBeforeLogin setFlag={setFlag} />}/>
+						<Route path="/" element={isLogin ? <TopQuestions /> : <MainBeforeLogin setFlag={setFlag} />} />
 						<Route path="/users" element={<Users />} />
 						<Route path="/users/profile/:id/*" element={<UserProfile />} />
 						<Route path="/questions" element={<AllQuestions setFlag={setFlag} />} />
+						<Route path="/login" element={<Login setFlag={setFlag} setIsFooter={setIsFooter} />} />
 					</Routes>
 				</Section>
 			</Main>
-			<Footer />
+			{isFooter ? <Footer /> : null}
 		</Wrap>
 	);
 }
