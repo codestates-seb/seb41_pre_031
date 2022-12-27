@@ -1,6 +1,7 @@
 package com.codestates.backend.pre_project.answer;
 
 import com.codestates.backend.pre_project.helper.AnswerControllerTestHelper;
+import com.codestates.backend.pre_project.helper.AnswerStubData;
 import com.codestates.backend.pre_project.helper.StubData;
 import com.codestates.backend.pre_project.post.answer.dto.AnswerDto;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
@@ -55,8 +56,8 @@ public class AnswerControllerTest implements AnswerControllerTestHelper {
     @Test
     void postAnswerTest() throws Exception {
         //given
-        AnswerDto.Post post = (AnswerDto.Post) StubData.MockAnswer.getRequestBody(HttpMethod.POST);
-        AnswerDto.Response responseBody = StubData.MockAnswer.getSingleResponseBody();
+        AnswerDto.Post post = (AnswerDto.Post) AnswerStubData.MockAnswer.getRequestBody(HttpMethod.POST);
+        AnswerDto.Response responseBody = AnswerStubData.MockAnswer.getSingleResponseBody();
 
         given(mapper.answerPostDtoToAnswer(1L, Mockito.any(AnswerDto.Post.class))).willReturn(new Answer());
 

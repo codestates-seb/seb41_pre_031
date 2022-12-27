@@ -3,8 +3,6 @@ package com.codestates.backend.pre_project.helper;
 import com.codestates.backend.pre_project.member.dto.MemberDto;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.point.entity.Point;
-import com.codestates.backend.pre_project.post.answer.dto.AnswerDto;
-import com.codestates.backend.pre_project.post.question.dto.QuestionDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -24,11 +22,6 @@ public class StubData {
                 "asdf123","강신찬"));
         stubRequestBody.put(HttpMethod.PATCH,
                 new MemberDto.Patch(1, "asdf123", "김현성"));
-    }
-
-    private static Map<HttpMethod, Object> stubAnswerDto;
-    static {
-        stubRequestBody.put(HttpMethod.POST, new AnswerDto.Post(1, 1,"답변입니다"));
     }
 
     public static class MockMember {
@@ -101,23 +94,6 @@ public class StubData {
                             "asdf123"));
         }
     }
-
-    public static class MockAnswer {
-        public static Object getRequestBody(HttpMethod method) {
-            return stubAnswerDto.get(method);
-        }
-
-        public static AnswerDto.Response getSingleResponseBody() {
-            return new AnswerDto.Response(1, "답변입니다", "답변자 이름", "댓글 내용");
-        }
-    }
-
-//        public static AnswerDto.Response getSingleResponseBody(long answerId, String answerBody) {
-//            long optionalAnswerId = Optional.ofNullable(answerId).orElse(1L);
-//            String optionalAnswerBody = Optional.ofNullable(answerBody).orElse("답변입니다");
-//            return new MemberDto.Response(optionalAnswerId,
-//                    optionalAnswerBody);
-//        }
 
 //    public static class MockOrder {
 //        public static Order getSingleResponseBody(long orderId) {
