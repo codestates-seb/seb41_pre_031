@@ -1,5 +1,12 @@
 package com.codestates.backend.pre_project.post.answer.dto;
 
+import com.codestates.backend.pre_project.post.comment.entity.Comment;
+import lombok.*;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
+
+import javax.validation.constraints.NotBlank;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +26,7 @@ public class AnswerDto {
         private long memberId;
 
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
-        @Range(max= 500)
+        @Length(max = 500)
         private String answerBody;
     }
 
@@ -37,12 +44,19 @@ public class AnswerDto {
     }
 
     @Getter
+    @Setter
     @AllArgsConstructor
+    @Builder
     public static class Response {
         private long answerId;
+        private long memberId;
         private String answerBody;
-        private String memberName;
-        private String commentBody;
-//        private int answerLikes;
+        private List<Comment> comments;
+        private int answerLikes;
+
+    }
+
+    public void setComments(List<Comment> comments){
+        this.setComments(comments);
     }
 }

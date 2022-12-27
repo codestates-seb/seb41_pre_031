@@ -4,6 +4,8 @@ import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.request.ParameterDescriptor;
 
+
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,14 +24,35 @@ public interface AnswerControllerTestHelper extends ControllerTestHelper {
     }
 
     default List<ParameterDescriptor> getAnswerRequestPathParameterDescriptor() {
-        return Arrays.asList(parameterWithName("answer-id").description("답변 식별"));
+        return Arrays.asList(parameterWithName("answer-id").description("답변 식별자 ID"));
     }
 
-    default List<FieldDescriptor> getDefaultMemberPostRequestDescriptors() {
+    default List<FieldDescriptor> getDefaultAnswerPostRequestDescriptors() {
 
         return List.of(
+                fieldWithPath("questionId").type(JsonFieldType.NUMBER).description("답변의 질문 식별ID"),
+                fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("답변의 작성자 식별ID"),
                 fieldWithPath("answerBody").type(JsonFieldType.STRING).description("답변 본문")
-//                fieldWithPath("memberName").type(JsonFieldType.STRING).description("이름")
+        );
+    }
+
+    default List<FieldDescriptor> getDefaultAnswerPatchRequestDescriptors(){
+        return List.of(
+                fieldWithPath("answerId").type(JsonFieldType.NUMBER).description("답변의 질문 식별ID"),
+                fieldWithPath("answerBody").type(JsonFieldType.STRING).description("답변 본문")
+        );
+    }
+
+    default List<FieldDescriptor> getDefaultAnswerResponseDescriptors(DataResponseType dataResponseType) {
+        String parentPath = getDataParentPath(dataResponseType);
+
+        return List.of(
+                fieldWithPath(parentPath.concat("answerId")).type(JsonFieldType.NUMBER).description("질문 식별 ID"),
+                fieldWithPath(parentPath.concat("memberId")).type(JsonFieldType.NUMBER).description("멤버 식별 ID"),
+                fieldWithPath(parentPath.concat("answerBody")).type(JsonFieldType.STRING).description("질문 식별 ID"),
+                fieldWithPath(parentPath.concat("comments")).type(JsonFieldType.ARRAY).description("답변에 달린 코멘트들"),
+                fieldWithPath(parentPath.concat("answerLikes")).type(JsonFieldType.NUMBER).description("질문 좋아요 수")
+
         );
     }
 }

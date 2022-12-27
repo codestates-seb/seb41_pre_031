@@ -6,9 +6,11 @@ spring:
         properties:
             hibernate:
                 format_sql: true  # SQL pretty print
+        database: mysql   # 추가 해준 부분
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/stackOfFlow?serverTimezone=Asia/Seoul # 포트넘버, 스키마이름
+        url: jdbc:mysql://localhost:3306/test?serverTimezone=Asia/Seoul # 포트넘버, 스키마이름
         username: ${MYSQL_NAME} # 환경변수로 넣었습니다.
         password: ${MYSQL_SECRET}
 server:

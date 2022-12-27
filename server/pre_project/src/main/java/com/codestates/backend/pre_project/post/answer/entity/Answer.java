@@ -20,6 +20,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @EntityListeners(AuditingEntityListener.class)
 public class Answer {
     @Id
@@ -54,4 +55,20 @@ public class Answer {
 
 //  @Column(nullable = false)
 //  private long memberId;
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public void setLikes(List<Likes> likes) {
+        this.likes = likes;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 }
