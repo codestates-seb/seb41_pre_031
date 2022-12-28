@@ -46,9 +46,9 @@ public class AnswerService {
 
     public Answer updateAnswer(Answer answer) {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
-//        Member postMember = memberService.findVerifiedMember(findAnswer.getMember().getMemberId());
-//        if (memberService.getCurrentMember().getMemberId() != postMember.getMemberId())
-//            throw new BusinessLogicException(ExceptionCode.EDIT_NOT_ALLOWED);
+        Member postMember = memberService.findVerifiedMember(findAnswer.getMember().getMemberId());
+        if (memberService.getCurrentMember().getMemberId() != postMember.getMemberId())
+            throw new BusinessLogicException(ExceptionCode.EDIT_NOT_ALLOWED);
 //        작성자에게만 수정 권한을 주는 코드. 멤버서비스에 코드 구현 필요
 
         Answer updateAnswer = beanUtils.copyNonNullProperties(answer, findAnswer);
