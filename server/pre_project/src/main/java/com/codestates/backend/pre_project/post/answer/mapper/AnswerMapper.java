@@ -1,12 +1,16 @@
 package com.codestates.backend.pre_project.post.answer.mapper;
 
+import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.answer.dto.AnswerDto;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
+import com.codestates.backend.pre_project.post.comment.dto.CommentDto;
+import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.question.Question;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AnswerMapper {
@@ -17,6 +21,8 @@ public interface AnswerMapper {
     default Answer answerPostDtoToAnswer(long questionId, AnswerDto.Post answerPostDto) {
         Answer answer = new Answer();
         answer.setAnswerBody(answerPostDto.getAnswerBody());
+        answer.getMember().setMemberId(answerPostDto.getMemberId());
+        answer.getQuestion().setQuestionId(answerPostDto.getQuestionId());
 
         Question question = new Question();
         question.setQuestionId(questionId);
@@ -25,6 +31,21 @@ public interface AnswerMapper {
         return answer;
     }
 
+    default List<AnswerDto.Response> answersToAnswersResponsesDtos(List<Answer> answers) {
+        return answers
+                .stream()
+                .map(answer -> AnswerDto.Response
+                        .builder()
+                        .answerId(answer.getAnswerId())
+                        .memberId(answer.getMember().getMemberId())
+                        .answerBody(answer.getAnswerBody())
+                        .answerLikes(answer.getAnswerLikes())
+                        .comments(answer.getComments())
+                        .build()
+                ).collect(Collectors.toList());
+
+
+    }
 //    default AnswerResponseDto answerToAnswerResponseDto(Answer answer) {
 //        Member member = answer.getMember();
 //        List<Comment> comments = answer.getComments();

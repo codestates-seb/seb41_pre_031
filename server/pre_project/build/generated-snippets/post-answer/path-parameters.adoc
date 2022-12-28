@@ -1,8 +1,0 @@
-.+/answers/comments/{answer-id}+
-|===
-|Parameter|Description
-
-|`+answer-id+`
-|댓글의 answer 식별자 ID
-
-|===

@@ -1,6 +1,6 @@
 package com.codestates.backend.pre_project.member.entity;
 
-import com.codestates.backend.pre_project.likes.entity.Likes;
+import com.codestates.backend.pre_project.likes.answer.AnswerLikes;
 import com.codestates.backend.pre_project.point.entity.Point;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
@@ -13,6 +13,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,12 +31,16 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private long memberId;
 
+    @NotBlank
+    @Email
     @Column(nullable = false, unique = true, length = 50)
     private String email;
 
+    @NotBlank
     @Column(nullable = false, length = 20)
     private String password;
 
+    @NotBlank
     @Column(nullable = false, length = 30)
     private String memberName;
 
@@ -54,8 +60,8 @@ public class Member {
 //        this.profile = profile;
 //    }
 
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-    private Likes likes;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<AnswerLikes> likeMembers;
     //= new Likes(this);
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
@@ -80,4 +86,7 @@ public class Member {
         this.password = password;
         this.memberName = memberName;
     }
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
 }
