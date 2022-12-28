@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const NavItem = styled.li`
 	width: 100%;
@@ -16,13 +17,11 @@ const NavItem = styled.li`
 	a:hover {
 		color: var(--black);
 	}
-	&.selected {
-		a {
-			background: var(--white2);
-			font-weight: var(--font-bold);
-			border-right: 3px solid var(--secondary-color);
-			color: var(--black);
-		}
+	a.selected {
+		background: var(--white2);
+		font-weight: var(--font-bold);
+		border-right: 3px solid var(--secondary-color);
+		color: var(--black);
 	}
 	.public {
 		li {
@@ -33,21 +32,27 @@ const NavItem = styled.li`
 	}
 `;
 
-const Nav = () => {
+const Nav = ({ handleClickMenu }) => {
 	return (
 		<nav>
 			<ul>
 				<NavItem>
-					<a href="none">Home</a>
+					<NavLink to="/" className={({ isActive }) => (isActive ? "selected" : "")}>
+						Home
+					</NavLink>
 				</NavItem>
 				<NavItem>
 					<div className="navSubTitle">PUBLIC</div>
 					<ul className="public">
-						<NavItem className="selected">
-							<a href="none">Questions</a>
+						<NavItem>
+							<NavLink to="/questions" className={({ isActive }) => (isActive ? "selected" : "")}>
+								Questions
+							</NavLink>
 						</NavItem>
 						<NavItem>
-							<a href="none">Users</a>
+							<NavLink to="/Users" className={({ isActive }) => (isActive ? "selected" : "")}>
+								Users
+							</NavLink>
 						</NavItem>
 					</ul>
 				</NavItem>

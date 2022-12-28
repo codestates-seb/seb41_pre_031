@@ -5,18 +5,24 @@
 	--gray: #6a737c;
 	--darkgray: #525960;
 	--darkgray2: #9199a1;
+	--darkgray3: #9fa6ad;
+	--darkblack: #3b4045;
 	--black: #0c0d0e;
 	--dark: #232629;
 	--white: #fff;
 	--white2: #f1f2f3;
+	--white3: #f8f9f9;
 	--blue: #0a95ff;
 	--darkblue: #0074cc;
 	--darkblue2: #39739d;
 	--grayblue: #7aa7c7;
+	--lightblue: #cde9fe;
 	--skyblue: #e1ecf4;
 	--darkskyblue: #b3d3ea;
 	--navy: #2c5877;
 	--orange: #f48225;
+	--orange2: #f2740d;
+	--lightorange: #fee3cd;
 	--red: #d0393e;
 	--green: #5eba7d;
 	/* main colors */
@@ -38,7 +44,7 @@
 	--button-secondary-hover-color: var(--darkskyblue);
 	--button-secondary-hover-on-color: var(--navy);
 	--link-color: var(--darkblue);
-	--link-hover-color: var(--bule);
+	--link-hover-color: var(--blue);
 	--nav-link-color: var(--darkgray);
 	--nav-link-hover-color: var(--lightgray2);
 	--border-color: var(--lightgray);
@@ -48,14 +54,19 @@
 	--footer-bg-on-color: var(--darkgray2);
 	/* box shadow */
 	--button-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4);
+	/* border-radius */
+	--border-radius-sm: 3px;
+	--border-radius-md: 5px;
+	--border-radius-lg: 7px;
 	/* line-height */
 	--lh-initial: 13;
-	--line-height-sm: calc((var(--lh-initial)+2) / var(--lh-initial));
-	--line-height-md: calc((var(--lh-initial)+4) / var(--lh-initial));
-	--line-height-lg: calc((var(--lh-initial)+8) / var(--lh-initial));
+	--line-height-sm: calc((var(--lh-initial) + 2) / var(--lh-initial));
+	--line-height-md: calc((var(--lh-initial) + 4) / var(--lh-initial));
+	--line-height-lg: calc((var(--lh-initial) + 8) / var(--lh-initial));
 	/* font size */
 	--font-head1-size: 27px;
 	--font-head3-size: 17px;
+	--font-title-size: 21px;
 	--font-body1-size: 13px;
 	--font-caption-size: 12px;
 	--font-button-size: 13px;
@@ -68,11 +79,11 @@
 /* layout */
 html {
 	height: 100%;
+	font-size: 13px;
 }
 body {
 	height: 100%;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
-		"Segoe UI", "Liberation Sans", sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif;
 	font-weight: var(--font-normal);
 	font-size: var(--font-body1-size);
 }
