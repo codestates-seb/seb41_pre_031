@@ -13,6 +13,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,12 +31,16 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private long memberId;
 
+    @NotBlank
+    @Email
     @Column(nullable = false, unique = true, length = 50)
     private String email;
 
+    @NotBlank
     @Column(nullable = false, length = 20)
     private String password;
 
+    @NotBlank
     @Column(nullable = false, length = 30)
     private String memberName;
 
