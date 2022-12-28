@@ -69,7 +69,7 @@ function App() {
                     </LeftSide>
                 ) : null}
                 <Section flag={flag}>
-                    {/* <QuestionsDetail/> */}
+                    
                     <Routes>
                         <Route
                             path="/"
@@ -86,6 +86,7 @@ function App() {
                             path="/users/profile/:id/*"
                             element={<UserProfile />}
                         />
+                        <Route path="/detail" element={<QuestionsDetail/>} />
                         <Route
                             path="/questions"
                             element={<AllQuestions setFlag={setFlag} />}

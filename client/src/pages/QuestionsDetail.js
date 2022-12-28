@@ -5,6 +5,7 @@ import QuestionBlock from "../components/QuestionBlock";
 
 const DetailBox = styled.div`
   width: 100%;
+  padding:24px;
 `;
 
 const DetailHeader = styled.div`

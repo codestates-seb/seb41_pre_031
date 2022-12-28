@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import BottomBtn from "../icons/BottomBtn";
 import TopBtn from "../icons/TopBtn";
+import { BREAK_POINT_TABLET } from "./../data/breakpoints";
 
 const QuestionBox = styled.div`
   clear: both;
@@ -120,8 +121,8 @@ const QuestionPost = styled.div`
     color: rgb(106 115 124);
     font-size: 13px;
   }
-  .owner{
-    background-color: #D9EAF7;
+  .owner {
+    background-color: #d9eaf7;
   }
 `;
 const UserProfile = styled.div`
@@ -172,36 +173,90 @@ const QuestionComment = styled.div`
   grid-column: 2;
   width: auto;
   min-width: 0;
-  .commentBox{
+  .commentBox {
     width: 100%;
     padding-bottom: 10px;
+    padding-left: 18px;
     margin-top: 12px;
     border-top: 1px solid rgb(227 230 232);
   }
-  ul li{
+  ul li {
     display: contents;
     padding-left: 18px;
   }
-  .comment{
+  .comment {
     min-width: 0;
     padding: 6px;
     font-size: 13px;
     line-height: 1.4;
     vertical-align: text-top;
   }
-  .commentUser{
+  .commentUser {
     display: inline-flex;
     margin: 0 3px;
     align-items: center;
     color: var(--darkblue);
   }
-  .date{
+  .date {
     color: var(--darkgray2);
   }
+  .writeBox {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+  }
+  textarea{
+    width: 100%;
+    min-height: 80px;
+    resize : vertical;
+  }
+  .commentWrite {
+    margin:20px 0px;
+  }
+  .commentWrite p {
+    cursor: pointer;
+    font-size: 11px;
+    color: #838c95;
+    padding: 0px 3px 2px 3px;
+    opacity: 0.6;
+    margin-bottom: 6px;
+  }
+  .commentWrite p:hover {
+    color:var(--blue);
+  }
+  .btnPrimary{
+    font-size: 13px;
+    background-color: #333333;
+    padding: 2px;
+    width: 120px;
+    height: 28px;
+  }
+
+  @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    .writeBox {
+        flex-direction: column;
+    }
+}
 `;
 
 const QuestionBlock = () => {
-    const 덩어리 = `<pre class="ql-syntax" spellcheck="false"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+  const commentInput = useRef();
+  const [showOption, setShowOption] = useState(false);
+  const handleToggleOption = () => setShowOption((prev) => !prev);
+
+  const handleClickOutSide = (e) => {
+    if (showOption && !commentInput.current.contains(e.target)) {
+      setShowOption(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showOption) document.addEventListener("mousedown", handleClickOutSide);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutSide);
+    };
+  });
+  const 덩어리 = `<pre class="ql-syntax" spellcheck="false"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
     <span class="hljs-keyword">import</span> <span class="hljs-title class_">ReactDOM</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom/client'</span>;
     <span class="hljs-keyword">import</span> <span class="hljs-title class_">App</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'./App'</span>;
     
@@ -211,7 +266,7 @@ const QuestionBlock = () => {
     &nbsp; &nbsp; <span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span>
     &nbsp; <span class="hljs-tag">&lt;/<span class="hljs-name">React.StrictMode</span>&gt;</span>
     );
-    </pre><p>ㅎㅇ</p><p><strong>ㅂ2ㅂ2</strong></p>`
+    </pre><p>ㅎㅇ</p><p><strong>ㅂ2ㅂ2</strong></p>`;
   return (
     <QuestionBox>
       <div className="layout">
@@ -227,7 +282,10 @@ const QuestionBlock = () => {
           </div>
         </QuestionVote>
         <QuestionPost>
-          <div className="domTree" dangerouslySetInnerHTML={{ __html: 덩어리 }}></div>
+          <div
+            className="domTree"
+            dangerouslySetInnerHTML={{ __html: 덩어리 }}
+          ></div>
           <div className="tagBox">
             <div className="tagOutBox">
               <div className="tagInBox">
@@ -270,24 +328,41 @@ const QuestionBlock = () => {
           </div>
         </QuestionPost>
         <QuestionComment>
-            <div className="commentBox">
-                <ul>
-                    <li>
-                        <div className="comment">
-                            <span>Are you sure you want to reset cnt to zero every time you click the button…?</span>
-                            <div className="commentUser">-deceze</div>
-                            <span className="date">1 hour ago</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div className="comment">
-                            <span>Are you sure you want to reset cnt to zero every time you click the button…?</span>
-                            <div className="commentUser">-deceze</div>
-                            <span className="date">1 hour ago</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+          <div className="commentBox">
+            <ul>
+              <li>
+                <div className="comment">
+                  <span>
+                    Are you sure you want to reset cnt to zero every time you
+                    click the button…?
+                  </span>
+                  <div className="commentUser">-deceze</div>
+                  <span className="date">1 hour ago</span>
+                </div>
+              </li>
+              <li>
+                <div className="comment">
+                  <span>
+                    Are you sure you want to reset cnt to zero every time you
+                    click the button…?
+                  </span>
+                  <div className="commentUser">-deceze</div>
+                  <span className="date">1 hour ago</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div className="commentWrite" ref={commentInput}>
+            <p onClick={handleToggleOption}>Add a comment</p>
+            {showOption ? (
+              <div className="writeBox">
+                <textarea></textarea>
+                <button className="btnPrimary">Add Comment</button>
+              </div>
+            ) : (
+              null
+            )}
+          </div>
         </QuestionComment>
       </div>
     </QuestionBox>
