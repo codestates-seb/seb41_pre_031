@@ -25,5 +25,15 @@ public class QuestionTag {
     @JoinColumn(name = "TAG_ID")
     private Tag tag;
 
+    public void setTag(Tag tag) {
+        this.tag = tag;
+        if(!this.tag.getQuestionsTags().contains(this))
+            this.tag.getQuestionsTags().add(this);
+    }
 
+    public void setQuestion(Question question) {
+        this.question = question;
+        if(!this.question.getQuestionTags().contains(this))
+            this.question.getQuestionTags().add(this);
+    }
 }

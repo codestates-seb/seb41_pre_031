@@ -5,6 +5,7 @@ import com.codestates.backend.pre_project.exception.BusinessLogicException;
 import com.codestates.backend.pre_project.exception.ExceptionCode;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.member.repository.MemberRepository;
+import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.utils.CustomBeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,6 +52,9 @@ public class MemberService {
 
     public Member updateMember(Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
+        if (getCurrentMember().getMemberId() != findMember.getMemberId())
+            throw new BusinessLogicException(ExceptionCode.EDIT_NOT_ALLOWED);
+//        작성자에게만 수정 권한을 주는 코드. 멤버서비스에 코드 구현 필요
 
         Member updateMember = beanUtils.copyNonNullProperties(member, findMember);
 
@@ -68,6 +72,9 @@ public class MemberService {
 
     public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
+        if (getCurrentMember().getMemberId() != findMember.getMemberId())
+            throw new BusinessLogicException(ExceptionCode.DELETE_NOT_ALLOWED);
+//        작성자에게만 수정 권한을 주는 코드. 멤버서비스에 코드 구현 필요
 
         memberRepository.delete(findMember);
     }

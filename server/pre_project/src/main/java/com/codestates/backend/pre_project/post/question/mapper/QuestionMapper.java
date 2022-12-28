@@ -10,6 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +38,10 @@ public interface QuestionMapper {
         question.setQuestionId(question.getQuestionId());
         question.setMember(member);
         question.setQuestionTags(questionTags);
+        question.setQuestionBody(requestBody.getQuestionBody());
+        question.setQuestionTitle(requestBody.getQuestionTitle());
+        question.setQuestionLastDate(LocalDateTime.now());
+        question.setQuestionRegDate(LocalDateTime.now());
 
         return question;
     }

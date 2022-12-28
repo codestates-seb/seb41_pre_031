@@ -84,9 +84,9 @@ public class Question {
 
     public void setMember(Member member) {
         this.member = member;
-        if(!this.member.getQuestions().contains(this)){
-            this.member.getQuestions().add(this);
-        }
+       // if(!this.member.getQuestions().contains(this)){
+         //   this.member.getQuestions().add(this);
+        //}
     }
 
 }
