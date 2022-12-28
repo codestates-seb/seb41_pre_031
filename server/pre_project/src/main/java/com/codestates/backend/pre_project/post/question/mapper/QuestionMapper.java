@@ -57,7 +57,7 @@ public interface QuestionMapper {
         QuestionDto.Response questionResponseDto = new QuestionDto.Response(question.getQuestionId(),question.getMember().getMemberId(),question.getQuestionTitle(),question.getQuestionBody(),questionTagResponseDtos,question.getQuestionRegDate(),question.getQuestionLastDate());
             questionResponseDto.setQuestionId(question.getQuestionId());
             questionResponseDto.setQuestionBody(question.getQuestionBody());
-//            questionResponseDto.setQuestionLikes(question.getQuestionLikes());
+            questionResponseDto.setQuestionLikes(question.getQuestionLikes());
             questionResponseDto.setMemberId(question.getMember().getMemberId());
             questionResponseDto.setQuestionTags(
                     questionTagsToQuestionTagResponseDtos(questionTags)

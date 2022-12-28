@@ -52,7 +52,8 @@ public class Answer {
     private List<AnswerLikes> likes = new ArrayList<>();
 
     @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
-    private List<Comment> comments = new ArrayList<>();
+    private List<Comment> comments;
+    //= new ArrayList<>();
 
 //  @Column(nullable = false)
 //  private long memberId;
