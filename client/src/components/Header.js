@@ -109,12 +109,7 @@ const GnbWrap = styled.div`
 	padding: 24px 0 8px 0;
 	background: var(--bg-color);
 	box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05), 0 2px 8px hsla(0, 0%, 0%, 0.05);
-	@media screen and (max-width: ${BREAK_POINT_TABLET}px) {
-		& {
-			left: 0;
-		}
-	}
-	@media screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+	@media screen and (max-width: 1264px) {
 		& {
 			left: 0;
 		}
@@ -272,9 +267,9 @@ const Header = ({ flag, setFlag }) => {
 					<div className="reputation">1</div>
 				</ProfileWrap>
 				<BtnsWrap>
-					<a href="none" className="buttonLink btnSecondary">
+					<Link to="/login" className="buttonLink btnSecondary">
 						Log in
-					</a>
+					</Link>
 					<a href="none" className="buttonLink btnPrimary">
 						Sign up
 					</a>

@@ -38,8 +38,8 @@ public class Question {
     @Column(nullable = false)
     private Long answerNum; //게시판 답변 수
 
-//    @Column(nullable = false)
-//    private Long questionLikes; //게시판 좋아요 수
+    @Column(nullable = false)
+    private Long questionLikes; //게시판 좋아요 수
 
     @CreatedDate
     private LocalDateTime questionRegDate;

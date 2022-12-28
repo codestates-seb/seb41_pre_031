@@ -53,11 +53,9 @@ public interface QuestionMapper {
                         new QuestionTagResponseDto(qt.getTag().getTagId(), qt.getQuestion().getQuestionId(), qt.getTag().getTagName()
                         ));
             }
-//            QuestionDto.Response questionResponseDto = new QuestionDto.Response(question.getQuestionId(),question.getMember().getMemberId(),question.getQuestionTitle(),question.getQuestionBody(),questionTagResponseDtos,question.getQuestionRegDate(),question.getQuestionLastDate(),question.getQuestionLikes());
-        QuestionDto.Response questionResponseDto = new QuestionDto.Response(question.getQuestionId(),question.getMember().getMemberId(),question.getQuestionTitle(),question.getQuestionBody(),questionTagResponseDtos,question.getQuestionRegDate(),question.getQuestionLastDate());
-            questionResponseDto.setQuestionId(question.getQuestionId());
+            QuestionDto.Response questionResponseDto = new QuestionDto.Response(question.getQuestionId(),question.getMember().getMemberId(),question.getQuestionTitle(),question.getQuestionBody(),questionTagResponseDtos,question.getQuestionRegDate(),question.getQuestionLastDate(),question.getQuestionLikes());
             questionResponseDto.setQuestionBody(question.getQuestionBody());
-//            questionResponseDto.setQuestionLikes(question.getQuestionLikes());
+            questionResponseDto.setQuestionLikes(question.getQuestionLikes());
             questionResponseDto.setMemberId(question.getMember().getMemberId());
             questionResponseDto.setQuestionTags(
                     questionTagsToQuestionTagResponseDtos(questionTags)
