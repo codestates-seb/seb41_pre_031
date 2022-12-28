@@ -58,6 +58,9 @@ public class AnswerService {
 
     public void deleteAnswer(long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
+        Member postMember = memberService.findVerifiedMember(findAnswer.getMember().getMemberId());
+        if (memberService.getCurrentMember().getMemberId() != postMember.getMemberId())
+            throw new BusinessLogicException(ExceptionCode.DELETE_NOT_ALLOWED);
         answerRepository.delete(findAnswer);
 //        답변 작성자만 삭제 가능하도록 구현 필요
     }

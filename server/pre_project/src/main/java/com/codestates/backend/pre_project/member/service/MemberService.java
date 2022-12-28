@@ -62,6 +62,7 @@ public class MemberService {
     }
 
     public Member findMember(long memberId) {
+
         return findVerifiedMember(memberId);
     }
 
