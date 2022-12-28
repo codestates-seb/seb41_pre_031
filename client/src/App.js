@@ -88,6 +88,10 @@ function App() {
                             path="/questions"
                             element={<AllQuestions setFlag={setFlag} />}
                         />
+                        <Route
+                            path="/questions/ask"
+                            element={<AskQuestion setFlag={setFlag} />}
+                        />
                     </Routes>
                 </Section>
             </Main>
