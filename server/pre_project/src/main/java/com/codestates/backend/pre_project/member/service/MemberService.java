@@ -1,5 +1,6 @@
 package com.codestates.backend.pre_project.member.service;
 
+import com.codestates.backend.pre_project.auth.utils.CustomAuthorityUtils;
 import com.codestates.backend.pre_project.exception.BusinessLogicException;
 import com.codestates.backend.pre_project.exception.ExceptionCode;
 import com.codestates.backend.pre_project.member.entity.Member;
@@ -10,10 +11,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Service
 public class MemberService {
 
