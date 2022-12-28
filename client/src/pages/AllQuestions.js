@@ -4,6 +4,7 @@ import styled from "styled-components";
 import dummyQuestions from "../data/dummyQuestions";
 import Question from "../components/Question";
 import Pagination from "../components/Pagination";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
 	.content {
@@ -83,7 +84,7 @@ const AllQuestions = ({ flag, setFlag }) => {
 							<Title title="All Questions" />
 						</span>
 						<span className="askBtn">
-							<button className="btnPrimary">Ask Question</button>
+							<Link to="/questions/ask"><button className="btnPrimary">Ask Question</button></Link>
 						</span>
 					</TopContainer>
 					<QuestionContainer>
