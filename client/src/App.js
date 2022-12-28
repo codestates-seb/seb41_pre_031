@@ -8,6 +8,7 @@ import { BREAK_POINT_MOBILE } from "./data/breakpoints";
 import UserProfile from "./pages/UserProfile";
 import { Routes, Route } from "react-router";
 import AllQuestions from "./pages/AllQuestions";
+import QuestionsDetail from "./pages/QuestionsDetail";
 
 const Wrap = styled.div`
     display: flex;
@@ -63,6 +64,7 @@ function App() {
                     </LeftSide>
                 ) : null}
                 <Section flag={flag}>
+                    <QuestionsDetail/>
                     <Routes>
                         <Route
                             path="/users/profile/:id/*"
