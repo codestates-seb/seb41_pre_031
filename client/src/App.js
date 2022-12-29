@@ -75,8 +75,8 @@ function App() {
 						<Route path="/" element={isLogin ? <TopQuestions /> : <MainBeforeLogin setFlag={setFlag} setIsFooter={setIsFooter}/>} />
 						<Route path="/users" element={<Users setFlag={setFlag} setIsFooter={setIsFooter}/>} />
 						<Route path="/users/profile/:id/*" element={<UserProfile setFlag={setFlag} setIsFooter={setIsFooter}/>} />
-						<Route path="/questions" element={<AllQuestions setFlag={setFlag}/>} />
-						<Route path="/questions/ask" element={<AskQuestion setFlag={setFlag} />} />
+						<Route path="/questions" element={<AllQuestions setFlag={setFlag} setIsFooter={setIsFooter} />} />
+						<Route path="/questions/ask" element={<AskQuestion setFlag={setFlag} setIsFooter={setIsFooter} />} />
 						<Route path="/login" element={<Login setFlag={setFlag} setIsFooter={setIsFooter} />} />
 						<Route path="/signup" element={<SignUp setFlag={setFlag} setIsFooter={setIsFooter} />} />
 					</Routes>

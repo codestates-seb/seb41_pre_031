@@ -542,9 +542,10 @@ const BottomButton = styled.div`
     }
 `;
 
-const AskQuestion = ({ setFlag }) => {
+const AskQuestion = ({ setFlag, setIsFooter }) => {
     useEffect(() => {
         setFlag(false);
+        setIsFooter(true);
     }, []);
     const [tags, setTags] = useState([]);
     const [text, setText] = useState("");

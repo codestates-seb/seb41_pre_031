@@ -70,9 +70,10 @@ const PerpageText = styled.span`
     font-size: var(--font-button-size);
 `;
 
-const AllQuestions = ({ flag, setFlag }) => {
+const AllQuestions = ({ setFlag, setIsFooter }) => {
     useEffect(() => {
         setFlag(true);
+        setIsFooter(true);
     }, []);
     const [data, setData] = useState(dummyQuestions);
     // 현재 페이지
