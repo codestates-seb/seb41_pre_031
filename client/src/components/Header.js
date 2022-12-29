@@ -210,10 +210,14 @@ const ProfileWrap = styled.div`
 const BtnsWrap = styled.div`
 	display: flex;
 	padding-right: 12px;
+	text-align:center;
 	.buttonLink {
 		flex: none;
 		display: block;
 		margin-right: 4px;
+	}
+	a{
+		height: 33px;
 	}
 `;
 
