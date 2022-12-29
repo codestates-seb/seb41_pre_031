@@ -205,13 +205,13 @@ const QuestionComment = styled.div`
     width: 100%;
     gap: 10px;
   }
-  textarea{
+  textarea {
     width: 100%;
     min-height: 80px;
-    resize : vertical;
+    resize: vertical;
   }
   .commentWrite {
-    margin:20px 0px;
+    margin: 20px 0px;
   }
   .commentWrite p {
     cursor: pointer;
@@ -222,9 +222,9 @@ const QuestionComment = styled.div`
     margin-bottom: 6px;
   }
   .commentWrite p:hover {
-    color:var(--blue);
+    color: var(--blue);
   }
-  .btnPrimary{
+  .btnPrimary {
     font-size: 13px;
     background-color: #333333;
     padding: 2px;
@@ -234,9 +234,9 @@ const QuestionComment = styled.div`
 
   @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
     .writeBox {
-        flex-direction: column;
+      flex-direction: column;
     }
-}
+  }
 `;
 
 const QuestionBlock = () => {
@@ -336,7 +336,9 @@ const QuestionBlock = () => {
                     Are you sure you want to reset cnt to zero every time you
                     click the button…?
                   </span>
-                  <div className="commentUser">-deceze</div>
+                  <Link to="/users/profile/12">
+                    <div className="commentUser">-deceze</div>
+                  </Link>
                   <span className="date">1 hour ago</span>
                 </div>
               </li>
@@ -346,7 +348,9 @@ const QuestionBlock = () => {
                     Are you sure you want to reset cnt to zero every time you
                     click the button…?
                   </span>
-                  <div className="commentUser">-deceze</div>
+                  <Link to="/users/profile/12">
+                    <div className="commentUser">-deceze</div>
+                  </Link>
                   <span className="date">1 hour ago</span>
                 </div>
               </li>
@@ -359,9 +363,7 @@ const QuestionBlock = () => {
                 <textarea></textarea>
                 <button className="btnPrimary">Add Comment</button>
               </div>
-            ) : (
-              null
-            )}
+            ) : null}
           </div>
         </QuestionComment>
       </div>
