@@ -252,7 +252,7 @@ const SignUp = ({ setFlag, setIsFooter }) => {
 						</a>
 					</Desc>
 				</LoginSignUpStyle.ContentBox>
-				<LoginSignupDesc desc1={"Already have an account?"} button1name={"Log in"} />
+				<LoginSignupDesc desc1={"Already have an account?"} button1name={"Log in"} linkTo={"/login"} />
 			</div>
 		</Wrap>
 	);

@@ -117,9 +117,9 @@ const MainSection02 = () => {
 						<img src="https://cdn.sstatic.net/Img/home/illo-public.svg?v=14bd5a506009" alt="Illustration of Stack Overflow" />
 						<h2>A public platform building the definitive collection of coding questions &amp; answers</h2>
 						<p>A community-based space to find and contribute answers to technical challenges, and one of the most popular websites in the world.</p>
-						<a href="/users/signup?ssrc=product_home" className="bottomLink">
+						<Link to="/signup" className="bottomLink">
 							Join the community
-						</a>
+						</Link>
 					</div>
 				</ContentBox>
 				<ContentBox theme={"blue"}>

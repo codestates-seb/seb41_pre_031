@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import IconLinkLogin from "../icons/IconLinkLogin";
 import LoginSignUpStyle from "../components/LoginSignUpStyle";
 
-const LoginSignupDesc = ({ desc1, button1name }) => {
+const LoginSignupDesc = ({ desc1, button1name, linkTo }) => {
 	return (
 		<LoginSignUpStyle.LinkWrap>
 			<li>
 				{desc1}
-				<Link to="/signup" className="link">
+				<Link to={linkTo} className="link">
 					{button1name}
 				</Link>
 			</li>
