@@ -66,9 +66,8 @@ public class MemberService {
         return findVerifiedMember(memberId);
     }
 
-    public Page<Member> findMembers(int page, int size) {
-        return memberRepository.findAll(PageRequest.of(page, size,
-                Sort.by("memberId").descending())); //어떻게 정렬할 것인지 논의후 리펙토링
+    public List<Member> findMembers() {
+        return memberRepository.findAll();
     }
 
     public void deleteMember(long memberId) {
