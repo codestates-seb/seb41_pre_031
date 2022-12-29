@@ -155,7 +155,7 @@ public class QuestionControllerTest implements QuestionControllerTestHelper{
         QuestionDto.Response response = QuestionStubData.MockQuestion.getSingleResponseBody();
 
         //given
-        given(questionService.findQuestion(questionId)).willReturn(new Question());
+        given(questionService.findQustion(questionId)).willReturn(new Question());
         given(mapper.questionToQuestionResponseDto(Mockito.any(Question.class))).willReturn(response);
 
         //when

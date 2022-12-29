@@ -5,7 +5,6 @@ plugins {
 	id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
 
-
 group = 'com.codestates.backend'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -28,9 +27,6 @@ repositories {
 }
 
 dependencies {
-	// https://mvnrepository.com/artifact/org.javassist/javassist
-	implementation group: 'org.javassist', name: 'javassist', version: '3.15.0-GA'
-
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 
@@ -48,7 +44,6 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5'
-
 }
 
 tasks.named('test') {

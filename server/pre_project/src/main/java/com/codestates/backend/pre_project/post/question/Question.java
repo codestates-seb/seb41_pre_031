@@ -1,6 +1,6 @@
 package com.codestates.backend.pre_project.post.question;
 
-import com.codestates.backend.pre_project.likes.entity.Likes;
+import com.codestates.backend.pre_project.likes.question.QuestionLikes;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
@@ -51,21 +51,18 @@ public class Question {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @Column
-    private String memberName;
-
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Comment> comments;
-    //= new ArrayList<>();
+            //= new ArrayList<>();
     //TODO
 
     @OneToMany(mappedBy = "question")
-    private List<Likes> likes;
-    //= new ArrayList<>();
+    private List<QuestionLikes> likes;
+            //= new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<QuestionTag> questionTags;
-    //= new LinkedList<>();
+            //= new LinkedList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers;
@@ -73,24 +70,23 @@ public class Question {
 //    @Column(nullable = false)
 //    private long memberId;
 
-    @PrePersist
-    public void prePersist() {
-        this.questionLikes = (this.questionLikes == null ? 0 : this.questionLikes);
-        this.answerNum = (this.answerNum == null ? 0 : this.answerNum);
-
-
-        for(int i=0; i< this.questionTags.size(); i++){
-            if(this.questionTags.get(i).getQuestion()==null){
-                this.questionTags.get(i).setQuestion(this);
-            }
-        }
-    }
+//    @PrePersist
+//    public void prePersist() {
+//        this.questionLikes = (this.questionLikes == null ? 0 : this.questionLikes);
+//        this.answerNum = (this.answerNum == null ? 0 : this.answerNum);
+//
+//        for(int i=0; i< this.questionTags.size(); i++){
+//            if(this.questionTags.get(i).getQuestion()==null){
+//                this.questionTags.get(i).setQuestion(this);
+//            }
+//        }
+//    }
 
     public void setMember(Member member) {
         this.member = member;
-       // if(!this.member.getQuestions().contains(this)){
-         //   this.member.getQuestions().add(this);
-        //}
+        if(!this.member.getQuestions().contains(this)){
+            this.member.getQuestions().add(this);
+        }
     }
 
 }

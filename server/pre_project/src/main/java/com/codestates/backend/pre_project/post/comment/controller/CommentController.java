@@ -1,13 +1,9 @@
 package com.codestates.backend.pre_project.post.comment.controller;
 
-import com.codestates.backend.pre_project.post.answer.service.AnswerService;
 import com.codestates.backend.pre_project.post.comment.dto.CommentDto;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.comment.mapper.CommentMapper;
 import com.codestates.backend.pre_project.post.comment.service.CommentService;
-import com.codestates.backend.pre_project.post.question.Question;
-import com.codestates.backend.pre_project.post.question.repository.QuestionRepository;
-import com.codestates.backend.pre_project.post.question.service.QuestionService;
 import com.codestates.backend.pre_project.response.MultiResponseDto;
 import com.codestates.backend.pre_project.response.SingleResponseDto;
 import org.springframework.data.domain.Page;
@@ -25,27 +21,20 @@ public class CommentController {
     private final CommentService commentService;
     private final CommentMapper mapper;
 
-    private final QuestionService questionService;
-    private final AnswerService answerService;
-
-    public CommentController(CommentService commentService, CommentMapper mapper, QuestionService questionService,
-                             AnswerService answerService) {
+    public CommentController(CommentService commentService, CommentMapper mapper) {
         this.commentService = commentService;
         this.mapper = mapper;
-        this.questionService = questionService;
-        this.answerService = answerService;
     }
 
     @PostMapping("/questions/comments/{question-id}")
     public ResponseEntity questionPostComment(@Valid
                                                   @PathVariable("question-id") @Positive long questionId,
                                                   @RequestBody CommentDto.QuestionPost requestBody) {
-
         requestBody.setQuestionId(questionId);
 
         Comment comment = mapper.commentDtoQuestionPostToComment(requestBody);
 
-        Comment createComment = commentService.createQuestionComment(comment);
+        Comment createComment = commentService.createComment(comment);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.commentToCommentDtoResponse(createComment)), HttpStatus.CREATED
@@ -63,14 +52,14 @@ public class CommentController {
         Comment createComment = commentService.createComment(comment);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.commentToCommentDtoAnswerResponse(createComment)), HttpStatus.CREATED
+                new SingleResponseDto<>(mapper.commentToCommentDtoResponse(createComment)), HttpStatus.CREATED
         );
     }
 
-    @PatchMapping("/questions/{question-id}/comments/{comment-id}")
-    public ResponseEntity questionPatchComment(@Valid @PathVariable("question-id") @Positive long questionId,
-                                               @PathVariable("comment-id") @Positive long commentId,
-                                               @Valid @RequestBody CommentDto.QuestionPatch requestBody){
+    @PatchMapping("/questions/comments/{question-id}")
+    public ResponseEntity questionPatchComment(
+            @PathVariable("question-id") @Positive long questionId,
+            @Valid @RequestBody CommentDto.QuestionPatch requestBody){
 
         requestBody.setQuestionId(questionId);
 
@@ -88,7 +77,7 @@ public class CommentController {
 
         Comment comment = commentService.updateComment(mapper.commentDtoAnswerPatchToComment(requestBody));
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.commentToCommentDtoAnswerResponse(comment)),HttpStatus.OK);
+                new SingleResponseDto<>(mapper.commentToCommentDtoResponse(comment)),HttpStatus.OK);
     }
 
     @GetMapping("/comments/{comment-id}")

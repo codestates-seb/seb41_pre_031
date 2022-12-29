@@ -1,25 +1,19 @@
 package com.codestates.backend.pre_project.member.service;
 
-import com.codestates.backend.pre_project.auth.utils.CustomAuthorityUtils;
 import com.codestates.backend.pre_project.exception.BusinessLogicException;
 import com.codestates.backend.pre_project.exception.ExceptionCode;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.member.repository.MemberRepository;
-import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.utils.CustomBeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.List;
 import java.util.Optional;
 
-@Transactional
 @Service
 public class MemberService {
 
@@ -27,34 +21,19 @@ public class MemberService {
 
     private final CustomBeanUtils<Member> beanUtils;
 
-    private final PasswordEncoder passwordEncoder;
-    private final CustomAuthorityUtils authorityUtils;
-
-
-    public MemberService(MemberRepository memberRepository, CustomBeanUtils<Member> beanUtils, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
+    public MemberService(MemberRepository memberRepository, CustomBeanUtils<Member> beanUtils) {
         this.memberRepository = memberRepository;
         this.beanUtils = beanUtils;
-        this.passwordEncoder = passwordEncoder;
-        this.authorityUtils = authorityUtils;
     }
 
     public Member createMember(Member member) {
         verifyExistsEmail(member.getEmail());
-
-        String encryptedPassword = passwordEncoder.encode(member.getPassword());
-        member.setPassword(encryptedPassword);
-
-        List<String> roles = authorityUtils.createRoles(member.getEmail());
-        member.setRoles(roles);
 
         return memberRepository.save(member);
     }
 
     public Member updateMember(Member member) {
         Member findMember = findVerifiedMember(member.getMemberId());
-        if (getCurrentMember().getMemberId() != findMember.getMemberId())
-            throw new BusinessLogicException(ExceptionCode.EDIT_NOT_ALLOWED);
-//        작성자에게만 수정 권한을 주는 코드. 멤버서비스에 코드 구현 필요
 
         Member updateMember = beanUtils.copyNonNullProperties(member, findMember);
 
@@ -62,19 +41,16 @@ public class MemberService {
     }
 
     public Member findMember(long memberId) {
-
         return findVerifiedMember(memberId);
     }
 
-    public List<Member> findMembers() {
-        return memberRepository.findAll();
+    public Page<Member> findMembers(int page, int size) {
+        return memberRepository.findAll(PageRequest.of(page, size,
+                Sort.by("memberId").descending())); //어떻게 정렬할 것인지 논의후 리펙토링
     }
 
     public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
-        if (getCurrentMember().getMemberId() != findMember.getMemberId())
-            throw new BusinessLogicException(ExceptionCode.DELETE_NOT_ALLOWED);
-//        작성자에게만 수정 권한을 주는 코드. 멤버서비스에 코드 구현 필요
 
         memberRepository.delete(findMember);
     }

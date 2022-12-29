@@ -1,18 +1,17 @@
 package com.codestates.backend.pre_project.post.question.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@Builder
 @Getter
 @Setter
 @AllArgsConstructor
-public class QuestionTagResponseDto {
-    private long tagId;
+public class QuestionTagDto {
 
     private long questionId;
+
+    private long tagId;
 
     private String tagName;
 }
