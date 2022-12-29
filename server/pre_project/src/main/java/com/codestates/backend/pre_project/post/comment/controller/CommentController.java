@@ -48,7 +48,7 @@ public class CommentController {
         Comment createComment = commentService.createQuestionComment(comment);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.commentToCommentDtoResponse(createComment)), HttpStatus.CREATED
+                new SingleResponseDto<>(mapper.commentToCommentDtoQuestionResponse(createComment)), HttpStatus.CREATED
         );
     }
 
@@ -60,7 +60,7 @@ public class CommentController {
 
         Comment comment = mapper.commentDtoAnswerPostToComment(requestBody);
 
-        Comment createComment = commentService.createComment(comment);
+        Comment createComment = commentService.createAnswerComment(comment);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.commentToCommentDtoAnswerResponse(createComment)), HttpStatus.CREATED
@@ -73,18 +73,21 @@ public class CommentController {
                                                @Valid @RequestBody CommentDto.QuestionPatch requestBody){
 
         requestBody.setQuestionId(questionId);
+        requestBody.setCommentId(commentId);
 
         Comment comment = commentService.updateComment(mapper.commentDtoQuestionPatchToComment(requestBody));
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.commentToCommentDtoResponse(comment)),HttpStatus.OK);
+                new SingleResponseDto<>(mapper.commentToCommentDtoQuestionResponse(comment)),HttpStatus.OK);
     }
 
-    @PatchMapping("/answers/comments/{answer-id}")
+    @PatchMapping("/answers/{answer-id}/comments/{comment-id}")
     public ResponseEntity questionPatchComment(
             @PathVariable("answer-id") @Positive long answerId,
+            @PathVariable("comment-id") @Positive long commentId,
             @Valid @RequestBody CommentDto.AnswerPatch requestBody){
 
         requestBody.setAnswerId(answerId);
+        requestBody.setCommentId(commentId);
 
         Comment comment = commentService.updateComment(mapper.commentDtoAnswerPatchToComment(requestBody));
         return new ResponseEntity<>(
@@ -100,12 +103,10 @@ public class CommentController {
     }
 
     @GetMapping("/comments")
-    public ResponseEntity getComments(@Positive @RequestParam int page,
-                                      @Positive @RequestParam int size) {
-        Page<Comment> pageComments = commentService.findComments(page -1, size);
-        List<Comment> comments = pageComments.getContent();
+    public ResponseEntity getComments() {
+        List<Comment> Comments = commentService.findComments();
         return new ResponseEntity(
-                new MultiResponseDto<>(mapper.commentsToCommentDtoResponses(comments),pageComments)
+                new SingleResponseDto<>(mapper.commentsToCommentDtoResponses(Comments))
                 ,HttpStatus.OK
         );
     }

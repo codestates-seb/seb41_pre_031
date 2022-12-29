@@ -25,23 +25,7 @@ public class CommentDto {
 
         @NotBlank
         @Positive
-        private long memberId;
-
-        @NotBlank
-        @Positive
         private long questionId;
-
-        public Member getMember() {
-            Member member = new Member();
-            member.setMemberId(memberId);
-            return member;
-        }
-
-        public Question getQuestion() {
-            Question question = new Question();
-            question.setQuestionId(questionId);
-            return question;
-        }
     }
 
     @Data
@@ -52,24 +36,9 @@ public class CommentDto {
         @Length(max = 500)
         private String commentBody;
 
-        @Positive
-        private long memberId;
-
+        @NotBlank
         @Positive
         private long answerId;
-
-
-        public Member getMember() {
-            Member member = new Member();
-            member.setMemberId(memberId);
-            return member;
-        }
-
-        public Answer getAnswer() {
-            Answer answer = new Answer();
-            answer.setAnswerId(answerId);
-            return answer;
-        }
     }
 
     @Data
@@ -78,10 +47,8 @@ public class CommentDto {
     public static class QuestionPatch {
         @Length(max = 500)
         private String commentBody;
-
         private long questionId;
-
-        public void setQuestionId(long questionId) {this.questionId = questionId;}
+        private long commentId;
     }
 
     @Data
@@ -93,6 +60,7 @@ public class CommentDto {
         private long answerId;
         private long commentId;
     }
+
 
     @Data
     @AllArgsConstructor
@@ -110,6 +78,17 @@ public class CommentDto {
         private long commentId;
         private long memberId;
         private long answerId;
+        private String commentBody;
+        private LocalDateTime commentRegDate;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class Response {
+        private long commentId;
+        private long memberId;
+        private long answerId;
+        private long questionId;
         private String commentBody;
         private LocalDateTime commentRegDate;
     }

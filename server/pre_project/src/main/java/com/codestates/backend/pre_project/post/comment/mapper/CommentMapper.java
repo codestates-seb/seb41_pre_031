@@ -1,5 +1,6 @@
 package com.codestates.backend.pre_project.post.comment.mapper;
 
+import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.comment.dto.CommentDto;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.question.Question;
@@ -12,8 +13,26 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CommentMapper {
-    Comment commentDtoQuestionPostToComment(CommentDto.QuestionPost questionPost);
-    Comment commentDtoAnswerPostToComment(CommentDto.AnswerPost answerPost);
+//    Comment commentDtoQuestionPostToComment(CommentDto.QuestionPost questionPost);
+    default Comment commentDtoQuestionPostToComment(CommentDto.QuestionPost questionPost){
+        Comment comment = new Comment();
+        Question question = new Question();
+        question.setQuestionId(questionPost.getQuestionId());
+        comment.setQuestion(question);
+        comment.setCommentBody(questionPost.getCommentBody());
+        comment.setCommentRegDate(LocalDateTime.now());
+        return comment;
+    }
+
+    default Comment commentDtoAnswerPostToComment(CommentDto.AnswerPost answerPost){
+        Comment comment = new Comment();
+        Answer answer = new Answer();
+        answer.setAnswerId(answerPost.getAnswerId());
+        comment.setAnswer(answer);
+        comment.setCommentBody(answerPost.getCommentBody());
+        comment.setCommentRegDate(LocalDateTime.now());
+        return comment;
+    }
     Comment commentDtoQuestionPatchToComment(CommentDto.QuestionPatch questionPatch);
     Comment commentDtoAnswerPatchToComment(CommentDto.AnswerPatch answerPatch);
 

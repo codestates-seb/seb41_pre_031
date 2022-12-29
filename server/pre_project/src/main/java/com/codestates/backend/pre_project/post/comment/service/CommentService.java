@@ -19,6 +19,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import com.codestates.backend.pre_project.member.entity.Member;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -73,9 +75,8 @@ public class CommentService {
 
     public Comment findComment(long commentId) {return findVerifiedComment(commentId);}
 
-    public Page<Comment> findComments(int page, int size) {
-        return commentRepository.findAll(PageRequest.of(
-                page,size, Sort.by("commentId").descending()));
+    public List<Comment> findComments() {
+        return commentRepository.findAll();
     }
 
     public void deleteComment(long commentId) {

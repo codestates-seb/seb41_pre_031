@@ -36,7 +36,9 @@ public class AnswerController {
 
     @PostMapping("/questions/{question-id}/answers/post")
     public ResponseEntity postAnswer(@PathVariable("question-id") long questionId,
-                                     @Validated @RequestBody AnswerDto.Post requestBody) {
+                                     @Validated @RequestBody AnswerDto.Post requestBody
+    ) {
+        requestBody.setQuestionId(questionId);
         Answer answer = answerService.createAnswer(mapper.answerPostDtoToAnswer(questionId, requestBody));
 
         return new ResponseEntity<>(
@@ -47,8 +49,9 @@ public class AnswerController {
     @PatchMapping("/answers/{answer-id}/edit")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") long answerId,
                                       @Valid @RequestBody AnswerDto.Patch requestBody) {
-        if (requestBody.getAnswerId() != answerId)
-            throw new BusinessLogicException(ExceptionCode.EDIT_NOT_ALLOWED);
+//        if (requestBody.getAnswerId() != answerId)
+//            throw new BusinessLogicException(ExceptionCode.EDIT_NOT_ALLOWED);
+        // post로 받는 아이디값이 파라미터로 받는 아이디값과 다르면 예외 빵
 
         requestBody.setAnswerId(answerId);
 
@@ -69,10 +72,9 @@ public class AnswerController {
     }
 
     @GetMapping("/answers")
-    public ResponseEntity getAnswers(@Positive @RequestParam int page,
-                                     @Positive @RequestParam int size) {
-        Page<Answer> pageAnswers = answerService.findAnswers(page - 1, size);
-        List<Answer> answers = pageAnswers.getContent();
+    public ResponseEntity getAnswers() {
+        List<Answer> answers = answerService.findAnswers();
+
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.answersToAnswersResponsesDtos(answers)),
                 HttpStatus.OK);
