@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,8 +23,6 @@ public class AnswerDto {
     @AllArgsConstructor
     public static class Post {
         private long questionId;
-
-        private long memberId;
 
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         @Length(max = 500)
@@ -46,17 +45,20 @@ public class AnswerDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     @Builder
     public static class Response {
         private long answerId;
-        private long memberId;
+        private String memberName;
         private String answerBody;
-        private List<Comment> comments;
         private int answerLikes;
+        private boolean answerSelected;
+        private LocalDateTime answerRegDate;
+        private LocalDateTime answerLastDate;
 
     }
-
-    public void setComments(List<Comment> comments){
-        this.setComments(comments);
-    }
+//
+//    public void setComments(List<Comment> comments){
+//        this.setComments(comments);
+//    }
 }
