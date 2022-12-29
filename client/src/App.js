@@ -59,7 +59,7 @@ function App() {
     const [isLogin, setIsLogin] = useState(false); //임시 로그인 여부 판별
     const [isFooter, setIsFooter] = useState(true); //footer 유무 조작
 
-    return (
+  return (
 		<Wrap>
 			<Header flag={flag} setFlag={setFlag} />
 			<Main className={flag ? "container" : ""}>
