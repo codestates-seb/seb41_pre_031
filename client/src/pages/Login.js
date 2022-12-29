@@ -65,7 +65,7 @@ const Login = ({ setFlag, setIsFooter }) => {
 					<button className="btnPrimary">Log in</button>
 				</form>
 			</LoginSignUpStyle.ContentBox>
-			<LoginSignupDesc desc1={"Don’t have an account?"} button1name={"Sign up"} />
+			<LoginSignupDesc desc1={"Don’t have an account?"} button1name={"Sign up"} linkTo={'/signup'}/>
 		</LoginSignUpStyle.Wrap>
 	);
 };

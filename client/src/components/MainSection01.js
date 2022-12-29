@@ -2,6 +2,7 @@ import styled from "styled-components";
 import IconSearchMain from "../icons/IconSearchMain";
 import IconLockMain from "../icons/IconLockMain";
 import { BREAK_POINT_TABLET, BREAK_POINT_MOBILE } from "../data/breakpoints";
+import { Link } from "react-router-dom";
 
 //styled Components
 const Section01 = styled.section`
@@ -213,14 +214,14 @@ const MainSection01 = () => {
 						<div>
 							<IconSearchMain color={"var(--orange2)"} />
 							<h2>Find the best answer to your technical question, help others answer theirs</h2>
-							<a href="none">Join the community</a>
+							<Link to="/signup">Join the community</Link>
 						</div>
 					</H2SingleContent>
 					<H2SingleContent theme={"blue"}>
 						<div>
 							<IconLockMain color={"var(--blue)"} />
 							<h2>Want a secure, private space for your technical knowledge?</h2>
-							<a href="none">Discover Teams</a>
+							<a href="https://stackoverflow.co/teams/">Discover Teams</a>
 						</div>
 					</H2SingleContent>
 				</div>
