@@ -60,46 +60,28 @@ function App() {
     const [isFooter, setIsFooter] = useState(true); //footer 유무 조작
 
     return (
-        <Wrap>
-            <Header flag={flag} setFlag={setFlag} />
-            <Main className={flag ? "container" : ""}>
-                {flag ? (
-                    <LeftSide>
-                        <Nav />
-                    </LeftSide>
-                ) : null}
-                <Section flag={flag}>
-                    
-                    <Routes>
-                        <Route
-                            path="/"
-                            element={
-                                isLogin ? (
-                                    <TopQuestions />
-                                ) : (
-                                    <MainBeforeLogin setFlag={setFlag} />
-                                )
-                            }
-                        />
-                        <Route path="/users" element={<Users />} />
-                        <Route
-                            path="/users/profile/:id/*"
-                            element={<UserProfile />}
-                        />
-                        <Route path="/detail" element={<QuestionsDetail/>} />
-                        <Route
-                            path="/questions"
-                            element={<AllQuestions setFlag={setFlag} />}
-                        />
-                        <Route
-                            path="/questions/ask"
-                            element={<AskQuestion setFlag={setFlag} />}
-                        />
-                    </Routes>
-                </Section>
-            </Main>
-            {isFooter ? <Footer /> : null}
-        </Wrap>
-    );
+		<Wrap>
+			<Header flag={flag} setFlag={setFlag} />
+			<Main className={flag ? "container" : ""}>
+				{flag ? (
+					<LeftSide>
+						<Nav />
+					</LeftSide>
+				) : null}
+				<Section flag={flag}>
+					<Routes>
+						<Route path="/" element={isLogin ? <TopQuestions /> : <MainBeforeLogin setFlag={setFlag} setIsFooter={setIsFooter}/>} />
+						<Route path="/users" element={<Users setFlag={setFlag} setIsFooter={setIsFooter}/>} />
+						<Route path="/users/profile/:id/*" element={<UserProfile setFlag={setFlag} setIsFooter={setIsFooter}/>} />
+						<Route path="/questions" element={<AllQuestions setFlag={setFlag}/>} />
+						<Route path="/questions/ask" element={<AskQuestion setFlag={setFlag} />} />
+						<Route path="/login" element={<Login setFlag={setFlag} setIsFooter={setIsFooter} />} />
+						<Route path="/signup" element={<SignUp setFlag={setFlag} setIsFooter={setIsFooter} />} />
+					</Routes>
+				</Section>
+			</Main>
+			{isFooter ? <Footer /> : null}
+		</Wrap>
+	);
 }
 export default App;
