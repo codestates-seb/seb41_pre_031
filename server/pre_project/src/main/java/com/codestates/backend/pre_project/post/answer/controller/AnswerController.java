@@ -45,12 +45,15 @@ public class AnswerController {
     @PatchMapping("/answers/{answer-id}/edit")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") long answerId,
                                       @Valid @RequestBody AnswerDto.Patch requestBody) {
+        if (requestBody.getAnswerId() != answerId)
+            throw new BusinessLogicException(ExceptionCode.EDIT_NOT_ALLOWED);
+
         requestBody.setAnswerId(answerId);
 
         Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(requestBody));
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.answerToAnswerResponseDto(answer)),
+                new SingleResponseDto<>(mapper.answerPatchToAnswerResponseDto(answer)),
                 HttpStatus.OK);
     }
 
@@ -69,8 +72,7 @@ public class AnswerController {
         Page<Answer> pageAnswers = answerService.findAnswers(page - 1, size);
         List<Answer> answers = pageAnswers.getContent();
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.answersToAnswersResponsesDtos(answers),
-                        pageAnswers),
+                new SingleResponseDto<>(mapper.answersToAnswersResponsesDtos(answers)),
                 HttpStatus.OK);
     }
 

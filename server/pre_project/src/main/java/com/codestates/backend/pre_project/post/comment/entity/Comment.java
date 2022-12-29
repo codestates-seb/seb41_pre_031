@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -42,10 +43,12 @@ public class Comment {
 
     @ManyToOne
     @JoinTable(name = "QUESTION_ID")
+    @Nullable
     private Question question;
 
     @ManyToOne
     @JoinTable(name = "ANSWER_ID")
+    @Nullable
     private Answer answer;
 
     public Comment(long commentId, String commentBody) {
