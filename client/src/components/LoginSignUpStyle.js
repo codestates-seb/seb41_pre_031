@@ -9,6 +9,7 @@ LoginSignUpStyle.Wrap = styled.div`
 	justify-content: center;
 	width: 100%;
 	height: 100%;
+	padding: 24px 16px;
 	background: var(--white2);
 `;
 
@@ -48,6 +49,27 @@ LoginSignUpStyle.InputWrap = styled.div`
 	}
 	input {
 		width: 100%;
+	}
+`;
+
+LoginSignUpStyle.LinkWrap = styled.ul`
+	max-width: calc((100rem / 12) * 3);
+	width: 100%;
+	padding: 16px;
+	margin-bottom: 24px;
+
+	li {
+		margin-bottom: 16px;
+		text-align: center;
+		a {
+			margin-left: 4px;
+
+			svg {
+				margin-left: 4px;
+				vertical-align: text-bottom;
+				color: inherit;
+			}
+		}
 	}
 `;
 

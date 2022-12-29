@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import imageSprites from "./../icons/sprites.svg";
-import IconLinkLogin from "../icons/IconLinkLogin";
 import LoginSignUpStyle from "../components/LoginSignUpStyle";
+import LoginSignupDesc from "../components/LoginSignupDesc";
 
 const LogoWrap = styled.div`
 	margin-bottom: 24px;
@@ -51,7 +51,7 @@ const Login = ({ setFlag, setIsFooter }) => {
 				<form>
 					<LoginSignUpStyle.InputWrap>
 						<label htmlFor="email">Email</label>
-						<input type="text" name="email" />
+						<input type="text" id="email" />
 					</LoginSignUpStyle.InputWrap>
 					<LoginSignUpStyle.InputWrap>
 						<div className="flexbox">
@@ -60,26 +60,12 @@ const Login = ({ setFlag, setIsFooter }) => {
 								Forgot password?
 							</a>
 						</div>
-						<input type="text" name="password" />
+						<input type="text" id="password" />
 					</LoginSignUpStyle.InputWrap>
 					<button className="btnPrimary">Log in</button>
 				</form>
 			</LoginSignUpStyle.ContentBox>
-			<LinkWrap>
-				<li>
-					Don’t have an account?{" "}
-					<a href="/users/signup?ssrc=head" className="link">
-						Sign up
-					</a>
-				</li>
-				<li>
-					Are you an employer?
-					<a href="https://careers.stackoverflow.com/employer/login" className="link">
-						Sign up on Talent
-						<IconLinkLogin />
-					</a>
-				</li>
-			</LinkWrap>
+			<LoginSignupDesc desc1={"Don’t have an account?"} button1name={"Sign up"} />
 		</LoginSignUpStyle.Wrap>
 	);
 };

@@ -270,9 +270,9 @@ const Header = ({ flag, setFlag }) => {
 					<Link to="/login" className="buttonLink btnSecondary">
 						Log in
 					</Link>
-					<a href="none" className="buttonLink btnPrimary">
+					<Link to="/signup" className="buttonLink btnPrimary">
 						Sign up
-					</a>
+					</Link>
 					{/* 로그인 시만 노출 */}
 					<a href="none" className="buttonLink btnSecondary">
 						Log out
