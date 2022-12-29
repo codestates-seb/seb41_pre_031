@@ -215,7 +215,7 @@ const QuestionComment = styled.div`
   }
   .commentWrite p {
     cursor: pointer;
-    font-size: 11px;
+    font-size: 13px;
     color: #838c95;
     padding: 0px 3px 2px 3px;
     opacity: 0.6;
