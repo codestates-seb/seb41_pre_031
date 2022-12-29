@@ -20,18 +20,15 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring" , unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface QuestionMapper {
 
-
     default Question questionPostDtoToQuestion(QuestionDto.Post requestBody){
         Question question = new Question();
         Member member = new Member();
-        member.setMemberId(requestBody.getMemberId());
 
         List<QuestionTag> questionTags = requestBody.getQuestionTags().stream()
                 .map(questionTagDto -> {
                     QuestionTag questionTag = new QuestionTag();
                     questionTag.setQuestion(question);
-                    questionTag.setTag(tag);
-
+                    questionTag.setTagName(questionTagDto.getTagName());
                     return questionTag;
                 }).collect(Collectors.toList());
         question.setQuestionId(question.getQuestionId());
@@ -67,6 +64,7 @@ public interface QuestionMapper {
 
 
 
+
     default QuestionDto.Response questionToQuestionResponseDto(Question question){
             List<QuestionTag> questionTags = question.getQuestionTags();
             List<QuestionTagResponseDto> questionTagResponseDtos = new LinkedList<>();
@@ -91,17 +89,7 @@ public interface QuestionMapper {
             return questionResponseDto;
     }
 
-   default List<QuestionTagResponseDto> questionTagsToQuestionTagResponseDtos(List<QuestionTag> questionTags){
-        return questionTags
-                .stream()
-                .map(questionTag -> QuestionTagResponseDto
-                        .builder()
-                        .tagId(questionTag.getTag().getTagId())
-                        .tagName(questionTag.getTag().getTagName())
-                        .questionId(questionTag.getQuestion().getQuestionId())
-                        .build())
-                .collect(Collectors.toList());
-    }
+
 
     List<QuestionDto.Response> questionToQuestionResponse(List<Question> questions);
 

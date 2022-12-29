@@ -44,7 +44,10 @@ public class QuestionService {
     public Question createQuestion(Question question){
         Member member = memberService.findMember(getCurrentMember().getMemberId());
         question.setMember(member);
-        return questionRepository.save(question);
+        question.setMemberName(member.getMemberName());
+        Question saveQuestion = questionRepository.save(question);
+
+        return  saveQuestion;
     }
 
 

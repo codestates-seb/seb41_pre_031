@@ -24,10 +24,8 @@ public class QuestionDto {
 
             private String questionBody;
 
-            private long memberId;
-
             @Valid
-            private List<QuestionTagDto> questionTags;
+            private List<QuestionTag> questionTags;
 
     }
 
@@ -36,8 +34,6 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Patch{
         private long questionId;
-
-        private long memberId;
 
         private String questionTitle;
 
