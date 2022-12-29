@@ -39,9 +39,10 @@ const MainWrap = styled.div`
 	background: var(--white3);
 `;
 
-const MainBeforeLogin = ({ setFlag }) => {
+const MainBeforeLogin = ({ setFlag, setIsFooter }) => {
 	useEffect(() => {
 		setFlag(false);
+		setIsFooter(true);
 	}, []);
 
 	return (
