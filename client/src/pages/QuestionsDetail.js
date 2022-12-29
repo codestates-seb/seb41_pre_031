@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect} from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import AnswerBlock from "../components/AnswerBlock";
 import QuestionBlock from "../components/QuestionBlock";
@@ -54,13 +55,19 @@ const DetailBody = styled.div`
   float: left;
 `;
 
-const QuestionsDetail = () => {
+const QuestionsDetail = ({ setFlag, setIsFooter }) => {
+    useEffect(() => {
+		setFlag(true);
+		setIsFooter(true);
+	}, []);
   return (
     <DetailBox>
       <DetailHeader>
         <h1>Uncaught ReferenceError: cnt is not defined</h1>
         <div>
+        <Link to="/questions/ask">
           <button className="btnPrimary">Ask Question</button>
+        </Link>
         </div>
       </DetailHeader>
       <DetailDate>

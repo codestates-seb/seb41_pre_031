@@ -72,6 +72,7 @@ function App() {
 				) : null}
 				<Section flag={flag}>
 					<Routes>
+                        <Route path="/questions/:id" element={<QuestionsDetail setFlag={setFlag} setIsFooter={setIsFooter}/>}/>
 						<Route path="/" element={isLogin ? <TopQuestions /> : <MainBeforeLogin setFlag={setFlag} setIsFooter={setIsFooter}/>} />
 						<Route path="/users" element={<Users setFlag={setFlag} setIsFooter={setIsFooter}/>} />
 						<Route path="/users/profile/:id/*" element={<UserProfile setFlag={setFlag} setIsFooter={setIsFooter}/>} />
