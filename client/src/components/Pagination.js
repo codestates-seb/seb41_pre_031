@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-const PageContainer = styled.span``;
+const PageContainer = styled.span`
+    margin-bottom: 15px;
+`;
 
 const Dot = styled.span`
     padding: 0 0.7rem;
