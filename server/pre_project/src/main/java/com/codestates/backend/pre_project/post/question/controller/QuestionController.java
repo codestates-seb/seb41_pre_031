@@ -1,5 +1,6 @@
 package com.codestates.backend.pre_project.post.question.controller;
 
+import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.question.Question;
 import com.codestates.backend.pre_project.post.question.mapper.QuestionMapper;
 import com.codestates.backend.pre_project.post.question.dto.QuestionDto;

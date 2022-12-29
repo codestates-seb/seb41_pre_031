@@ -3,16 +3,17 @@ package com.codestates.backend.pre_project.post.question.mapper;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.question.Question;
 import com.codestates.backend.pre_project.post.question.QuestionTag;
-import com.codestates.backend.pre_project.post.question.Tag;
 import com.codestates.backend.pre_project.post.question.dto.QuestionDto;
 import com.codestates.backend.pre_project.post.question.dto.QuestionTagResponseDto;
+import com.codestates.backend.pre_project.utils.CustomBeanUtils;
+import org.aspectj.apache.bcel.classfile.Module;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -28,8 +29,6 @@ public interface QuestionMapper {
         List<QuestionTag> questionTags = requestBody.getQuestionTags().stream()
                 .map(questionTagDto -> {
                     QuestionTag questionTag = new QuestionTag();
-                    Tag tag = new Tag();
-                    tag.setTagId(questionTagDto.getTagId());
                     questionTag.setQuestion(question);
                     questionTag.setTag(tag);
 
@@ -46,7 +45,26 @@ public interface QuestionMapper {
         return question;
     }
 
-    Question questionPatchDtoToQuestion(QuestionDto.Patch requestBody);
+   default Question questionPatchDtoToQuestion(QuestionDto.Patch requestBody){
+       Question question = new Question();
+
+
+       List<QuestionTag> questionTags = requestBody.getQuestionTags().stream()
+               .map(questionTagDto -> {
+                   QuestionTag questionTag = new QuestionTag();
+                   questionTag.setQuestion(question);
+                   questionTag.setTagName(questionTagDto.getTagName());
+                   return questionTag;
+               }).collect(Collectors.toList());
+       question.setQuestionId(requestBody.getQuestionId());
+       question.setQuestionTitle(requestBody.getQuestionTitle());
+       question.setQuestionBody(requestBody.getQuestionBody());
+       question.setQuestionTags(questionTags);
+       question.setQuestionLastDate(LocalDateTime.now());
+
+       return question;
+   }
+
 
 
     default QuestionDto.Response questionToQuestionResponseDto(Question question){
@@ -55,16 +73,21 @@ public interface QuestionMapper {
             for(int i=0; i<questionTags.size(); i++){
                 QuestionTag qt = questionTags.get(i);
                 questionTagResponseDtos.add(
-                        new QuestionTagResponseDto(qt.getTag().getTagId(), qt.getQuestion().getQuestionId(), qt.getTag().getTagName()
+                        new QuestionTagResponseDto(qt.getQuestionTagId(), qt.getTagName()
                         ));
             }
-            QuestionDto.Response questionResponseDto = new QuestionDto.Response(question.getQuestionId(),question.getMember().getMemberId(),question.getQuestionTitle(),question.getQuestionBody(),questionTagResponseDtos,question.getQuestionRegDate(),question.getQuestionLastDate(),question.getQuestionLikes());
-            questionResponseDto.setQuestionBody(question.getQuestionBody());
-            questionResponseDto.setQuestionLikes(question.getQuestionLikes());
-            questionResponseDto.setMemberId(question.getMember().getMemberId());
-            questionResponseDto.setQuestionTags(
-                    questionTagsToQuestionTagResponseDtos(questionTags)
-            );
+            QuestionDto.Response questionResponseDto =
+                    new QuestionDto.Response(
+                            question.getQuestionId(),
+                            question.getMemberName(),
+                            question.getQuestionTitle(),
+                            question.getQuestionBody(),
+                            questionTagResponseDtos,
+                            question.getQuestionRegDate(),
+                            question.getQuestionLastDate(),
+                            question.getQuestionLikes());
+
+
             return questionResponseDto;
     }
 
@@ -82,6 +105,4 @@ public interface QuestionMapper {
 
     List<QuestionDto.Response> questionToQuestionResponse(List<Question> questions);
 
-    @Mapping(source = "tag.tagId", target= "tagId")
-    QuestionTagResponseDto questionTagToQuestionTagDto(QuestionTag questionTag);
 }

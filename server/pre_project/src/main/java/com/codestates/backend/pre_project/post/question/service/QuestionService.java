@@ -6,7 +6,9 @@ import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.member.repository.MemberRepository;
 import com.codestates.backend.pre_project.member.service.MemberService;
 import com.codestates.backend.pre_project.post.question.Question;
+import com.codestates.backend.pre_project.post.question.QuestionTag;
 import com.codestates.backend.pre_project.post.question.repository.QuestionRepository;
+import com.codestates.backend.pre_project.post.question.repository.QuestionTagRepository;
 import com.codestates.backend.pre_project.utils.CustomBeanUtils;
 import com.sun.xml.bind.v2.TODO;
 import org.springframework.data.domain.Page;
@@ -16,11 +18,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.PostPersist;
+import java.util.LinkedList;
 import java.util.Optional;
 
 @Service
 public class QuestionService {
 
+    private final QuestionTagRepository questionTagRepository;
     private final QuestionRepository questionRepository;
 
     private final MemberRepository memberRepository;
@@ -29,7 +34,8 @@ public class QuestionService {
 
     private final CustomBeanUtils<Question> beanUtils;
 
-    public QuestionService(QuestionRepository questionRepository, MemberRepository memberRepository, MemberService memberService, CustomBeanUtils<Question> beanUtils) {
+    public QuestionService(QuestionTagRepository questionTagRepository, QuestionRepository questionRepository, MemberRepository memberRepository, MemberService memberService, CustomBeanUtils<Question> beanUtils) {
+        this.questionTagRepository = questionTagRepository;
         this.questionRepository = questionRepository;
         this.memberRepository = memberRepository;
         this.memberService = memberService;
@@ -41,14 +47,18 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
+
     public Question updateQuestion(Question question) throws BusinessLogicException{
         Question findQustion = findVerifiedQustion(question.getQuestionId());
 
         if(findQustion.getMember().getMemberId() != getCurrentMember().getMemberId())
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION);
 
-        Question updateQuestion = beanUtils.copyNonNullProperties(question, findQustion);
-        return updateQuestion;
+        Question updateQuestion = beanUtils.copyNonNullProperties(question, findQuestion);
+        updateQuestion.setQuestionTags(question.getQuestionTags());
+
+
+        return questionRepository.save(updateQuestion);
     }
 
     public Question findVerifiedQustion(long questionId){

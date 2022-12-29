@@ -44,7 +44,7 @@ public class QuestionDto {
         private String questionBody;
 
         @Valid
-        private List<QuestionTagDto> questionTags;
+        private List<QuestionTag> questionTags;
 
     }
 
@@ -54,7 +54,7 @@ public class QuestionDto {
     public static class Response{
         private long questionId;
 
-        private long memberId;
+        private String memberName;
 
         private String questionTitle;
 

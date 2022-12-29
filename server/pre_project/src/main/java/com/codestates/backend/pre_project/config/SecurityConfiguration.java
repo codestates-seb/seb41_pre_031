@@ -8,6 +8,7 @@ import com.codestates.backend.pre_project.auth.handler.MemberAuthenticationFailu
 import com.codestates.backend.pre_project.auth.handler.MemberAuthenticationSuccessHandler;
 import com.codestates.backend.pre_project.auth.jwt.JwtTokenizer;
 import com.codestates.backend.pre_project.auth.utils.CustomAuthorityUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -31,14 +32,18 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity(debug = true)
 public class SecurityConfiguration {
+    private final CorsFilter corsFilter;
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer,
-                                 CustomAuthorityUtils authorityUtils) {
-        this.jwtTokenizer = jwtTokenizer;
-        this.authorityUtils = authorityUtils;
-    }
+//    public SecurityConfiguration(JwtTokenizer jwtTokenizer,
+//                                 CorsFilter corsFilter,
+//                                 CustomAuthorityUtils authorityUtils) {
+//        this.jwtTokenizer = jwtTokenizer;
+//        this.corsFilter = corsFilter;
+//
+//        this.authorityUtils = authorityUtils;
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -46,7 +51,7 @@ public class SecurityConfiguration {
             .headers().frameOptions().sameOrigin()
             .and()
             .csrf().disable()
-            .cors(withDefaults())
+            //.cors(withDefaults())
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .formLogin().disable()
@@ -110,6 +115,7 @@ public class SecurityConfiguration {
 
 
             builder
+                    .addFilter(corsFilter)
                 .addFilter(jwtAuthenticationFilter)
                 .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
         }

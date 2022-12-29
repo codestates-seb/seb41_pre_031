@@ -51,6 +51,9 @@ public class Question {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    @Column
+    private String memberName;
+
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Comment> comments;
     //= new ArrayList<>();
@@ -74,6 +77,7 @@ public class Question {
     public void prePersist() {
         this.questionLikes = (this.questionLikes == null ? 0 : this.questionLikes);
         this.answerNum = (this.answerNum == null ? 0 : this.answerNum);
+
 
         for(int i=0; i< this.questionTags.size(); i++){
             if(this.questionTags.get(i).getQuestion()==null){

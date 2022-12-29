@@ -19,6 +19,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/members")
 @Validated
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 public class MemberController {
     private final MemberService memberService;
 
