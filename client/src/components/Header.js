@@ -181,6 +181,7 @@ const ProfileWrap = styled.div`
 	align-items: center;
 	padding: 0 12px;
 	.avatarWrap {
+		display: block;
 		width: 24px;
 		height: 24px;
 		margin-right: 4px;
@@ -210,14 +211,15 @@ const ProfileWrap = styled.div`
 const BtnsWrap = styled.div`
 	display: flex;
 	padding-right: 12px;
-	text-align:center;
+	text-align: center;
 	.buttonLink {
 		flex: none;
 		display: block;
 		margin-right: 4px;
 	}
-	a{
-		height: 33px;
+	a {
+		padding: 8px 10px 8px 10px;
+		line-height: 1;
 	}
 `;
 
@@ -265,9 +267,9 @@ const Header = ({ flag, setFlag }) => {
 				</SearchWrap>
 				{/* 로그인 후에만 프로필 버튼 노출 */}
 				<ProfileWrap>
-					<div className="avatarWrap">
+					<Link to="/users/profile/:id" className="avatarWrap">
 						<span>사용자 프로필 대체</span>
-					</div>
+					</Link>
 					<div className="reputation">1</div>
 				</ProfileWrap>
 				<BtnsWrap>
@@ -277,10 +279,10 @@ const Header = ({ flag, setFlag }) => {
 					<Link to="/signup" className="buttonLink btnPrimary">
 						Sign up
 					</Link>
-					{/* 로그인 시만 노출 */}
-					<a href="none" className="buttonLink btnSecondary">
+					{/* 로그인 시만 노출 - 일단 로그인 전 홈으로 가게 설정 */}
+					<Link to="/" className="buttonLink btnSecondary">
 						Log out
-					</a>
+					</Link>
 				</BtnsWrap>
 			</div>
 		</HeaderWrap>
