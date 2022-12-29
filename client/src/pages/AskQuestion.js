@@ -156,7 +156,9 @@ const Title = styled.div`
         }
 
         :focus {
-            border-color: var(--darkskyblue);
+            box-shadow: 0px 0px 0px 4px #ebf4fb;
+            transition: 0.5s;
+            border-color: var(--darkblue);
         }
     }
 
@@ -228,11 +230,66 @@ const BodyContainer = styled.div`
             display: none;
         }
     }
+
+    .opacityBodySideBlank {
+        width: 348.81px;
+        margin-left: 1.2rem;
+        @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+            display: none;
+        }
+    }
+
+    .opacityTagSideBlank {
+        width: 348.81px;
+        margin-left: 1.2rem;
+        @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+            display: none;
+        }
+    }
 `;
 
 const Opacity = styled.div`
     opacity: 0.33;
     cursor: not-allowed;
+    display: flex;
+`;
+
+const BodyOpacity = styled.div`
+    opacity: 0.33;
+    cursor: not-allowed;
+    border: 1px solid var(--lightgray2);
+    padding: 24px;
+    margin-bottom: 1rem;
+    border-radius: 3px;
+    background: var(--bg-color);
+    width: 851.2px;
+    height: 397.76px;
+
+    @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+        width: 100%;
+    }
+
+    .title {
+        font-size: var(--font-label-size);
+        font-weight: 550;
+    }
+
+    .description {
+        font-size: var(--font-caption-size);
+        margin: 0.5rem 0;
+    }
+
+    .editor {
+        margin-top: 0.8rem;
+    }
+
+    .button {
+        margin-top: 4rem;
+
+        button {
+            cursor: pointer;
+        }
+    }
 `;
 
 const Body = styled.div`
@@ -284,6 +341,13 @@ const TagContainer = styled.div`
             display: none;
         }
     }
+    .opacityTagSideBlank {
+        width: 348.81px;
+        margin-left: 1.2rem;
+        @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+            display: none;
+        }
+    }
 `;
 
 const Tags = styled.div`
@@ -294,6 +358,11 @@ const Tags = styled.div`
     background: var(--bg-color);
     width: 851.2px;
     height: 170px;
+
+    :focus {
+        transition: 0.5s;
+        border-color: var(--darkblue);
+    }
 
     @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
         width: 100%;
@@ -314,6 +383,38 @@ const Tags = styled.div`
         button {
             cursor: pointer;
         }
+    }
+
+    .selected{
+        border: 1px solid var(--darkblue);
+        box-shadow: 0px 0px 0px 4px #ebf4fb;
+        transition: 0.5s;
+    }
+`;
+
+const TagsOpacity = styled.div`
+    opacity: 0.33;
+    cursor: not-allowed;
+    border: 1px solid var(--lightgray2);
+    padding: 24px;
+    margin-bottom: 1rem;
+    border-radius: 3px;
+    background: var(--bg-color);
+    width: 851.2px;
+    height: 170px;
+
+    @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
+        width: 100%;
+    }
+
+    .title {
+        font-size: var(--font-label-size);
+        font-weight: 550;
+    }
+
+    .description {
+        font-size: var(--font-caption-size);
+        margin: 0.5rem 0;
     }
 `;
 
@@ -454,6 +555,7 @@ const AskQuestion = ({ setFlag }) => {
     const [titleSidebox, setTitleSidebox] = useState(true);
     const [bodySidebox, setBodySidebox] = useState(false);
     const [tagSidebox, setTagSidebox] = useState(false);
+    const [isActive, setIsActive] = useState(false);
 
     const onChange = (event) => {
         setText(event.target.value);
@@ -546,6 +648,7 @@ const AskQuestion = ({ setFlag }) => {
                                         setTitleSidebox(true);
                                         setBodySidebox(false);
                                         setTagSidebox(false);
+                                        setIsActive(false);
                                     }}
                                 ></input>
                             </div>
@@ -606,13 +709,13 @@ const AskQuestion = ({ setFlag }) => {
                                         you put in the title. Minimum 20
                                         characters.
                                     </div>
-                                    {/* editor */}
                                     <div
                                         className="editor"
                                         onClick={() => {
                                             setTitleSidebox(false);
                                             setBodySidebox(true);
                                             setTagSidebox(false);
+                                            setIsActive(false);
                                         }}
                                     >
                                         <TextEdit setContent={setContent} />
@@ -659,8 +762,8 @@ const AskQuestion = ({ setFlag }) => {
                                 ) : null}
                             </>
                         ) : (
-                            <Opacity>
-                                <Body>
+                            <>
+                                <BodyOpacity>
                                     <div className="title">
                                         What are the details of your problem?
                                     </div>
@@ -672,8 +775,10 @@ const AskQuestion = ({ setFlag }) => {
                                     <div className="editor">
                                         <TextEdit setContent={setContent} />
                                     </div>
-                                </Body>
-                            </Opacity>
+                                </BodyOpacity>
+
+                                <div className="opacityBodySideBlank"></div>
+                            </>
                         )}
                     </BodyContainer>
 
@@ -692,7 +797,9 @@ const AskQuestion = ({ setFlag }) => {
                                             setTitleSidebox(false);
                                             setBodySidebox(false);
                                             setTagSidebox(true);
+                                            setIsActive(true);
                                         }}
+                                        className={isActive ? 'selected' : ''}
                                     >
                                         <ul className="tags">
                                             {tags.map((tag, index) => (
@@ -765,10 +872,13 @@ const AskQuestion = ({ setFlag }) => {
                                         </div>
                                     </TagSideBox>
                                 ) : null}
+                                {tagSidebox === true ? null : (
+                                    <div className="tagSideBlank"></div>
+                                )}
                             </>
                         ) : (
-                            <Opacity>
-                                <Tags>
+                            <>
+                                <TagsOpacity>
                                     <div className="title">Tags</div>
                                     <div className="description">
                                         Add up to 5 tags to describe what your
@@ -788,12 +898,13 @@ const AskQuestion = ({ setFlag }) => {
                                         ></input>
                                     </TagsInput>
                                     {/* button 조건문 */}
-                                </Tags>
-                            </Opacity>
+                                </TagsOpacity>
+                                <div className="opacityTagSideBlank"></div>
+                            </>
                         )}
-                        {tagSidebox === true ? null : (
+                        {/* {tagSidebox === true ? null : (
                             <div className="tagSideBlank"></div>
-                        )}
+                        )} */}
                     </TagContainer>
 
                     {nextStepThird === true ? (

@@ -4,7 +4,7 @@ import { BREAK_POINT_TABLET } from "../data/breakpoints";
 const Container = styled.li`
     border-bottom: 1px solid var(--lightgray2);
     width: 100%;
-    padding: 16px;
+    padding: 17px 16px 16px 16px;
     display: flex;
 
     @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
@@ -57,7 +57,8 @@ const QuestionContent = styled.div`
     .questionBody {
         font-size: var(--font-body1-size);
         margin-bottom: 0.8rem;
-        line-height: 1rem;
+        line-height: 1.33rem;
+        color: #3b4045;
     }
 `;
 
@@ -69,7 +70,7 @@ const Tag = styled.button`
     font-size: var(--font-caption-size);
     color: var(--darkblue2);
     background: var(--skyblue);
-    margin-bottom: 13px;
+    margin-bottom: 3px;
     height: 23.59px;
     padding: 0.4rem 0.6rem;
     width: fit-content;
@@ -77,7 +78,7 @@ const Tag = styled.button`
 
 const MemberContainer = styled.div`
     display: flex;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.4rem;
 `;
 
 const Member = styled.div`
