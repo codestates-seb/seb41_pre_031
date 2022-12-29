@@ -74,7 +74,6 @@ public class SecurityConfiguration {
                     .antMatchers(HttpMethod.POST, "/*/questions").hasAnyRole("ADMIN", "USER")
                     .antMatchers(HttpMethod.PATCH, "/*/question/**").hasRole("USER")
                             .antMatchers(HttpMethod.DELETE, "/*/question/**").hasRole("USER")
-                    .antMatchers(HttpMethod.GET, "/*/answers/**").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.GET, "/*/answers").permitAll()
                     .antMatchers(HttpMethod.DELETE, "/*/answers/**").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.POST, "/**/answers/**").hasRole("USER")

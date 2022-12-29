@@ -2,9 +2,14 @@ package com.codestates.backend.pre_project.post.comment.service;
 
 import com.codestates.backend.pre_project.exception.BusinessLogicException;
 import com.codestates.backend.pre_project.exception.ExceptionCode;
+import com.codestates.backend.pre_project.member.repository.MemberRepository;
 import com.codestates.backend.pre_project.member.service.MemberService;
+import com.codestates.backend.pre_project.post.answer.entity.Answer;
+import com.codestates.backend.pre_project.post.answer.service.AnswerService;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.comment.repository.CommentRepository;
+import com.codestates.backend.pre_project.post.question.Question;
+import com.codestates.backend.pre_project.post.question.service.QuestionService;
 import com.codestates.backend.pre_project.utils.CustomBeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -23,15 +28,26 @@ public class CommentService {
 
     private final CustomBeanUtils<Comment> beanUtils;
     private final MemberService memberService;
+    private final AnswerService answerService;
+    private final QuestionService questionService;
+    private final MemberRepository memberRepository;
 
-    public CommentService(CommentRepository commentRepository, CustomBeanUtils<Comment> beanUtils, MemberService memberService) {
+    public CommentService(CommentRepository commentRepository, CustomBeanUtils<Comment> beanUtils, MemberService memberService,
+                          AnswerService answerService, QuestionService questionService, MemberRepository memberRepository) {
         this.commentRepository = commentRepository;
         this.beanUtils = beanUtils;
         this.memberService = memberService;
+        this.answerService = answerService;
+        this.questionService = questionService;
+        this.memberRepository = memberRepository;
     }
 
-    public Comment createComment(Comment comment) {
-
+    public Comment createAnswerComment(Comment comment) {
+        Member member = memberService.findMember(getCurrentMember().getMemberId());
+        comment.setMember(member);
+        comment.setCommentRegDate(LocalDateTime.now());
+        Answer answer = answerService.findAnswer(comment.getAnswer().getAnswerId());
+        comment.setAnswer(answer);
         return commentRepository.save(comment);
     }
 

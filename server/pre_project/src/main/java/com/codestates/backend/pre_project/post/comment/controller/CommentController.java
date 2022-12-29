@@ -36,7 +36,7 @@ public class CommentController {
         this.answerService = answerService;
     }
 
-    @PostMapping("/questions/comments/{question-id}")
+    @PostMapping("/questions/{question-id}/comments")
     public ResponseEntity questionPostComment(@Valid
                                                   @PathVariable("question-id") @Positive long questionId,
                                                   @RequestBody CommentDto.QuestionPost requestBody) {
@@ -52,7 +52,7 @@ public class CommentController {
         );
     }
 
-    @PostMapping("/answers/comments/{answer-id}")
+    @PostMapping("/answers/{answer-id}/comments")
     public ResponseEntity answerPostComment(@Valid
                                                 @PathVariable("answer-id") @Positive long answerId,
                                                 @RequestBody CommentDto.AnswerPost requestBody) {

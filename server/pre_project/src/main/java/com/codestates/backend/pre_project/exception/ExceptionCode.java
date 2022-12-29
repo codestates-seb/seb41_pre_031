@@ -8,7 +8,7 @@ public enum ExceptionCode {
     COMMENT_EXISTS(409,"Comment Exists"),
     PROFILE_EXISTS(409, "Profile Exists"),
     PROFILE_NOT_FOUND(404, "Profile not found"),
-    EDIT_NOT_ALLOWED(400, "No permission"),
+    EDIT_NOT_ALLOWED(400, "Edit not allowed"),
     NO_PERMISSION(400, "No permission"),
     ANSWER_NOT_FOUND(404, "Answer not found"),
     ALREADY_LIKE_ADDED(404, "Already added to like"),

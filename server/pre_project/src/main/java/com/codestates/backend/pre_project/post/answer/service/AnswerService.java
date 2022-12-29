@@ -16,6 +16,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import com.codestates.backend.pre_project.member.repository.MemberRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +32,7 @@ public class AnswerService {
     private final MemberService memberService;
     private final CustomBeanUtils<Answer> beanUtils;
     private final AnswerLikesService answerLikesService;
+    private final MemberRepository memberRepository;
 //    삭제예정, 멤버서비스 통해서 구현.
 
 //    private final QuestionService questionService;
@@ -40,6 +44,7 @@ public class AnswerService {
         this.memberService = memberService;
         this.beanUtils = beanUtils;
         this.answerLikesService = answerLikesService;
+        this.memberRepository = memberRepository;
     }
 
     public Answer createAnswer(Answer answer) {
@@ -102,7 +107,7 @@ public class AnswerService {
         answerLikes.setAnswer(answer);
         answerLikes.setMember(member);
         answerLikesService.saveAnswerLikes(answerLikes);
-        Question question = answer.getQuestion();
+//        Question question = answer.getQuestion();
 //        questionService.downViewCount(question); 조회수 2개씩 올라가는 버그 있으면 사용
         answerRepository.save(answer);
     }
@@ -120,5 +125,19 @@ public class AnswerService {
         Question question = answer.getQuestion();
 //        questionService.downViewCount(question); 조회수 2개씩 올라가는 버그 있으면 사용
         answerRepository.save(answer);
+    }
+
+    public Member getCurrentMember() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser"))
+            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION);
+
+        Optional<Member> optionalMember = memberRepository.findByEmail(authentication.getName());
+        Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        System.out.println("현재 사용자:"+member.getMemberId());
+
+        return member;
     }
 }
