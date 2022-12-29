@@ -89,19 +89,27 @@ public class CommentDto {
     public static class AnswerPatch {
         @Length(max = 500)
         private String commentBody;
-
         private long answerId;
-
-        public void setAnswerId(long answerId) {this.answerId = answerId;}
+        private long commentId;
     }
 
     @Data
     @AllArgsConstructor
-    public static class Response {
+    public static class QuestionResponse {
+        private long commentId;
+        private long memberId;
+        private long questionId;
+        private String commentBody;
+        private LocalDateTime commentRegDate;
+    }
+
+    @Data
+    @AllArgsConstructor
+    public static class AnswerResponse {
         private long commentId;
         private long memberId;
         private long answerId;
-        private long questionId;
         private String commentBody;
+        private LocalDateTime commentRegDate;
     }
 }

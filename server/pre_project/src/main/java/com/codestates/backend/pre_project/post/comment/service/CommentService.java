@@ -9,6 +9,8 @@ import com.codestates.backend.pre_project.utils.CustomBeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import com.codestates.backend.pre_project.member.entity.Member;
 
@@ -30,6 +32,15 @@ public class CommentService {
 
     public Comment createComment(Comment comment) {
 
+        return commentRepository.save(comment);
+    }
+
+    public Comment createQuestionComment(Comment comment) {
+        Member member = memberService.findMember(getCurrentMember().getMemberId());
+        comment.setMember(member);
+        Question question = questionService.findQuestion(comment.getQuestion().getQuestionId());
+        comment.setQuestion(question);
+        comment.setCommentRegDate(LocalDateTime.now());
         return commentRepository.save(comment);
     }
 
@@ -68,5 +79,19 @@ public class CommentService {
                 optionalComment.orElseThrow(() ->
                         new BusinessLogicException(ExceptionCode.COMMENT_EXISTS));
         return findComment;
+    }
+
+    public Member getCurrentMember() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser"))
+            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION);
+
+        Optional<Member> optionalMember = memberRepository.findByEmail(authentication.getName());
+        Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        System.out.println("현재 사용자:"+member.getMemberId());
+
+        return member;
     }
 }

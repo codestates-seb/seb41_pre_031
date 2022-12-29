@@ -46,6 +46,7 @@ public class AnswerDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     @Builder
     public static class Response {
         private long answerId;
@@ -55,8 +56,8 @@ public class AnswerDto {
         private int answerLikes;
 
     }
-
-    public void setComments(List<Comment> comments){
-        this.setComments(comments);
-    }
+//
+//    public void setComments(List<Comment> comments){
+//        this.setComments(comments);
+//    }
 }

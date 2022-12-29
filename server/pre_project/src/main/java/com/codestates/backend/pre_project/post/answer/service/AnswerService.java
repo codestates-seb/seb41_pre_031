@@ -9,6 +9,7 @@ import com.codestates.backend.pre_project.member.service.MemberService;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.answer.repository.AnswerRepository;
 import com.codestates.backend.pre_project.post.question.Question;
+import com.codestates.backend.pre_project.post.question.service.QuestionService;
 import com.codestates.backend.pre_project.utils.CustomBeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,11 +17,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
 @Service
 public class AnswerService {
+
+    private final QuestionService questionService;
     private final AnswerRepository answerRepository;
     private final MemberService memberService;
     private final CustomBeanUtils<Answer> beanUtils;
@@ -29,8 +33,9 @@ public class AnswerService {
 
 //    private final QuestionService questionService;
 
-    public AnswerService(AnswerRepository answerRepository, MemberService memberService
-                         , CustomBeanUtils<Answer> beanUtils, AnswerLikesService answerLikesService) {
+    public AnswerService(QuestionService questionService, AnswerRepository answerRepository, MemberService memberService
+                         , CustomBeanUtils<Answer> beanUtils, AnswerLikesService answerLikesService, MemberRepository memberRepository) {
+        this.questionService = questionService;
         this.answerRepository = answerRepository;
         this.memberService = memberService;
         this.beanUtils = beanUtils;
@@ -38,7 +43,10 @@ public class AnswerService {
     }
 
     public Answer createAnswer(Answer answer) {
-//        answer.setMember(memberService.getCurrentMember());
+        Member member = memberService.findMember(getCurrentMember().getMemberId());
+        answer.setMember(member);
+        Question question =questionService.findQuestion(answer.getQuestion().getQuestionId());
+        answer.setQuestion(question);
 //        현재 유저
         return answerRepository.save(answer);
 //        updatePoint(savedAnswer); 포인트 증가
