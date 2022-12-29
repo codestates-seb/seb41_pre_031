@@ -92,5 +92,14 @@ public interface QuestionMapper {
 
 
     List<QuestionDto.Response> questionToQuestionResponse(List<Question> questions);
+//    {
+//        List<QuestionDto.Response> responses = new LinkedList<>();
+//        for(int i =0; i>questions.size(); i++){
+//            responses.add(questionToQuestionResponseDto(questions.get(i)));
+//        }
+//        return responses;
+//    }
+
+
 
 }

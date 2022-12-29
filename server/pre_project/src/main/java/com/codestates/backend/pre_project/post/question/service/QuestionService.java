@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.PostPersist;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -72,9 +73,8 @@ public class QuestionService {
                         new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
         return findQuestion;
     }
-    public Page<Question> findQuestions(int page, int size){
-        return questionRepository.findAll(
-                PageRequest.of(page,size, Sort.by("questionId").descending()));
+    public List<Question> findQuestions(){
+        return questionRepository.findAll();
     }
 
     public Question findQuestion(long questionId){
