@@ -49,9 +49,9 @@ public class QuestionService {
 
 
     public Question updateQuestion(Question question) throws BusinessLogicException{
-        Question findQustion = findVerifiedQustion(question.getQuestionId());
+        Question findQuestion = findVerifiedQuestion(question.getQuestionId());
 
-        if(findQustion.getMember().getMemberId() != getCurrentMember().getMemberId())
+        if(findQuestion.getMember().getMemberId() != getCurrentMember().getMemberId())
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION);
 
         Question updateQuestion = beanUtils.copyNonNullProperties(question, findQuestion);
@@ -61,25 +61,26 @@ public class QuestionService {
         return questionRepository.save(updateQuestion);
     }
 
-    public Question findVerifiedQustion(long questionId){
+    public Question findVerifiedQuestion(long questionId){
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
 
-        Question findQustion =
+        Question findQuestion =
                 optionalQuestion.orElseThrow(()->
                         new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
-        return findQustion;
+        return findQuestion;
     }
     public Page<Question> findQuestions(int page, int size){
         return questionRepository.findAll(
                 PageRequest.of(page,size, Sort.by("questionId").descending()));
     }
 
-    public Question findQustion(long qustionId){
-        return findVerifiedQustion(qustionId);
+    public Question findQuestion(long questionId){
+        return findVerifiedQuestion(questionId);
+
     }
 
     public void deleteQuestion(long questionId){
-        Question findQuestion = findVerifiedQustion(questionId);
+        Question findQuestion = findVerifiedQuestion(questionId);
         if(findQuestion.getMember().getMemberId() != getCurrentMember().getMemberId())
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION);
         questionRepository.delete(findQuestion);
