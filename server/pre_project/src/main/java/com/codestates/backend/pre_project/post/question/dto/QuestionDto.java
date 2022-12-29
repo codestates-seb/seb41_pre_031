@@ -24,8 +24,10 @@ public class QuestionDto {
 
             private String questionBody;
 
+            private long memberId;
+
             @Valid
-            private List<QuestionTag> questionTags;
+            private List<QuestionTagDto> questionTags;
 
     }
 
@@ -35,12 +37,14 @@ public class QuestionDto {
     public static class Patch{
         private long questionId;
 
+        private long memberId;
+
         private String questionTitle;
 
         private String questionBody;
 
         @Valid
-        private List<QuestionTag> questionTags;
+        private List<QuestionTagDto> questionTags;
 
     }
 
@@ -50,7 +54,7 @@ public class QuestionDto {
     public static class Response{
         private long questionId;
 
-        private String memberName;
+        private long memberId;
 
         private String questionTitle;
 
