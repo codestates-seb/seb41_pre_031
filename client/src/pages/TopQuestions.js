@@ -4,6 +4,7 @@ import styled from "styled-components";
 import dummyQuestions from "../data/dummyQuestions";
 import Question from "../components/Question";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
 	width: 100%;
@@ -18,7 +19,13 @@ const TopContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 
-	.askBtn {
+	.btnPrimary {
+		display: block;
+		height: 100%;
+		border-radius: 3px;
+		line-height: var(--line-height-sm);
+		font-size: var(--font-button-size);
+		padding: 10px;
 		margin-right: 16px;
 	}
 `;
@@ -43,12 +50,10 @@ const TopQuestions = ({ setFlag, setIsFooter }) => {
 		<Container>
 			<div className="content">
 				<TopContainer>
-					<span>
-						<Title title="Top Questions" />
-					</span>
-					<span className="askBtn">
-						<button className="btnPrimary">Ask Question</button>
-					</span>
+					<Title title="Top Questions" />
+					<Link to="/questions/ask" className="btnPrimary">
+						Ask Question
+					</Link>
 				</TopContainer>
 				<QuestionContainer>
 					<div className="borderLine"></div>
