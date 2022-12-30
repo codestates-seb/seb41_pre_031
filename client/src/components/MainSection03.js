@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { useState, useRef, useEffect } from "react";
+import carouselData from "./../data/carouselData";
 
 const Section03 = styled.section`
 	padding: 96px 0 64px 0;
@@ -18,11 +20,20 @@ const Carousel = styled.ul`
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
+	min-height: 90px;
 	padding: 0 64px;
+	opacity: 1;
 
 	li {
 		padding: 0 16px;
 		margin: 16px 12px;
+	}
+	li.hide {
+		display: none;
+	}
+
+	&.view {
+		opacity: 1;
 	}
 `;
 const CarouselButtons = styled.div`
@@ -46,29 +57,63 @@ const CarouselButtons = styled.div`
 	}
 `;
 
+const useInterval = (callback, delay, isStop) => {
+	const savedCollback = useRef();
+	useEffect(() => {
+		savedCollback.current = callback;
+	}, [callback]);
+	useEffect(() => {
+		const myInterval = () => {
+			savedCollback.current();
+		};
+		let intervalId;
+		if (delay !== null && !isStop) {
+			intervalId = setInterval(myInterval, delay);
+			return () => clearInterval(intervalId);
+		} else if (isStop) {
+			clearInterval(intervalId);
+		}
+	}, [delay]);
+};
+
 const MainSection03 = () => {
+	const [currentPage, setCurrentPage] = useState(0);
+	const [isCarouselStop, setIsCarousetStop] = useState(false);
+
+	const viewCount = 4;
+	const allPages = Math.ceil(carouselData.length / viewCount);
+	const time = 4000;
+	const handleShowCarousel = () => {
+		setCurrentPage((currentPage) => (currentPage >= allPages - 1 ? 0 : currentPage + 1));
+	};
+
+	useInterval(handleShowCarousel, time, isCarouselStop);
+
+	const handleClickCarousel = (e, idx) => {
+		setIsCarousetStop(false);
+		setCurrentPage(idx);
+	};
+
 	return (
 		<Section03>
 			<p>Thousands of organizations around the globe use Stack Overflow for Teams</p>
 			<Carousel>
-				<li>
-					<img width="185" height="37" alt="Instacart" src="https://cdn.sstatic.net/Img/product/teams/logos/instacart-alt.svg?v=15bd0b39b197" />
-				</li>
-				<li>
-					<img width="49" height="55" alt="Chevron" src="https://cdn.sstatic.net/Img/product/teams/logos/chevron-alt.svg?v=3bfd2c06a64b" />
-				</li>
-				<li>
-					<img width="187" height="36" alt="Dialpad" src="https://cdn.sstatic.net/Img/product/teams/logos/dialpad-alt.svg?v=4e63facf7f79" />
-				</li>
-				<li>
-					<img width="165" height="37" src="https://cdn.sstatic.net/Img/product/teams/logos/expensify-alt.svg?v=375099b85ce5" alt="Expensify" />
-				</li>
+				{carouselData
+					.filter((el, idx) => {
+						return idx >= viewCount * currentPage && idx < viewCount * currentPage + viewCount;
+					})
+					.map((el, idx) => {
+						return (
+							<li key={idx}>
+								<img width={el.width} height={el.height} alt={el.alt} src={el.src} />
+							</li>
+						);
+					})}
 			</Carousel>
 			<CarouselButtons>
-				<span></span>
-				<span className="selected"></span>
-				<span></span>
-				<span></span>
+				{[...Array(allPages)].map((el, idx) => {
+					return <span key={idx} className={currentPage === idx ? "selected" : ""} onClick={(e) => handleClickCarousel(e, idx)}></span>;
+				})}
 			</CarouselButtons>
 		</Section03>
 	);

@@ -3,6 +3,8 @@ package com.codestates.backend.pre_project.profile.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 public class ProfileDto {
     @Getter
     @AllArgsConstructor
@@ -26,5 +28,6 @@ public class ProfileDto {
         private String location;
         private String about;
         private long profileView;
+        private LocalDateTime profileRegDate;
     }
 }

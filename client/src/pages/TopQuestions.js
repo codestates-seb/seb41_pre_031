@@ -6,33 +6,38 @@ import Question from "../components/Question";
 import axios from "axios";
 
 const Container = styled.div`
-    .content {
-        margin-bottom: 4rem;
-    }
+	width: 100%;
+	.content {
+		margin-bottom: 4rem;
+	}
 `;
 
 const TopContainer = styled.div`
-    margin: 0 0 1.2rem;
-    padding: 2rem 0 0 1.6rem;
-    display: flex;
-    justify-content: space-between;
+	margin: 0 0 1.2rem;
+	padding: 2rem 0 0 1.6rem;
+	display: flex;
+	justify-content: space-between;
 
-    .askBtn {
-        margin-right: 16px;
-    }
+	.askBtn {
+		margin-right: 16px;
+	}
 `;
 
-const QuestionContainer = styled.ul`
-    padding: 0px;
+const QuestionContainer = styled.div`
+	padding: 0px;
 
-    .borderLine {
-        padding-bottom: 1.2rem;
-        border-bottom: 1px solid var(--lightgray2);
-    }
+	.borderLine {
+		padding-bottom: 1.2rem;
+		border-bottom: 1px solid var(--lightgray2);
+	}
 `;
 
-const TopQuestions = () => {
-    const [data, setData] = useState(dummyQuestions);
+const TopQuestions = ({ setFlag, setIsFooter }) => {
+	const [data, setData] = useState(dummyQuestions);
+	useEffect(() => {
+		setFlag(true);
+		setIsFooter(true);
+	}, []);
 
     useEffect(() => {           
         axios

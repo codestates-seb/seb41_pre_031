@@ -19,6 +19,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/members")
 @Validated
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 public class MemberController {
     private final MemberService memberService;
 
@@ -68,13 +70,10 @@ public class MemberController {
     }
 
     @GetMapping
-    public ResponseEntity getMembers(@Positive @RequestParam int page,
-                                     @Positive @RequestParam int size) {
-        Page<Member> pageMembers = memberService.findMembers(page - 1, size);
-        List<Member> members = pageMembers.getContent();
+    public ResponseEntity getMembers() {
+        List<Member> members = memberService.findMembers();
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.membersToMemberResponses(members),
-                        pageMembers),
+                new SingleResponseDto<>(mapper.membersToMemberResponses(members)),
                 HttpStatus.OK);
     }
 
