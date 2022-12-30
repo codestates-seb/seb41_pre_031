@@ -11,4 +11,5 @@ import java.util.List;
 public interface ProfileMapper {
     Profile profilePatchDtoToProfile(ProfileDto.Patch patch);
     ProfileDto.Response profileToprofileResponseDto(Profile profile);
+    List<ProfileDto.Response> profileToprofilesResponseDtos(List<Profile> profile);
 }

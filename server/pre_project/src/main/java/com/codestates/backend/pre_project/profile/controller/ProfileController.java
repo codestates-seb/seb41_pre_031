@@ -48,4 +48,12 @@ public class ProfileController {
                 new SingleResponseDto<>(mapper.profileToprofileResponseDto(profile)),
                 HttpStatus.OK);
     }
+
+    @GetMapping
+    public ResponseEntity getProfiles() {
+        List<Profile> profile = profileService.findProfiles();
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.profileToprofilesResponseDtos(profile)),
+                HttpStatus.OK);
+    }
 }

@@ -40,6 +40,7 @@ public class Profile {
     @Nullable
     private String about;
 
+    @Nullable
     private long profileView;
 
     @CreatedDate
