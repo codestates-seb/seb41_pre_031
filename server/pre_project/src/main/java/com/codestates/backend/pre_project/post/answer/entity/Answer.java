@@ -1,6 +1,7 @@
 package com.codestates.backend.pre_project.post.answer.entity;
 
-import com.codestates.backend.pre_project.likes.entity.Likes;
+import com.codestates.backend.pre_project.likes.answer.AnswerLikes;
+import com.codestates.backend.pre_project.likes.question.QuestionLikes;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.question.Question;
@@ -28,6 +29,7 @@ public class Answer {
     @Column(nullable = false, length = 500)
     private String answerBody;
 
+
     @Column(nullable = false)
     private int answerLikes;
 
@@ -48,9 +50,9 @@ public class Answer {
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
-    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
-    private List<Likes> likes;
-        //= new ArrayList<>();
+//    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
+//    private List<answerLikes> answerLikesList;
+//        //= new ArrayList<>();
 
     @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL)
     private List<Comment> comments;// = new ArrayList<>();
@@ -66,9 +68,13 @@ public class Answer {
         this.question = question;
     }
 
-    public void setLikes(List<Likes> likes) {
-        this.likes = likes;
-    }
+//    public void setAnswerLikes(List<AnswerLikes> answerlikes) {
+//        this.answerlikes = answerlikes;
+//    }
+//
+//    public void setQuestionLikes(List<QuestionLikes> likes) {
+//        this.likes = likes;
+//    }
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;

@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -20,14 +23,19 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long profileId;
 
+    @Nullable
     private String profileTitle;
 
     @Column(length = 50)
+    @Nullable
     private String homepage;
 
     @Column(length = 50)
+    @Nullable
     private String location;
 
+    @Column
+    @Nullable
     private String about;
 
     private long profileView;

@@ -4,12 +4,14 @@ import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.comment.dto.CommentDto;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.question.Question;
-import org.apache.tomcat.jni.Local;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Arrays.stream;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CommentMapper {
@@ -40,8 +42,8 @@ public interface CommentMapper {
     default CommentDto.QuestionResponse commentToCommentDtoQuestionResponse(Comment comment){
         CommentDto.QuestionResponse response = new CommentDto.QuestionResponse(
                 comment.getCommentId(),
-                comment.getMember().getMemberId(),
                 comment.getQuestion().getQuestionId(),
+                comment.getMember().getMemberName(),
                 comment.getCommentBody(),
                 LocalDateTime.now()
                 );
@@ -51,16 +53,44 @@ public interface CommentMapper {
     default CommentDto.AnswerResponse commentToCommentDtoAnswerResponse(Comment comment){
         CommentDto.AnswerResponse response = new CommentDto.AnswerResponse(
                 comment.getCommentId(),
-                comment.getMember().getMemberId(),
                 comment.getAnswer().getAnswerId(),
+                comment.getMember().getMemberName(),
                 comment.getCommentBody(),
                 LocalDateTime.now()
         );
         return response;
     };
-    CommentDto.Response commentToCommentDtoResponse(Comment comment);
-    List<CommentDto.Response> commentsToCommentDtoResponses(List<Comment> comments);
+//    default CommentDto.Response commentToCommentDtoResponse(Comment comment){
+//        Question question = new Question();
+//        question.setQuestionId(comment.getQuestion().getQuestionId());
+//        Answer answer = new Answer();
+//        answer.setAnswerId(comment.getAnswer().getAnswerId());
+//        Member member = new Member();
+//        member.setMemberName(comment.getMember().getMemberName());
+//        comment.setQuestion(question);
+//        comment.setAnswer(answer);
+//        comment.setMember(member);
+//        CommentDto.Response response = new CommentDto.Response(
+//                comment.getCommentId(),
+//                comment.getAnswer().getAnswerId(),
+//                comment.getQuestion().getQuestionId(),
+//                comment.getMember().getMemberName(),
+//                comment.getCommentBody(),
+//                LocalDateTime.now()
+//        );
+//        return response;
+//
+//    }
+    default List<Object> commentsToQuestionCommentDtoResponses(List<Comment> comments){
 
-    //List<CommentDto.AnswerResponse> commentsToAnswerCommentDtoResponses(List<Comment> comments);
+        return  comments.stream()
+               .map(comment ->{
+                   if(comment.getAnswer() ==null) return commentToCommentDtoQuestionResponse(comment);
+                   return commentToCommentDtoAnswerResponse(comment);
+
+                       }).collect(Collectors.toList());
+
+    }
+
 
 }

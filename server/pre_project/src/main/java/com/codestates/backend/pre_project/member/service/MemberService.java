@@ -6,6 +6,7 @@ import com.codestates.backend.pre_project.exception.ExceptionCode;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.member.repository.MemberRepository;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
+import com.codestates.backend.pre_project.profile.entity.Profile;
 import com.codestates.backend.pre_project.utils.CustomBeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -46,6 +47,10 @@ public class MemberService {
 
         List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
+
+        Profile profile= new Profile();
+        profile.setMember(member);
+        member.setProfile(profile);
 
         return memberRepository.save(member);
     }
