@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import imageSprites from "./../icons/sprites.svg";
 import LoginSignUpStyle from "../components/LoginSignUpStyle";
 import LoginSignupDesc from "../components/LoginSignupDesc";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const LogoWrap = styled.div`
 	margin-bottom: 24px;
@@ -16,42 +18,60 @@ const LogoWrap = styled.div`
 	}
 `;
 
-const LinkWrap = styled.ul`
-	max-width: calc((100rem / 12) * 3);
-	width: 100%;
-	padding: 16px;
-	margin-bottom: 24px;
-
-	li {
-		margin-bottom: 16px;
-		text-align: center;
-		a {
-			margin-left: 4px;
-
-			svg {
-				margin-left: 4px;
-				vertical-align: text-bottom;
-				color: inherit;
-			}
-		}
-	}
-`;
-
-const Login = ({ setFlag, setIsFooter }) => {
+const Login = ({ setFlag, setIsFooter, setIsLogin }) => {
+	const [loginInfo, setLoginInfo] = useState({
+		username: "",
+		password: "",
+	});
+	const [errorEmailMsg, setErrorEmailMsg] = useState("");
+	const [errorPWMsg, setErrorPWMsg] = useState("");
+	const navigate = useNavigate();
 	useEffect(() => {
 		setFlag(false);
 		setIsFooter(false);
 	}, []);
+	const handleInputValue = (key, e) => {
+		setLoginInfo({ ...loginInfo, [key]: e.target.value });
+	};
+	const handleLoginRequest = () => {
+		const { username, password } = loginInfo;
+		if (!username) {
+			setErrorEmailMsg("Email cannot be empty.");
+			return;
+		} else {
+			setErrorEmailMsg("");
+		}
+		if (!password) {
+			setErrorPWMsg("Password cannot be empty.");
+			return;
+		} else {
+			setErrorPWMsg("");
+		}
+		return axios
+			.put("http://prepro31.iptime.org:8080/auth/login", { username, password })
+			.then((res) => {
+				//console.log(res.headers.authorization);
+				localStorage.setItem("loginToken", res.headers.authorization);
+				setIsLogin(true);
+				navigate("/");
+			})
+			.catch((err) => {
+				if (err.response.status === 401) {
+					alert("로그인에 실패하였습니다.");
+				}
+			});
+	};
 	return (
 		<LoginSignUpStyle.Wrap>
 			<LogoWrap>
 				<Link to="/" />
 			</LogoWrap>
 			<LoginSignUpStyle.ContentBox>
-				<form>
+				<form onSubmit={(e) => e.preventDefault()}>
 					<LoginSignUpStyle.InputWrap>
-						<label htmlFor="email">Email</label>
-						<input type="text" id="email" />
+						<label htmlFor="username">Email</label>
+						<input type="text" id="username" className={errorEmailMsg === "" ? "" : "errorInput"} onChange={(e) => handleInputValue("username", e)} />
+						<p className="errorMessage">{errorEmailMsg}</p>
 					</LoginSignUpStyle.InputWrap>
 					<LoginSignUpStyle.InputWrap>
 						<div className="flexbox">
@@ -60,12 +80,15 @@ const Login = ({ setFlag, setIsFooter }) => {
 								Forgot password?
 							</a>
 						</div>
-						<input type="text" id="password" />
+						<input type="password" id="password" onChange={(e) => handleInputValue("password", e)} className={errorPWMsg === "" ? "initialInput" : "initialInput errorInput"} />
+						<p className="errorMessage">{errorPWMsg}</p>
 					</LoginSignUpStyle.InputWrap>
-					<button className="btnPrimary">Log in</button>
+					<button className="btnPrimary" onClick={handleLoginRequest}>
+						Log in
+					</button>
 				</form>
 			</LoginSignUpStyle.ContentBox>
-			<LoginSignupDesc desc1={"Don’t have an account?"} button1name={"Sign up"} linkTo={'/signup'}/>
+			<LoginSignupDesc desc1={"Don’t have an account?"} button1name={"Sign up"} linkTo={"/signup"} />
 		</LoginSignUpStyle.Wrap>
 	);
 };
