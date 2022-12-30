@@ -3,68 +3,67 @@ import { useState } from "react";
 import styled from "styled-components";
 import dummyQuestions from "../data/dummyQuestions";
 import Question from "../components/Question";
+import { useEffect } from "react";
 
 const Container = styled.div`
-    .content {
-        margin-bottom: 4rem;
-    }
+	width: 100%;
+	.content {
+		margin-bottom: 4rem;
+	}
 `;
 
 const TopContainer = styled.div`
-    margin: 0 0 1.2rem;
-    padding: 2rem 0 0 1.6rem;
-    display: flex;
-    justify-content: space-between;
+	margin: 0 0 1.2rem;
+	padding: 2rem 0 0 1.6rem;
+	display: flex;
+	justify-content: space-between;
 
-    .askBtn {
-        margin-right: 16px;
-    }
+	.askBtn {
+		margin-right: 16px;
+	}
 `;
 
-const QuestionContainer = styled.ul`
-    padding: 0px;
+const QuestionContainer = styled.div`
+	padding: 0px;
 
-    .borderLine {
-        padding-bottom: 1.2rem;
-        border-bottom: 1px solid var(--lightgray2);
-    }
+	.borderLine {
+		padding-bottom: 1.2rem;
+		border-bottom: 1px solid var(--lightgray2);
+	}
 `;
 
-const TopQuestions = () => {
-    const [data, setData] = useState(dummyQuestions);
+const TopQuestions = ({ setFlag, setIsFooter }) => {
+	const [data, setData] = useState(dummyQuestions);
+	useEffect(() => {
+		setFlag(true);
+		setIsFooter(true);
+	}, []);
 
-    return (
-        <>
-            <Container>
-                <div className="content">
-                    <TopContainer>
-                        <span>
-                            <Title title="Top Questions" />
-                        </span>
-                        <span className="askBtn">
-                            <button className="btnPrimary">Ask Question</button>
-                        </span>
-                    </TopContainer>
-                    <QuestionContainer>
-                        <div className="borderLine"></div>
-                        <div>
-                            {data
-                                .slice(0, 10)
-                                .reverse()
-                                .map((el) => (
-                                    <Question
-                                        key={el.questionId}
-                                        question={el}
-                                        page="TopQuestion"
-                                    />
-                                ))}
-                        </div>
-                    </QuestionContainer>
-                </div>
-            </Container>
-            {/* Footer */}
-        </>
-    );
+	return (
+		<Container>
+			<div className="content">
+				<TopContainer>
+					<span>
+						<Title title="Top Questions" />
+					</span>
+					<span className="askBtn">
+						<button className="btnPrimary">Ask Question</button>
+					</span>
+				</TopContainer>
+				<QuestionContainer>
+					<div className="borderLine"></div>
+					<ul>
+						{data
+							.slice(0, 10)
+							.reverse()
+							.map((el) => (
+								<Question key={el.questionId} question={el} page="TopQuestion" />
+							))}
+					</ul>
+				</QuestionContainer>
+			</div>
+		</Container>
+	);
 };
 
 export default TopQuestions;
