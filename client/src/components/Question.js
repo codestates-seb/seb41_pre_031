@@ -5,17 +5,17 @@ import { BREAK_POINT_TABLET } from "../data/breakpoints";
 const Container = styled.li`
   border-bottom: 1px solid var(--lightgray2);
   width: 100%;
-  padding: 17px 16px 16px 16px;
+  padding: 17px 16px 16px 25px;
   display: flex;
 
   @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
     flex-direction: column;
-    padding-left: 25.6px;
+    padding-left: 35px;
   }
 `;
 
 const QuestionInfo = styled.div`
-  margin: 0 1.6rem 0.4rem 0px;
+  margin: 0 1.6rem 0.4rem 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;

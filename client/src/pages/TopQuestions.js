@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 const TopContainer = styled.div`
-	margin: 0 0 1.2rem;
+	margin: 0 0 1.2rem 1.2rem;
 	padding: 2rem 0 0 1.6rem;
 	display: flex;
 	justify-content: space-between;

@@ -15,7 +15,7 @@ const Container = styled.div`
 `;
 
 const TopContainer = styled.div`
-    margin: 0 0 1.2rem;
+    margin: 0 0 1.2rem 1.2rem;
     padding: 2rem 0 0 1.6rem;
     display: flex;
     justify-content: space-between;
@@ -32,7 +32,7 @@ const QuestionContainer = styled.ul`
     padding: 0px;
 
     .questionCount {
-        padding: 0 0 1.2rem 1.6rem;
+        padding: 0 0 1.2rem 2.7rem;
         border-bottom: 1px solid var(--lightgray2);
         font-size: var(--font-head3-size);
     }
@@ -92,52 +92,6 @@ const AllQuestions = ({ setFlag, setIsFooter }) => {
                 // console.log(res.data.data);
                 });
         },[data])
-
-            // window.location.reload();
-
-
-            // axios
-            //     .post('http://prepro31.iptime.org:8080/members/signup',{
-            //             email: "test123@gmail.com",
-            //             password: "test1234",
-            //             memberName: "testname"    
-            //     })
-            //     .then(res => {
-            //         console.log(res.data);
-            //     })
-
-            // axios
-            //     .put('http://prepro31.iptime.org:8080/auth/login', {
-            //         memberName: "testname",
-	        //         password: "test1234"
-            //     })
-            //     .then(res => { console.log(res);})
-
-
-        //     axios
-        //     .post('http://prepro31.iptime.org:8080/questions',{
-        //         data: {
-        //             questionTitle : "Select randomly percent of datasets in each percent of epochs", 
-        //             questionBody : "I have a TextArea, and when the amount of text exceeds the capacity of the visable TextArea, the scrollbar appears and works as normal... to a degree. My issue is that after a certain amount of text", 
-        //             memberId : 7,
-        //             questionTags : [{
-        //             questionId : 1,
-        //             tagId : 1,
-        //             tagName : "JAVA"
-        //             }]
-        //         }
-        //     }, 
-        //     {
-        //         headers: {
-        //             Authorization : `Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sIm1lbWJlcklkIjo3LCJ1c2VybmFtZSI6Im5ld3Rlc3RAZ21haWwuY29tIiwic3ViIjoibmV3dGVzdEBnbWFpbC5jb20iLCJpYXQiOjE2NzIzNzQyMTEsImV4cCI6MTY3MjM3NjYxMX0.287Hh8tIQ90d12W82LvGXI3L7uLpajRJRU3gX0ui12O860mZ50Ui8db8CdGt0DCVPu3SgSWebjS2s3BnRWha1A`
-        //         }
-        //     })
-        //     .then(res => {
-        //         console.log(res.data);
-        //     })
-        //     .catch(error => {
-        //         console.error(error.response.data);
-        //     })
 
     // 첫 게시물의 index
     const offset = (page - 1) * limit;
