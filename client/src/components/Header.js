@@ -4,7 +4,7 @@ import IconSearch from "./../icons/IconSearch";
 import Nav from "./Nav";
 import { BREAK_POINT_TABLET, BREAK_POINT_MOBILE } from "./../data/breakpoints";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HeaderWrap = styled.header`
 	position: fixed;
@@ -217,14 +217,25 @@ const BtnsWrap = styled.div`
 		display: block;
 		margin-right: 4px;
 	}
-	a {
+	a,
+	button {
 		padding: 8px 10px 8px 10px;
 		line-height: 1;
 	}
 `;
 
-const Header = ({ flag, setFlag }) => {
+const Header = ({ flag, isLogin, setIsLogin }) => {
 	const [isMenuOn, setIsMenuOn] = useState(false);
+	const navigate = useNavigate();
+
+	const handleClickLogout = () => {
+		let logoutResult = window.confirm("로그아웃 하시겠습니까?");
+		if (logoutResult) {
+			localStorage.removeItem("loginToken");
+			setIsLogin(false);
+			navigate("/");
+		}
+	};
 
 	const handleClickMenu = (e) => {
 		setIsMenuOn(!isMenuOn);
@@ -265,25 +276,30 @@ const Header = ({ flag, setFlag }) => {
 						<IconSearch color={"#838c95"} />
 					</button>
 				</SearchWrap>
-				{/* 로그인 후에만 프로필 버튼 노출 */}
-				<ProfileWrap>
-					<Link to="/users/profile/:id" className="avatarWrap">
-						<span>사용자 프로필 대체</span>
-					</Link>
-					<div className="reputation">1</div>
-				</ProfileWrap>
-				<BtnsWrap>
-					<Link to="/login" className="buttonLink btnSecondary">
-						Log in
-					</Link>
-					<Link to="/signup" className="buttonLink btnPrimary">
-						Sign up
-					</Link>
-					{/* 로그인 시만 노출 - 일단 로그인 전 홈으로 가게 설정 */}
-					<Link to="/" className="buttonLink btnSecondary">
-						Log out
-					</Link>
-				</BtnsWrap>
+				{isLogin ? (
+					<ProfileWrap>
+						<Link to="/users/profile/:id" className="avatarWrap">
+							<span>사용자 프로필 대체</span>
+						</Link>
+						<div className="reputation">1</div>
+					</ProfileWrap>
+				) : null}
+				{isLogin ? (
+					<BtnsWrap>
+						<button className="buttonLink btnSecondary" onClick={handleClickLogout}>
+							Log out
+						</button>
+					</BtnsWrap>
+				) : (
+					<BtnsWrap>
+						<Link to="/login" className="buttonLink btnSecondary">
+							Log in
+						</Link>
+						<Link to="/signup" className="buttonLink btnPrimary">
+							Sign up
+						</Link>
+					</BtnsWrap>
+				)}
 			</div>
 		</HeaderWrap>
 	);

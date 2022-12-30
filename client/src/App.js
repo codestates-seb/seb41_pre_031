@@ -57,12 +57,13 @@ const Section = styled.div`
 
 function App() {
 	const [flag, setFlag] = useState(true); //왼쪽 side nav 유무 조작: 각 page 컴포넌트에서 useEffect 사용하세용
-	const [isLogin, setIsLogin] = useState(false); //임시 로그인 여부 판별
+	const [isLogin, setIsLogin] = useState(false); //로그인 여부 판별
 	const [isFooter, setIsFooter] = useState(true); //footer 유무 조작
+	const [userInfo, setUserInfo] = useState(null);
 
 	return (
 		<Wrap>
-			<Header flag={flag} setFlag={setFlag} />
+			<Header flag={flag} isLogin={isLogin} setIsLogin={setIsLogin} />
 			<Main className={flag ? "container" : ""}>
 				{flag ? (
 					<LeftSide>
@@ -77,7 +78,7 @@ function App() {
 						<Route path="/users/profile/:id/*" element={<UserProfile setFlag={setFlag} setIsFooter={setIsFooter} />} />
 						<Route path="/questions" element={<AllQuestions setFlag={setFlag} setIsFooter={setIsFooter} />} />
 						<Route path="/questions/ask" element={<AskQuestion setFlag={setFlag} setIsFooter={setIsFooter} />} />
-						<Route path="/login" element={<Login setFlag={setFlag} setIsFooter={setIsFooter} setIsLogin={setIsLogin} />} />
+						<Route path="/login" element={<Login setFlag={setFlag} setIsFooter={setIsFooter} setIsLogin={setIsLogin} setUserInfo={setUserInfo} />} />
 						<Route path="/signup" element={<SignUp setFlag={setFlag} setIsFooter={setIsFooter} />} />
 					</Routes>
 				</Section>
