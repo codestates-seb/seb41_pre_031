@@ -52,6 +52,7 @@
 	--label-color: var(--black);
 	--footer-bg-color: var(--dark);
 	--footer-bg-on-color: var(--darkgray2);
+	--error-color: var(--red);
 	/* box shadow */
 	--button-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4);
 	/* border-radius */
@@ -120,6 +121,15 @@ input[type="text"],
 	line-height: var(--line-height-sm);
 	font-size: var(--font-caption-size);
 	color: var(--caption-color);
+}
+.errorInput {
+	border-color: var(--error-color);
+}
+.errorMessage {
+	margin: 2px 0;
+	line-height: var(--line-height-sm);
+	font-size: var(--font-caption-size);
+	color: var(--error-color);
 }
 /* anchor */
 a {
