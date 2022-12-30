@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 import TextEdit from "./TextEdit";
+import IconGithub from "../icons/IconGithub";
+import axios from "axios";
 
 const MainHeader = styled.div`
   display: flex;
@@ -28,7 +31,7 @@ const MainBody = styled.form`
     border-radius: 5px;
     border: 1px solid var(--lightgray2);
   }
-  .about{
+  .about {
     height: 547px;
   }
   .fromBox {
@@ -78,6 +81,11 @@ const MainBody = styled.form`
   .linkInputBox input {
     padding: 7.8px 9.1px 7.8px 32px;
   }
+  .linkInputBox svg {
+    position: absolute;
+    top: 15px;
+    left: 9px;
+  }
 `;
 
 const BtnBox = styled.div`
@@ -100,7 +108,34 @@ const BtnBox = styled.div`
   }
 `;
 
-const Edit = () => {
+const Edit = ({ userData, id }) => {
+    const navigate = useNavigate();
+  const [content, setContent] = useState();
+  const [form, setForm] = useState({
+    profileTitle: userData.profileTitle,
+    homepage: userData.homepage,
+    location: userData.location,
+    about: content,
+  });
+
+  const profileUpdate = () => {
+    const config = {
+      method: "patch",
+      url: `http://prepro31.iptime.org:8080/profiles/${id}`,
+      headers: {
+        Authorization: localStorage.getItem("loginToken"),
+      },
+      data: form,
+    };
+    axios(config)
+      .then((res) => {
+        console.log("성공한듯");
+        window.location.replace("/users/profile/8");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <MainHeader>
@@ -116,12 +151,23 @@ const Edit = () => {
             </div>
             <div className="fromItem">
               <label htmlFor="location">Location</label>
-              <input type="text" id="location" maxLength="100" tabIndex="3" />
+              <input
+                type="text"
+                value={form.location}
+                onChange={(e) => setForm({ ...form, location: e.target.value })}
+                id="location"
+                maxLength="100"
+                tabIndex="3"
+              />
             </div>
             <div className="fromItem">
               <label htmlFor="title">Title</label>
               <input
                 type="text"
+                value={form.profileTitle}
+                onChange={(e) =>
+                  setForm({ ...form, profileTitle: e.target.value })
+                }
                 id="title"
                 maxLength="225"
                 tabIndex="3"
@@ -131,7 +177,7 @@ const Edit = () => {
             <div className="fromItem">
               <label htmlFor="about">About me</label>
               <div className="textarea">
-                <TextEdit/>
+                <TextEdit setContent={setContent} />
               </div>
             </div>
           </div>
@@ -141,14 +187,22 @@ const Edit = () => {
           <div className="linkBox">
             <label>GitHub link</label>
             <div className="linkInputBox">
-              <input type="text" maxLength="200" />
+              <IconGithub />
+              <input
+                type="text"
+                value={form.homepage}
+                onChange={(e) => setForm({ ...form, homepage: e.target.value })}
+                maxLength="200"
+              />
             </div>
           </div>
         </div>
       </MainBody>
       <BtnBox>
         <div className="btnBox">
-          <button className="btnPrimary">Save profile</button>
+          <button onClick={profileUpdate} className="btnPrimary">
+            Save profile
+          </button>
           <a className="link">Cancel</a>
         </div>
       </BtnBox>

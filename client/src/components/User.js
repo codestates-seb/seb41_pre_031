@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 
 const UserBox = styled.div`
   padding: 5px 6px 7px 7px;
@@ -45,11 +46,18 @@ const UserBox = styled.div`
   }
 `;
 
-const User = () => {
+const User = ({data}) => {
+    const [userLocation, setUserLocation] = useState(null);
+    useEffect(() => {
+        axios.get(`http://prepro31.iptime.org:8080/profiles/${data.memberId}`)
+        .then(res => {
+            setUserLocation(res.data.data.location);
+        })
+    },[])
   return (
     <UserBox>
       <div className="imgBox">
-        <Link to="/users/profile/12">
+        <Link to={`/users/profile/${data.memberId}`}>
           <img
             src="https://i.stack.imgur.com/hMDvl.jpg?s=96&g=1"
             width="48"
@@ -58,10 +66,10 @@ const User = () => {
         </Link>
       </div>
       <div className="userDetails">
-        <Link className="userName" to="/users/profile/12">
-          jezrael
+        <Link className="userName" to={`/users/profile/${data.memberId}`}>
+          {data.memberName}
         </Link>
-        <span className="userLocation">Bratislava, Slovakia</span>
+        <span className="userLocation">{userLocation}</span>
         <div className="userPoint">
           <span className="pointNum">1545</span>
         </div>
