@@ -1,5 +1,6 @@
 package com.codestates.backend.pre_project.auth.handler;
 
+import com.codestates.backend.pre_project.member.entity.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;

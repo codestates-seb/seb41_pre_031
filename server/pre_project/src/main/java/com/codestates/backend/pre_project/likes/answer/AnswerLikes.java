@@ -19,11 +19,11 @@ public class AnswerLikes {
     private Long answerlikesId;
 
     @ManyToOne
-    @JoinColumn(name = "answer")
+    @JoinColumn(name = "ANSWER_ID")
     private Answer answer;
 
     @ManyToOne
-    @JoinColumn(name ="member")
+    @JoinColumn(name ="MEMBER_ID")
     @NotNull
     private Member member;
 

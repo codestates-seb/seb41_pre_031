@@ -111,6 +111,8 @@ label,
 	font-size: var(--font-label-size);
 }
 input[type="text"],
+input[type="email"],
+input[type="password"],
 .initialInput {
 	padding: 8px 9px;
 	margin: 2px 0;
