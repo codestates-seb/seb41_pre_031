@@ -4,6 +4,7 @@ import com.codestates.backend.pre_project.post.answer.service.AnswerService;
 import com.codestates.backend.pre_project.post.comment.dto.CommentDto;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.comment.mapper.CommentMapper;
+import com.codestates.backend.pre_project.post.comment.repository.CommentRepository;
 import com.codestates.backend.pre_project.post.comment.service.CommentService;
 import com.codestates.backend.pre_project.post.question.Question;
 import com.codestates.backend.pre_project.post.question.repository.QuestionRepository;
@@ -124,3 +125,8 @@ public class CommentController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
+
+
+//    public ResponseEntity getComments2() {
+//        return CommentRepository.findAll();
+//    }

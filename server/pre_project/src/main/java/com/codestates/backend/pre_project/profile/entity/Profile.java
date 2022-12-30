@@ -12,12 +12,14 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +41,9 @@ public class Profile {
     private String about;
 
     private long profileView;
+
+    @CreatedDate
+    private LocalDateTime profileRegDate;
 
     @OneToOne
     @JoinColumn(name ="MEMBER_ID")

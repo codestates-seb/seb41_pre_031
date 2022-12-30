@@ -60,7 +60,7 @@ public class Question {
     //TODO
 
     @OneToMany(mappedBy = "question")
-    private List<Likes> likes;
+    private List<QuestionLikes> questionLikesList;
     //= new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
