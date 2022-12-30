@@ -44,11 +44,11 @@
 	--button-secondary-hover-color: var(--darkskyblue);
 	--button-secondary-hover-on-color: var(--navy);
 	--link-color: var(--darkblue);
-	--link-hover-color: var(--bule);
+	--link-hover-color: var(--blue);
 	--nav-link-color: var(--darkgray);
 	--nav-link-hover-color: var(--lightgray2);
 	--border-color: var(--lightgray);
-	--caption-color: var(gray);
+	--caption-color: var(--gray);
 	--label-color: var(--black);
 	--footer-bg-color: var(--dark);
 	--footer-bg-on-color: var(--darkgray2);
@@ -114,9 +114,10 @@ input[type="text"],
 	padding: 8px 9px;
 	margin: 2px 0;
 	line-height: var(--line-height-sm);
-	font-size: var(--button-size);
+	font-size: var(--font-button-size);
 }
 .caption {
+	line-height: var(--line-height-sm);
 	font-size: var(--font-caption-size);
 	color: var(--caption-color);
 }

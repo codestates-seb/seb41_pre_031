@@ -1,17 +1,24 @@
 import styled from "styled-components";
 
-const PageContainer = styled.span``;
+const PageContainer = styled.span`
+    margin-bottom: 25px;
+`;
 
 const Dot = styled.span`
-    padding: 0 0.8rem;
+    padding: 0 0.7rem;
 `;
 
 const Button = styled.button`
     margin: 0 0.2rem;
     font-size: var(--font-button-size);
+    border: 1px solid var(--lightgray2);
+    padding: 0px 9px;
+    height: 27px;
+    color: #3b4045;
 
     &[aria-current] {
         background: var(--orange);
+        border: 1px solid var(--orange);
         color: var(--white);
         &:hover {
             background: var(--orange);

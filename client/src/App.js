@@ -9,7 +9,11 @@ import UserProfile from "./pages/UserProfile";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainBeforeLogin from "./pages/MainBeforeLogin";
 import AllQuestions from "./pages/AllQuestions";
+import QuestionsDetail from "./pages/QuestionsDetail";
 import TopQuestions from "./pages/TopQuestions";
+import AskQuestion from "./pages/AskQuestion";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
 const Wrap = styled.div`
 	display: flex;
@@ -45,7 +49,7 @@ const Section = styled.div`
 	flex: 1;
 	max-width: ${(props) => (props.flag ? "1100px" : "100%")};
 	width: ${(props) => (props.flag ? "calc(100% - 164px)" : "100%")};
-	padding: ${(props) => (props.flag ? "24px" : "0")};
+	/* padding: ${(props) => (props.flag ? "24px" : "0")}; */
 	@media screen and (max-width: ${BREAK_POINT_MOBILE}px) {
 		width: 100%;
 	}
@@ -54,6 +58,8 @@ const Section = styled.div`
 function App() {
 	const [flag, setFlag] = useState(true); //왼쪽 side nav 유무 조작: 각 page 컴포넌트에서 useEffect 사용하세용
 	const [isLogin, setIsLogin] = useState(false); //임시 로그인 여부 판별
+	const [isFooter, setIsFooter] = useState(true); //footer 유무 조작
+
 
 	return (
 		<Wrap>
@@ -66,14 +72,18 @@ function App() {
 				) : null}
 				<Section flag={flag}>
 					<Routes>
-						<Route path="/" element={isLogin ? <TopQuestions /> : <MainBeforeLogin setFlag={setFlag} />}/>
-						<Route path="/users" element={<Users />} />
-						<Route path="/users/profile/:id/*" element={<UserProfile />} />
-						<Route path="/questions" element={<AllQuestions setFlag={setFlag} />} />
+                        <Route path="/questions/:id" element={<QuestionsDetail setFlag={setFlag} setIsFooter={setIsFooter}/>}/>
+						<Route path="/" element={isLogin ? <TopQuestions /> : <MainBeforeLogin setFlag={setFlag} setIsFooter={setIsFooter}/>} />
+						<Route path="/users" element={<Users setFlag={setFlag} setIsFooter={setIsFooter}/>} />
+						<Route path="/users/profile/:id/*" element={<UserProfile setFlag={setFlag} setIsFooter={setIsFooter}/>} />
+						<Route path="/questions" element={<AllQuestions setFlag={setFlag} setIsFooter={setIsFooter} />} />
+						<Route path="/questions/ask" element={<AskQuestion setFlag={setFlag} setIsFooter={setIsFooter} />} />
+						<Route path="/login" element={<Login setFlag={setFlag} setIsFooter={setIsFooter} />} />
+						<Route path="/signup" element={<SignUp setFlag={setFlag} setIsFooter={setIsFooter} />} />
 					</Routes>
 				</Section>
 			</Main>
-			<Footer />
+			{isFooter ? <Footer /> : null}
 		</Wrap>
 	);
 }

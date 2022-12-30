@@ -109,12 +109,7 @@ const GnbWrap = styled.div`
 	padding: 24px 0 8px 0;
 	background: var(--bg-color);
 	box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05), 0 2px 8px hsla(0, 0%, 0%, 0.05);
-	@media screen and (max-width: ${BREAK_POINT_TABLET}px) {
-		& {
-			left: 0;
-		}
-	}
-	@media screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+	@media screen and (max-width: 1264px) {
 		& {
 			left: 0;
 		}
@@ -186,6 +181,7 @@ const ProfileWrap = styled.div`
 	align-items: center;
 	padding: 0 12px;
 	.avatarWrap {
+		display: block;
 		width: 24px;
 		height: 24px;
 		margin-right: 4px;
@@ -215,10 +211,15 @@ const ProfileWrap = styled.div`
 const BtnsWrap = styled.div`
 	display: flex;
 	padding-right: 12px;
+	text-align: center;
 	.buttonLink {
 		flex: none;
 		display: block;
 		margin-right: 4px;
+	}
+	a {
+		padding: 8px 10px 8px 10px;
+		line-height: 1;
 	}
 `;
 
@@ -266,22 +267,22 @@ const Header = ({ flag, setFlag }) => {
 				</SearchWrap>
 				{/* 로그인 후에만 프로필 버튼 노출 */}
 				<ProfileWrap>
-					<div className="avatarWrap">
+					<Link to="/users/profile/:id" className="avatarWrap">
 						<span>사용자 프로필 대체</span>
-					</div>
+					</Link>
 					<div className="reputation">1</div>
 				</ProfileWrap>
 				<BtnsWrap>
-					<a href="none" className="buttonLink btnSecondary">
+					<Link to="/login" className="buttonLink btnSecondary">
 						Log in
-					</a>
-					<a href="none" className="buttonLink btnPrimary">
+					</Link>
+					<Link to="/signup" className="buttonLink btnPrimary">
 						Sign up
-					</a>
-					{/* 로그인 시만 노출 */}
-					<a href="none" className="buttonLink btnSecondary">
+					</Link>
+					{/* 로그인 시만 노출 - 일단 로그인 전 홈으로 가게 설정 */}
+					<Link to="/" className="buttonLink btnSecondary">
 						Log out
-					</a>
+					</Link>
 				</BtnsWrap>
 			</div>
 		</HeaderWrap>
