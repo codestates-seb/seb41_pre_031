@@ -60,7 +60,6 @@ function App() {
 	const [isLogin, setIsLogin] = useState(false); //임시 로그인 여부 판별
 	const [isFooter, setIsFooter] = useState(true); //footer 유무 조작
 
-
 	return (
 		<Wrap>
 			<Header flag={flag} setFlag={setFlag} />
@@ -72,13 +71,13 @@ function App() {
 				) : null}
 				<Section flag={flag}>
 					<Routes>
-                        <Route path="/questions/:id" element={<QuestionsDetail setFlag={setFlag} setIsFooter={setIsFooter}/>}/>
-						<Route path="/" element={isLogin ? <TopQuestions /> : <MainBeforeLogin setFlag={setFlag} setIsFooter={setIsFooter}/>} />
-						<Route path="/users" element={<Users setFlag={setFlag} setIsFooter={setIsFooter}/>} />
-						<Route path="/users/profile/:id/*" element={<UserProfile setFlag={setFlag} setIsFooter={setIsFooter}/>} />
+						<Route path="/questions/:id" element={<QuestionsDetail setFlag={setFlag} setIsFooter={setIsFooter} />} />
+						<Route path="/" element={isLogin ? <TopQuestions setFlag={setFlag} setIsFooter={setIsFooter} /> : <MainBeforeLogin setFlag={setFlag} setIsFooter={setIsFooter} />} />
+						<Route path="/users" element={<Users setFlag={setFlag} setIsFooter={setIsFooter} />} />
+						<Route path="/users/profile/:id/*" element={<UserProfile setFlag={setFlag} setIsFooter={setIsFooter} />} />
 						<Route path="/questions" element={<AllQuestions setFlag={setFlag} setIsFooter={setIsFooter} />} />
 						<Route path="/questions/ask" element={<AskQuestion setFlag={setFlag} setIsFooter={setIsFooter} />} />
-						<Route path="/login" element={<Login setFlag={setFlag} setIsFooter={setIsFooter} />} />
+						<Route path="/login" element={<Login setFlag={setFlag} setIsFooter={setIsFooter} setIsLogin={setIsLogin} />} />
 						<Route path="/signup" element={<SignUp setFlag={setFlag} setIsFooter={setIsFooter} />} />
 					</Routes>
 				</Section>
