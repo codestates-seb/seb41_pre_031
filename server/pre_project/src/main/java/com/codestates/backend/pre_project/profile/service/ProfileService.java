@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -57,8 +58,8 @@ public class ProfileService {
 
     public Profile findProfile(long profileId) {return findVerifiedProfile(profileId);}
 
-    public Page<Profile> findProfiles(int page, int size) {
-        return profileRepository.findAll(PageRequest.of(page,size, Sort.by("profileId").descending()));
+    public List<Profile> findProfiles() {
+        return profileRepository.findAll();
     }
 
 //    private void verifyExistsMemberId(long memberId) {

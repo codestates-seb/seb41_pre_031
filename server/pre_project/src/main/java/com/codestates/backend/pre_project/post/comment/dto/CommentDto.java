@@ -66,8 +66,8 @@ public class CommentDto {
     @AllArgsConstructor
     public static class QuestionResponse {
         private long commentId;
-        private long memberId;
         private long questionId;
+        private String memberName;
         private String commentBody;
         private LocalDateTime commentRegDate;
     }
@@ -76,19 +76,20 @@ public class CommentDto {
     @AllArgsConstructor
     public static class AnswerResponse {
         private long commentId;
-        private long memberId;
         private long answerId;
+        private String memberName;
         private String commentBody;
         private LocalDateTime commentRegDate;
     }
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Response {
         private long commentId;
-        private long memberId;
         private long answerId;
         private long questionId;
+        private String memberName;
         private String commentBody;
         private LocalDateTime commentRegDate;
     }

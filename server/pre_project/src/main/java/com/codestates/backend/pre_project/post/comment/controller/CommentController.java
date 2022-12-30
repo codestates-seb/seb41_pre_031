@@ -4,6 +4,7 @@ import com.codestates.backend.pre_project.post.answer.service.AnswerService;
 import com.codestates.backend.pre_project.post.comment.dto.CommentDto;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.comment.mapper.CommentMapper;
+import com.codestates.backend.pre_project.post.comment.repository.CommentRepository;
 import com.codestates.backend.pre_project.post.comment.service.CommentService;
 import com.codestates.backend.pre_project.post.question.Question;
 import com.codestates.backend.pre_project.post.question.repository.QuestionRepository;
@@ -97,16 +98,22 @@ public class CommentController {
     @GetMapping("/comments/{comment-id}")
     public ResponseEntity getComment(@PathVariable("comment-id") @Positive long commentId) {
         Comment comment = commentService.findComment(commentId);
+        if(comment.getAnswer()==null){
+            return new ResponseEntity<>(
+                    new SingleResponseDto<>(mapper.commentToCommentDtoQuestionResponse(comment)),HttpStatus.OK
+            );
+        }
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.commentToCommentDtoResponse(comment)),HttpStatus.OK
+                new SingleResponseDto<>(mapper.commentToCommentDtoAnswerResponse(comment)),HttpStatus.OK
         );
     }
+
 
     @GetMapping("/comments")
     public ResponseEntity getComments() {
         List<Comment> Comments = commentService.findComments();
         return new ResponseEntity(
-                new SingleResponseDto<>(mapper.commentsToCommentDtoResponses(Comments))
+                new SingleResponseDto<>(mapper.commentsToQuestionCommentDtoResponses(Comments))
                 ,HttpStatus.OK
         );
     }
@@ -118,3 +125,8 @@ public class CommentController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
+
+
+//    public ResponseEntity getComments2() {
+//        return CommentRepository.findAll();
+//    }

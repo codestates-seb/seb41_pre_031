@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @RestController
 @RequestMapping("/profiles")
@@ -45,6 +46,14 @@ public class ProfileController {
         Profile profile = profileService.findProfile(profileId);
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.profileToprofileResponseDto(profile)),
+                HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity getProfiles() {
+        List<Profile> profile = profileService.findProfiles();
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.profileToprofilesResponseDtos(profile)),
                 HttpStatus.OK);
     }
 }
