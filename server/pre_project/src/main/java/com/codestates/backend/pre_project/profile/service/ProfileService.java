@@ -49,6 +49,15 @@ public class ProfileService {
         return profileRepository.save(updateProfile);
     }
 
+    public Profile updatePoint(Profile profile) {
+        Profile findProfile = findVerifiedProfile(profile.getProfileId());
+        Member postMember = memberService.findVerifiedMember(findProfile.getMember().getMemberId());
+
+        Profile updateProfile = (Profile) beanUtils.copyNonNullProperties(profile,findProfile);
+
+        return profileRepository.save(updateProfile);
+    }
+
     public Profile findVerifiedProfile(long profileId) {
         Optional<Profile> optionalProfile = profileRepository.findById(profileId);
         Profile findProfile = optionalProfile.orElseThrow(() ->

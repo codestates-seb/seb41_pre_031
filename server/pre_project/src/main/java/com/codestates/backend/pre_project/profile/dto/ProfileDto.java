@@ -28,6 +28,7 @@ public class ProfileDto {
         private String location;
         private String about;
         private long profileView;
+        private int point;
         private LocalDateTime profileRegDate;
     }
 }

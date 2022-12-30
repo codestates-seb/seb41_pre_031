@@ -65,5 +65,9 @@ public class QuestionDto {
 
         private long questionLikes;
 
+        private long questionView;
+
+        private Boolean isSelectAnswer;
+
     }
 }

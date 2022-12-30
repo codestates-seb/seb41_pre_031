@@ -4,6 +4,7 @@ import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.question.Question;
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -28,5 +29,6 @@ public class AnswerLikes {
     private Member member;
 
     @Column
-    private int count = 0;
+    @Nullable
+    private Boolean isClicked;
 }

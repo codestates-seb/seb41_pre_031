@@ -29,7 +29,7 @@ public interface AnswerMapper {
         answer1.setAnswerBody(answer.getAnswerBody());
         answer1.setAnswerLikes(answer.getAnswerLikes());
         answer1.setMemberName(answer.getMember().getMemberName());
-        answer1.setAnswerSelected(answer.isAnswerSelected());  //test
+        answer1.setAnswerSelected(answer.getAnswerSelected());  //test
         answer1.setAnswerRegDate(LocalDateTime.now());
         answer1.setAnswerLastDate(LocalDateTime.now());
         return answer1;

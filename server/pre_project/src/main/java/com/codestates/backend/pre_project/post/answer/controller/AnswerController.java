@@ -3,35 +3,66 @@ package com.codestates.backend.pre_project.post.answer.controller;
 
 import com.codestates.backend.pre_project.exception.BusinessLogicException;
 import com.codestates.backend.pre_project.exception.ExceptionCode;
+import com.codestates.backend.pre_project.likes.answer.AnswerLikesService;
+import com.codestates.backend.pre_project.member.entity.Member;
+import com.codestates.backend.pre_project.member.repository.MemberRepository;
 import com.codestates.backend.pre_project.member.service.MemberService;
 import com.codestates.backend.pre_project.post.answer.dto.AnswerDto;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.answer.mapper.AnswerMapper;
 import com.codestates.backend.pre_project.post.answer.service.AnswerService;
 import com.codestates.backend.pre_project.response.SingleResponseDto;
-import com.codestates.backend.pre_project.response.MultiResponseDto;
-import com.codestates.backend.pre_project.response.SingleResponseDto;
-import org.springframework.data.domain.Page;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping
 public class AnswerController {
     private final AnswerService answerService;
     private final AnswerMapper mapper;
-    private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
-    public AnswerController(AnswerService answerService, AnswerMapper mapper, MemberService memberService) {
+
+    public AnswerController(AnswerService answerService, AnswerMapper mapper, MemberRepository memberRepository) {
         this.answerService = answerService;
         this.mapper = mapper;
-        this.memberService = memberService;
+        this.memberRepository = memberRepository;
+    }
+
+    @PostMapping("/questions/answers/{answer-id}/selection")
+    public ResponseEntity postAnswerSelection(@PathVariable("answer-id") long answerId){
+        Answer answer = answerService.findAnswer(answerId);
+        Member member = getCurrentMember();
+        answerService.selectAnswer(answer, member);
+        return new ResponseEntity<>(new SingleResponseDto<>(answer.getAnswerSelected()), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/questions/answers/{answer-id}/likes")
+    public ResponseEntity postAnswerLike(@PathVariable("answer-id") long answerId){
+        Member member = getCurrentMember();
+        Answer answer = answerService.findAnswer(answerId);
+        answerService.addLikes(answer, member);
+
+        return new ResponseEntity<>(new SingleResponseDto<>(answer.getAnswerLikes()), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/questions/answers/{answer-id}/unlikes")
+    public ResponseEntity postAnswerUnlike(@PathVariable("answer-id") long answerId){
+        Member member = getCurrentMember();
+        Answer answer = answerService.findAnswer(answerId);
+        answerService.downLikes(answer, member);
+
+        return new ResponseEntity(new SingleResponseDto<>(answer.getAnswerLikes()), HttpStatus.CREATED);
     }
 
     @PostMapping("/questions/{question-id}/answers/post")
@@ -86,5 +117,19 @@ public class AnswerController {
         answerService.deleteAnswer(answerId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    public Member getCurrentMember() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication == null || authentication.getName() == null || authentication.getName().equals("anonymousUser"))
+            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION);
+
+        Optional<Member> optionalMember = memberRepository.findByEmail(authentication.getName());
+        Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        System.out.println("현재 사용자:"+member.getMemberId());
+
+        return member;
     }
 }
