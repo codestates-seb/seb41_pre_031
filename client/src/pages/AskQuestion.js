@@ -5,6 +5,7 @@ import TextEdit from "../components/TextEdit";
 import PencilIconSearch from "../icons/askPageIconSearch";
 import { BREAK_POINT_TABLET } from "../data/breakpoints";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
     display: flex;
@@ -576,26 +577,28 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
     const [inputText, setInputText] = useState("");
     const [inputError, setInputError] = useState(false);
 
-    useEffect(() => {           
+    const dataSubmit = () => {           
         axios
             .post('http://prepro31.iptime.org:8080/questions', {
-                questionTitle: "",
-                questionBody : "",
-                questionTags : [{}]
+                questionTitle: inputText,
+                questionBody : content,
+                questionTags : [{
+                    tagName: text
+                }]
             },
             {
                 headers: {
-                    // Authorization : `Bearer ${token}`
+                    Authorization : `${localStorage.getItem("loginToken")}`
                 }
-            })
-            .then(res => {
-                // setData(res.data.data);
-                // console.log(res.data.data);
             })
             .catch(error => {
                 console.error(error.response.data);
             })
-    },[])
+    }
+
+    const markdowntest = () => {
+        console.log({__html:`${content}`});
+    }
 
     const onChange = (event) => {
         setText(event.target.value);
@@ -970,9 +973,11 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
 
                     {nextStepThird === true ? (
                         <BottomButton>
-                            <button className="buttonLink btnPrimary">
+                             <Link to="/questions">
+                                <button className="buttonLink btnPrimary" onClick={markdowntest}>
                                 Review your question
-                            </button>
+                                </button>
+                            </Link>
                             <button className="btnDiscard">
                                 Discard draft
                             </button>

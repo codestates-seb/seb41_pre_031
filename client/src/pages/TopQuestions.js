@@ -4,6 +4,7 @@ import styled from "styled-components";
 import dummyQuestions from "../data/dummyQuestions";
 import Question from "../components/Question";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
 	width: 100%;
@@ -57,14 +58,16 @@ const TopQuestions = ({ setFlag, setIsFooter }) => {
                             <Title title="Top Questions" />
                         </span>
                         <span className="askBtn">
+                            <Link to="/questions/ask">
                             <button className="btnPrimary">Ask Question</button>
+                            </Link>
                         </span>
                     </TopContainer>
                     <QuestionContainer>
                         <div className="borderLine"></div>
                         <div>
                             {data
-                                .slice(0, 10)
+                                .slice(data.length - 11, data.length)
                                 .reverse()
                                 .map((el) => (
                                     <Question

@@ -126,8 +126,8 @@ const Question = ({ question, page }) => {
             <div className="questionTitle">{question.questionTitle}</div>
           </Link>
           {page === "TopQuestion" ? null : (
-            <div className="questionBody">
-              {textLimit(question.questionBody)}
+            <div className="questionBody" dangerouslySetInnerHTML={{ __html: question.questionBody.replace(/\n|\r/g, "") }}>
+              {/* {textLimit(question.questionBody)} */}
             </div>
           )}
           <SubInfo>

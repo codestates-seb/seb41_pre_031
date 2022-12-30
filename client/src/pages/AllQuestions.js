@@ -164,7 +164,7 @@ const AllQuestions = ({ setFlag, setIsFooter }) => {
                             {data.length} questions
                         </div>
                         <div>
-                            {data.slice(offset, offset + limit).map((el) => (
+                            {data.slice(offset, offset + limit).reverse().map((el) => (
                                 <Question key={el.questionId} question={el} />
                             ))}
                         </div>
