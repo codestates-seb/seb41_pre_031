@@ -144,7 +144,7 @@ button,
 .buttonLink {
 	border-radius: 3px;
 	line-height: var(--line-height-sm);
-	font-size: var(--button-size);
+	font-size: var(--font-button-size);
 	padding: 10px;
 }
 .btnPrimary {
