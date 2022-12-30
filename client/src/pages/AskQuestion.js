@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import TextEdit from "../components/TextEdit";
 import PencilIconSearch from "../icons/askPageIconSearch";
 import { BREAK_POINT_TABLET } from "../data/breakpoints";
+import axios from "axios";
 
 const Container = styled.div`
     display: flex;
@@ -144,6 +145,20 @@ const Title = styled.div`
     .description {
         font-size: var(--font-caption-size);
         margin: 0.5rem 0;
+    }
+
+    .input {
+        .inputError{
+            border: 1px solid var(--error-color);
+            :focus{
+                box-shadow: 0px 0px 0px 4px hsl(358,74%,83%);
+            }
+        }
+        .errorText{
+            color: var(--error-color);
+            margin-top: 8px;
+            font-size: var(--font-caption-size);
+        }
     }
 
     input {
@@ -548,6 +563,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
         setIsFooter(true);
     }, []);
     const [tags, setTags] = useState([]);
+    // tag text
     const [text, setText] = useState("");
     const [nextStepFirst, setNextStepFirst] = useState(false);
     const [nextStepSecond, setNextStepSecond] = useState(false);
@@ -557,10 +573,37 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
     const [bodySidebox, setBodySidebox] = useState(false);
     const [tagSidebox, setTagSidebox] = useState(false);
     const [isActive, setIsActive] = useState(false);
+    const [inputText, setInputText] = useState("");
+    const [inputError, setInputError] = useState(false);
+
+    useEffect(() => {           
+        axios
+            .post('http://prepro31.iptime.org:8080/questions', {
+                questionTitle: "",
+                questionBody : "",
+                questionTags : [{}]
+            },
+            {
+                headers: {
+                    // Authorization : `Bearer ${token}`
+                }
+            })
+            .then(res => {
+                // setData(res.data.data);
+                // console.log(res.data.data);
+            })
+            .catch(error => {
+                console.error(error.response.data);
+            })
+    },[])
 
     const onChange = (event) => {
         setText(event.target.value);
     };
+
+    const inputTextChange = (event) => {
+        setInputText(event.target.value);
+    }
 
     const removeTags = (removeIdx) => {
         tags.splice(removeIdx, 1);
@@ -651,16 +694,33 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                         setTagSidebox(false);
                                         setIsActive(false);
                                     }}
-                                ></input>
+                                    onChange={inputTextChange}
+                                    value={inputText}
+                                    className={inputError === true ? 'inputError' : ''}
+                                />
+                                {inputError === true ? <div className="errorText">Title is missing.</div> : null}
                             </div>
-                            {nextStepFirst === true ? null : (
+                            {nextStepFirst === true && inputError === false ? null : (
                                 <div className="button">
                                     <button
                                         className="buttonLink btnPrimary"
                                         onClick={() => {
-                                            setNextStepFirst(true);
-                                            setTitleSidebox(false);
-                                            setBodySidebox(true);
+                                            if(inputText === ""){
+                                                setInputError(true);
+                                                setTitleSidebox(true);
+                                            }else{
+                                                setInputError(false);
+                                            }
+                                            if(inputError === true){
+                                                setNextStepFirst(false);
+                                                setTitleSidebox(true);
+                                                setBodySidebox(false);
+                                            }else{
+                                                setNextStepFirst(true);
+                                                setTitleSidebox(false);
+                                                setBodySidebox(true);
+
+                                            }
                                         }}
                                     >
                                         Next
@@ -699,7 +759,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                     </TitleContainer>
 
                     <BodyContainer>
-                        {nextStepFirst === true ? (
+                        {nextStepFirst === true && inputError === false ? (
                             <>
                                 <Body>
                                     <div className="title">

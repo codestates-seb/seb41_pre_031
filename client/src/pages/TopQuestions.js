@@ -1,8 +1,9 @@
 import Title from "../components/Title";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import dummyQuestions from "../data/dummyQuestions";
 import Question from "../components/Question";
+import axios from "axios";
 
 const Container = styled.div`
     .content {
@@ -32,6 +33,15 @@ const QuestionContainer = styled.ul`
 
 const TopQuestions = () => {
     const [data, setData] = useState(dummyQuestions);
+
+    useEffect(() => {           
+        axios
+            .get('http://prepro31.iptime.org:8080/questions/?page=1&size=10')
+            .then(res => {
+                setData(res.data.data);
+            // console.log(res.data.data);
+        });
+    })
 
     return (
         <>

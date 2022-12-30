@@ -131,7 +131,8 @@ const Question = ({ question, page }) => {
             </div>
           )}
           <SubInfo>
-            <Tag>{question.tagName}</Tag>
+            {/* <Tag>{question.questionTags.map(el => el.tagName)}</Tag> */}
+            <Tag>{question.questionTags && question.questionTags.map(el => el.tagName)}</Tag>
             <MemberContainer>
               <Member>
                 <span className="memberName">{question.memberName}</span>
