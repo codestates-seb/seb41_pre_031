@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { BREAK_POINT_TABLET } from "../data/breakpoints";
 import User from "../components/User";
 import Pagination from "../components/Pagination";
+import axios from "axios";
 
 const UsersBox = styled.div`
 	width: 100%;
@@ -35,22 +36,32 @@ const Users = ({ setFlag, setIsFooter }) => {
 		setFlag(true);
 		setIsFooter(true);
 	}, []);
+    //페이지네이션
 	const [page, setPage] = useState(1);
 	const [limit, setLimit] = useState(36);
-	//데이터 추가시 삭제
-	const test = Array(1000).fill("0");
-	const offset = (page - 1) * limit;
+    const offset = (page - 1) * limit;
+	
+    //데이터 추가시 삭제
+	// const test = Array(1000).fill("0");
+    const [userList, setUserList] = useState(undefined);
+	useEffect(() => {
+        axios.get("http://prepro31.iptime.org:8080/members").then(res => {
+            setUserList(res.data.data);
+            console.log(res.data.data);
+        })
+    }, []);
+
 
 	return (
 		<UsersBox>
 			<h1>Users</h1>
 			<div className="userList">
-				{test.slice(offset, offset + limit).map((data, index) => {
-					return <User key={index} />;
+				{userList && userList.slice(offset, offset + limit).map((data, index) => {
+					return <User data={data} key={index} />;
 				})}
 			</div>
 			<PageContainer>
-				<Pagination total={test.length} limit={limit} page={page} setPage={setPage} />
+				{userList && <Pagination total={userList.length} limit={limit} page={page} setPage={setPage} />}
 			</PageContainer>
 		</UsersBox>
 	);
