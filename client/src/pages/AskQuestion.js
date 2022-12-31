@@ -616,6 +616,9 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                             tagName: tags[0],
                         },
                         tags[1] ? { tagName: tags[1] } : {},
+                        tags[2] ? { tagName: tags[2] } : {},
+                        tags[3] ? { tagName: tags[3] } : {},
+                        tags[4] ? { tagName: tags[4] } : {},
                     ],
                 },
                 {
