@@ -12,7 +12,7 @@ const TextEditBox = styled.div`
 	width: 100%;
 	.ql-container {
 		height: 220px;
-		margin-bottom: 16px;
+		margin-bottom: 11px;
 	}
 `;
 

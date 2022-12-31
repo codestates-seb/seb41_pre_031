@@ -337,7 +337,7 @@ const Body = styled.div`
     }
 
     .bodyBottom{
-        padding-top: 50px;
+        /* padding-top: 20px; */
         .errorMsg{
                 color: var(--error-color);
                 font-size: var(--font-caption-size);
