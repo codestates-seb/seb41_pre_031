@@ -611,8 +611,10 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                 questionTitle: inputText,
                 questionBody : content,
                 questionTags : [{
-                    tagName: text
-                }]
+                    tagName: tags[0],
+                }, (tags[1] ? {tagName : tags[1]} : {})
+                // , {tagName: tags[1]}, {tagName: tags[2]},{tagName: tags[3]},{tagName: tags[4]}
+            ]
             },
             {
                 headers: {
@@ -966,7 +968,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                             placeholder="e.g. (asp.net wordpress mongodb)"
                                         ></input>
                                     </TagsInput>
-                                    {/* {console.log(Object.assign({}, tags))} */}
+                                    {console.log(tags)}
                                     {tagError === true ? <div className="errorMsg">Please enter at least one tag.</div>: null}
                                     {nextStepThird === true ? null : (
                                         <div className="button">
@@ -1056,7 +1058,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                         <BottomButton>
                              {/* <Link to = {`/questions/${questionId}`}> */}
                              <Link to = {`/questions/12`}>
-                                <button className="buttonLink btnPrimary" onClick={markdowntest}>
+                                <button className="buttonLink btnPrimary" onClick={dataSubmit}>
                                 Review your question
                                 </button>
                             </Link>
@@ -1067,7 +1069,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                     ) : (
                         <Opacity>
                             <BottomButton>
-                                <button className="buttonLink btnPrimary" onClick={dataSubmit}>
+                                <button className="buttonLink btnPrimary" >
                                     Review your question
                                 </button>
                                 <button className="btnDiscard">

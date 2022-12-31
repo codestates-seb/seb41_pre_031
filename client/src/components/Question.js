@@ -74,6 +74,7 @@ const Tag = styled.button`
   margin-bottom: 3px;
   height: 23.59px;
   padding: 0.4rem 0.6rem;
+  margin-left: 3px;
   width: fit-content;
 `;
 
@@ -112,13 +113,15 @@ const Question = ({ question, page }) => {
     }
     return `${text}...`;
   };
+  const currentDate = new Date();
+  const currentHour = currentDate.getHours();
 
   return (
     <>
       <Container>
         <QuestionInfo>
           <div className="votes">{`${question.questionLikes} votes`}</div>
-          <div className="answer">{`${question.answersNum} answer`}</div>
+          <div className="answer">{`${question.answers} answer`}</div>
           <div className="view">{`${question.questionView} views`}</div>
         </QuestionInfo>
         <QuestionContent>
@@ -132,7 +135,8 @@ const Question = ({ question, page }) => {
           )}
           <SubInfo>
             {/* <Tag>{question.questionTags.map(el => el.tagName)}</Tag> */}
-            <Tag>{question.questionTags && question.questionTags.map(el => el.tagName)}</Tag>
+            {/* {console.log(question.questionTags)} */}
+            {question.questionTags && question.questionTags.map(el => <Tag>{el.tagName}</Tag>)}
             <MemberContainer>
               <Member>
                 <span className="memberName">{question.memberName}</span>
