@@ -1,7 +1,6 @@
 package com.codestates.backend.pre_project.member.entity;
 
 import com.codestates.backend.pre_project.likes.answer.AnswerLikes;
-import com.codestates.backend.pre_project.point.entity.Point;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.question.Question;
@@ -64,9 +63,6 @@ public class Member {
     private List<AnswerLikes> likeMembers;
     //= new Likes(this);
 
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
-    private Point point;
-    //= new Point(this, profile);
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Question> questions;

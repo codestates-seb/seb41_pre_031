@@ -9,6 +9,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -33,8 +34,9 @@ public class Answer {
     @Column(nullable = false)
     private int answerLikes;
 
-    @Column(nullable = false)
-    private boolean answerSelected;
+    @Column
+    @Nullable
+    private Boolean answerSelected;
 
     @CreatedDate
     private LocalDateTime answerRegDate;

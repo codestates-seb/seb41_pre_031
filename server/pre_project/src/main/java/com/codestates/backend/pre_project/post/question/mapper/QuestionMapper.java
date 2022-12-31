@@ -83,7 +83,9 @@ public interface QuestionMapper {
                             questionTagResponseDtos,
                             question.getQuestionRegDate(),
                             question.getQuestionLastDate(),
-                            question.getQuestionLikes());
+                            question.getQuestionLikes(),
+                            question.getQuestionView(),
+                            question.getIsSelectAnswer());
 
 
             return questionResponseDto;

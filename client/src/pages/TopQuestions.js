@@ -19,7 +19,13 @@ const TopContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
 
-	.askBtn {
+	.btnPrimary {
+		display: block;
+		height: 100%;
+		border-radius: 3px;
+		line-height: var(--line-height-sm);
+		font-size: var(--font-button-size);
+		padding: 10px;
 		margin-right: 16px;
 	}
 `;
@@ -49,40 +55,29 @@ const TopQuestions = ({ setFlag, setIsFooter }) => {
         });
     })
 
-    return (
-        <>
-            <Container>
-                <div className="content">
-                    <TopContainer>
-                        <span>
-                            <Title title="Top Questions" />
-                        </span>
-                        <span className="askBtn">
-                            <Link to="/questions/ask">
-                            <button className="btnPrimary">Ask Question</button>
-                            </Link>
-                        </span>
-                    </TopContainer>
-                    <QuestionContainer>
-                        <div className="borderLine"></div>
-                        <div>
-                            {data
-                                .slice(data.length - 11, data.length)
-                                .reverse()
-                                .map((el) => (
-                                    <Question
-                                        key={el.questionId}
-                                        question={el}
-                                        page="TopQuestion"
-                                    />
-                                ))}
-                        </div>
-                    </QuestionContainer>
-                </div>
-            </Container>
-            {/* Footer */}
-        </>
-    );
+	return (
+		<Container>
+			<div className="content">
+				<TopContainer>
+					<Title title="Top Questions" />
+					<Link to="/questions/ask" className="btnPrimary">
+						Ask Question
+					</Link>
+				</TopContainer>
+				<QuestionContainer>
+					<div className="borderLine"></div>
+					<ul>
+						{data
+							.slice(data.length - 11, data.length)
+							.reverse()
+							.map((el) => (
+								<Question key={el.questionId} question={el} page="TopQuestion" />
+							))}
+					</ul>
+				</QuestionContainer>
+			</div>
+		</Container>
+	);
 };
 
 export default TopQuestions;

@@ -6,6 +6,7 @@ import com.codestates.backend.pre_project.post.question.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -30,5 +31,6 @@ public class QuestionLikes {
     private Member member;
 
     @Column
-    private int count = 0;
+    @Nullable
+    private Boolean isClicked;
 }

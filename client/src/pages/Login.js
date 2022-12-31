@@ -18,7 +18,7 @@ const LogoWrap = styled.div`
 	}
 `;
 
-const Login = ({ setFlag, setIsFooter, setIsLogin }) => {
+const Login = ({ setFlag, setIsFooter, setIsLogin, setUserInfo }) => {
 	const [loginInfo, setLoginInfo] = useState({
 		username: "",
 		password: "",
@@ -50,9 +50,9 @@ const Login = ({ setFlag, setIsFooter, setIsLogin }) => {
 		return axios
 			.put("http://prepro31.iptime.org:8080/auth/login", { username, password })
 			.then((res) => {
-				//console.log(res.headers.authorization);
 				localStorage.setItem("loginToken", res.headers.authorization);
 				setIsLogin(true);
+				setUserInfo({ email: username });
 				navigate("/");
 			})
 			.catch((err) => {

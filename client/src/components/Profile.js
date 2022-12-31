@@ -152,13 +152,13 @@ const List = styled.div`
     margin-left: auto;
   }
 `;
-const Profile = ({ id }) => {
-  const [userData, setUserData] = useState([
+const Profile = ({ userData }) => {
+  const [userDataList, setUserDataList] = useState([
     {
       reputation: "779,635",
-      reached: "75.2m",
+      reached: userData.profileView,
       answers: "29,756",
-      questions: 45,
+      questions: userData.myquestions.length,
     },
   ]);
   const questionsList = [
@@ -219,10 +219,10 @@ const Profile = ({ id }) => {
         <div className="navTitle">Stats</div>
         <div className="statsBox">
           <div className="statsInBox">
-            {Object.keys(userData[0]).map((data, index) => {
+            {Object.keys(userDataList[0]).map((data, index) => {
               return (
                 <div key={index} className="stats">
-                  <div className="statsData">{userData[0][data]}</div>
+                  <div className="statsData">{userDataList[0][data]}</div>
                   {data}
                 </div>
               );
@@ -234,7 +234,7 @@ const Profile = ({ id }) => {
         <div className="inBox">
           <div className="aboutBox">
             <div className="title">About</div>
-            <div className="aboutData"></div>
+            <div className="aboutData">{userData.about}</div>
             <div className="btnBox">
               <button className="btn">Read more</button>
             </div>
@@ -251,8 +251,7 @@ const Profile = ({ id }) => {
                 <div className="filterBtmBox">
                   <div className="filterBtn btnStart">All</div>
                   <div className="filterBtn">Questions</div>
-                  <div className="filterBtn">Answers</div>
-                  <div className="filterBtn btnEnd">Articles</div>
+                  <div className="filterBtn btnEnd">Answers</div>
                 </div>
                 <div className="filterBtmBox ml8">
                   <div className="filterBtn btnStart">Score</div>
@@ -260,16 +259,17 @@ const Profile = ({ id }) => {
                 </div>
               </div>
               <div className="listBox">
-                {questionsList.map((data, index) => {
+                {userData.myquestions.map((data, index) => {
+                  const date = new Date(data.questionRegDate);
                   return (
                     <List key={index}>
                       <div className="listIn">
                         <div className="icon"></div>
-                        <div className="point">{data.reputation}</div>
-                        <Link to={`/questions/12`}>
-                          <div className="listTitle">{data.title}</div>
+                        <div className="point">30</div>
+                        <Link to={`/questions/${data.questionId}`}>
+                          <div className="listTitle">{data.questionTitle}</div>
                         </Link>
-                        <div className="date">{data.date}</div>
+                        <div className="date">{date.toDateString()}</div>
                       </div>
                     </List>
                   );

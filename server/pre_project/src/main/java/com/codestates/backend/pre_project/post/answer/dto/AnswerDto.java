@@ -52,7 +52,7 @@ public class AnswerDto {
         private String memberName;
         private String answerBody;
         private int answerLikes;
-        private boolean answerSelected;
+        private Boolean answerSelected;
         private LocalDateTime answerRegDate;
         private LocalDateTime answerLastDate;
 

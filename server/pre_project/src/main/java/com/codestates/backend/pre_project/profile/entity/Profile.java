@@ -1,7 +1,6 @@
 package com.codestates.backend.pre_project.profile.entity;
 
 import com.codestates.backend.pre_project.member.entity.Member;
-import com.codestates.backend.pre_project.point.entity.Point;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -51,7 +50,8 @@ public class Profile {
     @NotNull
     private Member member;
 
-    @OneToOne(mappedBy = "profile", cascade = CascadeType.ALL)
-    private Point point;
+    @Column
+    @NotNull
+    private int point;
 
 }
