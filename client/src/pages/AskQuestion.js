@@ -604,6 +604,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
     const [tagError, setTagError] = useState(false);
     const [tagErrorClick, setTagErrorClick] = useState(false);
     const [editorError, setEditorError] = useState(false);
+    const [data, setData] = useState(undefined);
 
     const dataSubmit = () => {           
         axios
@@ -625,6 +626,15 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                 console.error(error.response.data);
             })
     }
+
+    useEffect(() => {           
+        axios
+            .get('http://prepro31.iptime.org:8080/questions/?page=1&size=10')
+            .then(res => {
+                setData(res.data.data);
+            // console.log(res.data.data);
+            });
+    },[data])
 
     const markdowntest = () => {
         console.log({__html:`${content}`});
@@ -1057,7 +1067,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                     {nextStepThird === true ? (
                         <BottomButton>
                              {/* <Link to = {`/questions/${questionId}`}> */}
-                             <Link to = {`/questions/12`}>
+                             <Link to = {`/questions/${data.questionId}`}>
                                 <button className="buttonLink btnPrimary" onClick={dataSubmit}>
                                 Review your question
                                 </button>
