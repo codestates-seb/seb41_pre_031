@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { BREAK_POINT_TABLET } from "../data/breakpoints";
+// import { useEffect, useState } from "react";
+// import axios from "axios";
 
 const Container = styled.li`
   border-bottom: 1px solid var(--lightgray2);
@@ -107,21 +109,41 @@ const Member = styled.div`
 `;
 
 const Question = ({ question, page }) => {
+  // const [answerData, setAnswerData] = useState(0);
+
   const textLimit = (text, limit = 200) => {
     if (text.length > limit) {
       return `${text.substring(0, limit)}...`;
     }
     return `${text}...`;
   };
-  const currentDate = new Date();
-  const currentHour = currentDate.getHours();
+
+//  answer 개수 받아오는데 안받아와져서 보류
+//   useEffect(() => {           
+//     axios
+//         .get(`http://prepro31.iptime.org:8080/questions/${question.questionId}/answers`,
+//         {
+//             headers: {
+//                 Authorization : `${localStorage.getItem("loginToken")}`
+//             }
+//         }
+//         )
+//         .then(res => {
+//             setAnswerData(res.data.data);
+//         // console.log(res.data.data);
+//         });
+// },[answerData]);
+
+  const date = new Date(question.questionRegDate);
+
 
   return (
     <>
       <Container>
         <QuestionInfo>
           <div className="votes">{`${question.questionLikes} votes`}</div>
-          <div className="answer">{`${question.answers} answer`}</div>
+          {/* <div className="answer">{`${question.answers} answer`}</div> */}
+          <div className="answer">{`0 answer`}</div>
           <div className="view">{`${question.questionView} views`}</div>
         </QuestionInfo>
         <QuestionContent>
@@ -136,14 +158,15 @@ const Question = ({ question, page }) => {
           <SubInfo>
             {/* <Tag>{question.questionTags.map(el => el.tagName)}</Tag> */}
             {/* {console.log(question.questionTags)} */}
-            {question.questionTags && question.questionTags.map(el => <Tag>{el.tagName}</Tag>)}
+            {question.questionTags && question.questionTags.map((el,index) => <Tag key={index}>{el.tagName}</Tag>)}
             <MemberContainer>
               <Member>
                 <span className="memberName">{question.memberName}</span>
                 <span className="pointCount">{question.pointCount} </span>
                 <span className="text"> asked </span>
                 <span className="questionDate">
-                  {question.questionRegDate} ago
+                  {/* {question.questionRegDate} */}
+                  {date.toDateString()}
                 </span>
               </Member>
             </MemberContainer>
