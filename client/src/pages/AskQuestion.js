@@ -149,13 +149,13 @@ const Title = styled.div`
     }
 
     .input {
-        .inputError{
+        .inputError {
             border: 1px solid var(--error-color);
-            :focus{
-                box-shadow: 0px 0px 0px 4px hsl(358,74%,83%);
+            :focus {
+                box-shadow: 0px 0px 0px 4px hsl(358, 74%, 83%);
             }
         }
-        .errorMsg{
+        .errorMsg {
             color: var(--error-color);
             margin-top: 8px;
             font-size: var(--font-caption-size);
@@ -336,20 +336,19 @@ const Body = styled.div`
         /* padding-bottom: 50px; */
     }
 
-    .bodyBottom{
+    .bodyBottom {
         /* padding-top: 20px; */
-        .errorMsg{
-                color: var(--error-color);
-                font-size: var(--font-caption-size);
-            }
-    
+        .errorMsg {
+            color: var(--error-color);
+            font-size: var(--font-caption-size);
+        }
+
         .button {
             margin-top: 7px;
             button {
                 cursor: pointer;
             }
         }
-
     }
 `;
 
@@ -410,25 +409,24 @@ const Tags = styled.div`
         }
     }
 
-    .selected{
+    .selected {
         border: 1px solid var(--darkblue);
         box-shadow: 0px 0px 0px 4px #ebf4fb;
         transition: 0.5s;
     }
 
-    .errorMsg{
+    .errorMsg {
         color: var(--error-color);
         margin-top: 8px;
         font-size: var(--font-caption-size);
     }
 
-    .tagErrorBorder{
+    .tagErrorBorder {
         border: 1px solid var(--error-color);
-    
     }
-    .tagErrorShadow{
+    .tagErrorShadow {
         border: 1px solid var(--error-color);
-        box-shadow: 0px 0px 0px 4px hsl(358,74%,83%);
+        box-shadow: 0px 0px 0px 4px hsl(358, 74%, 83%);
         transition: 0.5s;
     }
 `;
@@ -606,39 +604,43 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
     const [editorError, setEditorError] = useState(false);
     const [data, setData] = useState(undefined);
 
-    const dataSubmit = () => {           
+    const dataSubmit = () => {
         axios
-            .post('http://prepro31.iptime.org:8080/questions', {
-                questionTitle: inputText,
-                questionBody : content,
-                questionTags : [{
-                    tagName: tags[0],
-                }, (tags[1] ? {tagName : tags[1]} : {})
-                // , {tagName: tags[1]}, {tagName: tags[2]},{tagName: tags[3]},{tagName: tags[4]}
-            ]
-            },
-            {
-                headers: {
-                    Authorization : `${localStorage.getItem("loginToken")}`
+            .post(
+                "http://prepro31.iptime.org:8080/questions",
+                {
+                    questionTitle: inputText,
+                    questionBody: content,
+                    questionTags: [
+                        {
+                            tagName: tags[0],
+                        },
+                        tags[1] ? { tagName: tags[1] } : {},
+                    ],
+                },
+                {
+                    headers: {
+                        Authorization: `${localStorage.getItem("loginToken")}`,
+                    },
                 }
-            })
-            .catch(error => {
+            )
+            .catch((error) => {
                 console.error(error.response.data);
-            })
-    }
-
-    useEffect(() => {           
-        axios
-            .get('http://prepro31.iptime.org:8080/questions/?page=1&size=10')
-            .then(res => {
-                setData(res.data.data);
-            // console.log(res.data.data);
             });
-    },[data])
+    };
 
-    const markdowntest = () => {
-        console.log({__html:`${content}`});
-    }
+    useEffect(() => {
+        axios
+            .get("http://prepro31.iptime.org:8080/questions/?page=1&size=10")
+            .then((res) => {
+                setData(res.data.data);
+                // console.log(res.data.data);
+            });
+    }, [data]);
+
+    // const markdowntest = () => {
+    //     console.log({__html:`${content}`});
+    // }
 
     const onChange = (event) => {
         setText(event.target.value);
@@ -646,7 +648,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
 
     const inputTextChange = (event) => {
         setInputText(event.target.value);
-    }
+    };
 
     const removeTags = (removeIdx) => {
         tags.splice(removeIdx, 1);
@@ -685,8 +687,8 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
         setTagError(false);
         setTagErrorClick(false);
         setEditorError(false);
-        window.scrollTo({top: 0});
-    }
+        window.scrollTo({ top: 0 });
+    };
 
     return (
         <>
@@ -761,30 +763,36 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                     }}
                                     onChange={inputTextChange}
                                     value={inputText}
-                                    className={inputError === true ? 'inputError' : ''}
+                                    className={
+                                        inputError === true ? "inputError" : ""
+                                    }
                                 />
-                                {inputError === true ? <div className="errorMsg">Title is missing.</div> : null}
+                                {inputError === true ? (
+                                    <div className="errorMsg">
+                                        Title is missing.
+                                    </div>
+                                ) : null}
                             </div>
-                            {nextStepFirst === true && inputError === false ? null : (
+                            {nextStepFirst === true &&
+                            inputError === false ? null : (
                                 <div className="button">
                                     <button
                                         className="buttonLink btnPrimary"
                                         onClick={() => {
-                                            if(inputText === ""){
+                                            if (inputText === "") {
                                                 setInputError(true);
                                                 setTitleSidebox(true);
-                                            }else{
+                                            } else {
                                                 setInputError(false);
                                             }
-                                            if(inputError === true){
+                                            if (inputError === true) {
                                                 setNextStepFirst(false);
                                                 setTitleSidebox(true);
                                                 setBodySidebox(false);
-                                            }else{
+                                            } else {
                                                 setNextStepFirst(true);
                                                 setTitleSidebox(false);
                                                 setBodySidebox(true);
-
                                             }
                                         }}
                                     >
@@ -843,41 +851,67 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                             setTagSidebox(false);
                                             setIsActive(false);
                                             setTagErrorClick(false);
-                                            if(content.length < 20){
+                                            if (content.length < 20) {
                                                 setEditorError(true);
-                                            }else{
+                                            } else {
                                                 setEditorError(false);
                                             }
                                         }}
                                     >
-                                        <TextEdit className={editorError ? "editorError" : ""} setContent={setContent} editorError={editorError} />
+                                        <TextEdit
+                                            className={
+                                                editorError ? "editorError" : ""
+                                            }
+                                            setContent={setContent}
+                                            editorError={editorError}
+                                        />
                                     </div>
                                     <div className="bodyBottom">
-
-                                        {content.length < 20 ? <div className="errorMsg">Problem must be at least 20 characters.</div> : null}
-                                    {nextStepSecond === true ? null : (
-                                        <div className="button">
-                                            <button
-                                                className="buttonLink btnPrimary"
-                                                onClick={() => {
-                                                    if(content.length < 20){
-                                                        setNextStepSecond(false);
-                                                        setTagSidebox(true);
-                                                        setTitleSidebox(false);
-                                                        setEditorError(true);
-                                                    }else{
-                                                        setNextStepSecond(true);
-                                                        setBodySidebox(false);
-                                                        setTagSidebox(true);
-                                                        setTitleSidebox(false);
-                                                        setEditorError(false);
-                                                    }
-                                                }}
-                                            >
-                                                Next
-                                            </button>
-                                        </div>
-                                    )}
+                                        {content.length < 20 ? (
+                                            <div className="errorMsg">
+                                                Problem must be at least 20
+                                                characters.
+                                            </div>
+                                        ) : null}
+                                        {nextStepSecond === true ? null : (
+                                            <div className="button">
+                                                <button
+                                                    className="buttonLink btnPrimary"
+                                                    onClick={() => {
+                                                        if (
+                                                            content.length < 20
+                                                        ) {
+                                                            setNextStepSecond(
+                                                                false
+                                                            );
+                                                            setTagSidebox(true);
+                                                            setTitleSidebox(
+                                                                false
+                                                            );
+                                                            setEditorError(
+                                                                true
+                                                            );
+                                                        } else {
+                                                            setNextStepSecond(
+                                                                true
+                                                            );
+                                                            setBodySidebox(
+                                                                false
+                                                            );
+                                                            setTagSidebox(true);
+                                                            setTitleSidebox(
+                                                                false
+                                                            );
+                                                            setEditorError(
+                                                                false
+                                                            );
+                                                        }
+                                                    }}
+                                                >
+                                                    Next
+                                                </button>
+                                            </div>
+                                        )}
                                     </div>
                                 </Body>
                                 {bodySidebox === true ? null : (
@@ -917,7 +951,12 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                         characters.
                                     </div>
                                     <div className="editor">
-                                        <TextEdit setContent={setContent} className={editorError ? "editorError" : ""} />
+                                        <TextEdit
+                                            setContent={setContent}
+                                            className={
+                                                editorError ? "editorError" : ""
+                                            }
+                                        />
                                     </div>
                                 </BodyOpacity>
 
@@ -941,14 +980,22 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                             setTitleSidebox(false);
                                             setBodySidebox(false);
                                             setTagSidebox(true);
-                                            if(tagError){
+                                            if (tagError) {
                                                 setIsActive(false);
                                                 setTagErrorClick(true);
-                                            }else{
+                                            } else {
                                                 setIsActive(true);
                                             }
                                         }}
-                                        className={(isActive && tagError === false ? 'selected' : '') + (tagError ? 'tagErrorBorder' : '') + (tagErrorClick ? 'tagErrorBorder tagErrorShadow' : '')}
+                                        className={
+                                            (isActive && tagError === false
+                                                ? "selected"
+                                                : "") +
+                                            (tagError ? "tagErrorBorder" : "") +
+                                            (tagErrorClick
+                                                ? "tagErrorBorder tagErrorShadow"
+                                                : "")
+                                        }
                                     >
                                         <ul className="tags">
                                             {tags.map((tag, index) => (
@@ -978,21 +1025,24 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                             placeholder="e.g. (asp.net wordpress mongodb)"
                                         ></input>
                                     </TagsInput>
-                                    {console.log(tags)}
-                                    {tagError === true ? <div className="errorMsg">Please enter at least one tag.</div>: null}
+                                    {/* {console.log(tags)} */}
+                                    {tagError === true ? (
+                                        <div className="errorMsg">
+                                            Please enter at least one tag.
+                                        </div>
+                                    ) : null}
                                     {nextStepThird === true ? null : (
                                         <div className="button">
                                             <button
                                                 className="buttonLink btnPrimary"
-                                                onClick={() =>{
-                                                    if(tags.length === 0){
+                                                onClick={() => {
+                                                    if (tags.length === 0) {
                                                         setTagError(true);
                                                         setNextStepThird(false);
-                                                    }else{
-                                                        setNextStepThird(true)
+                                                    } else {
+                                                        setNextStepThird(true);
                                                     }
-                                                }
-                                                }
+                                                }}
                                             >
                                                 Next
                                             </button>
@@ -1066,20 +1116,26 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
 
                     {nextStepThird === true ? (
                         <BottomButton>
-                             {/* <Link to = {`/questions/${questionId}`}> */}
-                             <Link to = {`/questions/${data.questionId}`}>
-                                <button className="buttonLink btnPrimary" onClick={dataSubmit}>
-                                Review your question
+                            {/* <Link to = {`/questions/${questionId}`}> */}
+                            <Link to={`/questions/${data.questionId}`}>
+                                <button
+                                    className="buttonLink btnPrimary"
+                                    onClick={dataSubmit}
+                                >
+                                    Review your question
                                 </button>
                             </Link>
-                            <button className="btnDiscard" onClick={discardDraft}>
+                            <button
+                                className="btnDiscard"
+                                onClick={discardDraft}
+                            >
                                 Discard draft
                             </button>
                         </BottomButton>
                     ) : (
                         <Opacity>
                             <BottomButton>
-                                <button className="buttonLink btnPrimary" >
+                                <button className="buttonLink btnPrimary">
                                     Review your question
                                 </button>
                                 <button className="btnDiscard">
