@@ -16,6 +16,20 @@ const TextEditBox = styled.div`
   }
 `;
 
+// const ErrorEditBox = styled.div`
+//   width: 100%;
+//   height: 220px;
+//   .ql-container {
+//     margin-bottom: 8px;
+//     border: 1px solid var(--error-color);
+//   }
+//   .ql-toolbar{
+//     border-top: 1px solid var(--error-color);
+//     border-left: 1px solid var(--error-color);
+//     border-right: 1px solid var(--error-color);
+//   }
+// `
+
 const TextEdit = ({ setContent }) => {
   //입력된 DOM값
   // 부모 컴포넌트에게 줄 것 -> const [content, setContent] = useState("");
@@ -62,9 +76,17 @@ const TextEdit = ({ setContent }) => {
     }
   }, [quill]);
   return (
+    // <>
+    // {editorError ? (
+    //   <ErrorEditBox>
+    //     <div ref={quillRef} />
+    //   </ErrorEditBox>
+    // ) : (
     <TextEditBox>
       <div ref={quillRef} />
     </TextEditBox>
+    // )}
+    // </>
   );
 };
 
