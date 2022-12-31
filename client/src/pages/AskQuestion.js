@@ -658,6 +658,24 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
         }
     };
 
+    const discardDraft = () => {
+        setText("");
+        setNextStepFirst(false);
+        setNextStepSecond(false);
+        setNextStepThird(false);
+        setContent("");
+        setTitleSidebox(true);
+        setBodySidebox(false);
+        setTagSidebox(false);
+        setInputText("");
+        setInputError(false);
+        setTags([]);
+        setTagError(false);
+        setTagErrorClick(false);
+        setEditorError(false);
+        window.scrollTo({top: 0});
+    }
+
     return (
         <>
             <Container>
@@ -1042,7 +1060,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                 Review your question
                                 </button>
                             </Link>
-                            <button className="btnDiscard">
+                            <button className="btnDiscard" onClick={discardDraft}>
                                 Discard draft
                             </button>
                         </BottomButton>
