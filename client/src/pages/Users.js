@@ -36,33 +36,31 @@ const Users = ({ setFlag, setIsFooter }) => {
 		setFlag(true);
 		setIsFooter(true);
 	}, []);
-    //페이지네이션
+	//페이지네이션
 	const [page, setPage] = useState(1);
 	const [limit, setLimit] = useState(36);
-    const offset = (page - 1) * limit;
-	
-    //데이터 추가시 삭제
-	// const test = Array(1000).fill("0");
-    const [userList, setUserList] = useState(undefined);
-	useEffect(() => {
-        axios.get("http://prepro31.iptime.org:8080/members").then(res => {
-            setUserList(res.data.data);
-            console.log(res.data.data);
-        })
-    }, []);
+	const offset = (page - 1) * limit;
 
+	//데이터 추가시 삭제
+	// const test = Array(1000).fill("0");
+	const [userList, setUserList] = useState(undefined);
+	useEffect(() => {
+		axios.get("http://prepro31.iptime.org:8080/members").then((res) => {
+			setUserList(res.data.data);
+			//console.log(res.data.data);
+		});
+	}, []);
 
 	return (
 		<UsersBox>
 			<h1>Users</h1>
 			<div className="userList">
-				{userList && userList.slice(offset, offset + limit).map((data, index) => {
-					return <User data={data} key={index} />;
-				})}
+				{userList &&
+					userList.slice(offset, offset + limit).map((data, index) => {
+						return <User data={data} key={index} />;
+					})}
 			</div>
-			<PageContainer>
-				{userList && <Pagination total={userList.length} limit={limit} page={page} setPage={setPage} />}
-			</PageContainer>
+			<PageContainer>{userList && <Pagination total={userList.length} limit={limit} page={page} setPage={setPage} />}</PageContainer>
 		</UsersBox>
 	);
 };
