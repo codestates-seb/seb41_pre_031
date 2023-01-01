@@ -5,15 +5,17 @@ import dummyQuestions from "../data/dummyQuestions";
 import Question from "../components/Question";
 import Pagination from "../components/Pagination";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 const Container = styled.div`
     .content {
         margin-bottom: 4rem;
     }
+    width: 100%;
 `;
 
 const TopContainer = styled.div`
-    margin: 0 0 1.2rem;
+    margin: 0 0 1.2rem 1.2rem;
     padding: 2rem 0 0 1.6rem;
     display: flex;
     justify-content: space-between;
@@ -30,7 +32,7 @@ const QuestionContainer = styled.ul`
     padding: 0px;
 
     .questionCount {
-        padding: 0 0 1.2rem 1.6rem;
+        padding: 0 0 1.2rem 2.7rem;
         border-bottom: 1px solid var(--lightgray2);
         font-size: var(--font-head3-size);
     }
@@ -75,14 +77,25 @@ const AllQuestions = ({ setFlag, setIsFooter }) => {
         setFlag(true);
         setIsFooter(true);
     }, []);
+
     const [data, setData] = useState(dummyQuestions);
     // 현재 페이지
     const [page, setPage] = useState(1);
     // 보여줄 최대 게시글 수
     const [limit, setLimit] = useState(15);
 
+        useEffect(() => {           
+            axios
+                .get('http://prepro31.iptime.org:8080/questions/?page=1&size=10')
+                .then(res => {
+                    setData(res.data.data);
+                // console.log(res.data.data);
+                });
+        },[data])
+
     // 첫 게시물의 index
     const offset = (page - 1) * limit;
+
 
     return (
         <>
@@ -105,7 +118,7 @@ const AllQuestions = ({ setFlag, setIsFooter }) => {
                             {data.length} questions
                         </div>
                         <div>
-                            {data.slice(offset, offset + limit).map((el) => (
+                            {data.slice(offset, offset + limit).reverse().map((el) => (
                                 <Question key={el.questionId} question={el} />
                             ))}
                         </div>

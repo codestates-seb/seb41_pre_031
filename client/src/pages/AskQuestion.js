@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import TextEdit from "../components/TextEdit";
 import PencilIconSearch from "../icons/askPageIconSearch";
 import { BREAK_POINT_TABLET } from "../data/breakpoints";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
     display: flex;
@@ -144,6 +146,20 @@ const Title = styled.div`
     .description {
         font-size: var(--font-caption-size);
         margin: 0.5rem 0;
+    }
+
+    .input {
+        .inputError {
+            border: 1px solid var(--error-color);
+            :focus {
+                box-shadow: 0px 0px 0px 4px hsl(358, 74%, 83%);
+            }
+        }
+        .errorMsg {
+            color: var(--error-color);
+            margin-top: 8px;
+            font-size: var(--font-caption-size);
+        }
     }
 
     input {
@@ -299,7 +315,7 @@ const Body = styled.div`
     border-radius: 3px;
     background: var(--bg-color);
     width: 851.2px;
-    height: 397.76px;
+    height: 408px;
 
     @media screen and (max-width: ${BREAK_POINT_TABLET}px) {
         width: 100%;
@@ -317,13 +333,21 @@ const Body = styled.div`
 
     .editor {
         margin-top: 0.8rem;
+        /* padding-bottom: 50px; */
     }
 
-    .button {
-        margin-top: 4rem;
+    .bodyBottom {
+        /* padding-top: 20px; */
+        .errorMsg {
+            color: var(--error-color);
+            font-size: var(--font-caption-size);
+        }
 
-        button {
-            cursor: pointer;
+        .button {
+            margin-top: 7px;
+            button {
+                cursor: pointer;
+            }
         }
     }
 `;
@@ -357,7 +381,7 @@ const Tags = styled.div`
     border-radius: 3px;
     background: var(--bg-color);
     width: 851.2px;
-    height: 170px;
+    height: 180px;
 
     :focus {
         transition: 0.5s;
@@ -385,9 +409,24 @@ const Tags = styled.div`
         }
     }
 
-    .selected{
+    .selected {
         border: 1px solid var(--darkblue);
         box-shadow: 0px 0px 0px 4px #ebf4fb;
+        transition: 0.5s;
+    }
+
+    .errorMsg {
+        color: var(--error-color);
+        margin-top: 8px;
+        font-size: var(--font-caption-size);
+    }
+
+    .tagErrorBorder {
+        border: 1px solid var(--error-color);
+    }
+    .tagErrorShadow {
+        border: 1px solid var(--error-color);
+        box-shadow: 0px 0px 0px 4px hsl(358, 74%, 83%);
         transition: 0.5s;
     }
 `;
@@ -548,6 +587,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
         setIsFooter(true);
     }, []);
     const [tags, setTags] = useState([]);
+    // tag text
     const [text, setText] = useState("");
     const [nextStepFirst, setNextStepFirst] = useState(false);
     const [nextStepSecond, setNextStepSecond] = useState(false);
@@ -557,9 +597,55 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
     const [bodySidebox, setBodySidebox] = useState(false);
     const [tagSidebox, setTagSidebox] = useState(false);
     const [isActive, setIsActive] = useState(false);
+    const [inputText, setInputText] = useState("");
+    const [inputError, setInputError] = useState(false);
+    const [tagError, setTagError] = useState(false);
+    const [tagErrorClick, setTagErrorClick] = useState(false);
+    const [editorError, setEditorError] = useState(false);
+    const [data, setData] = useState(undefined);
+
+    const dataSubmit = () => {
+        axios
+            .post(
+                "http://prepro31.iptime.org:8080/questions",
+                {
+                    questionTitle: inputText,
+                    questionBody: content,
+                    questionTags: [
+                        {
+                            tagName: tags[0],
+                        },
+                        tags[1] ? { tagName: tags[1] } : {},
+                        tags[2] ? { tagName: tags[2] } : {},
+                        tags[3] ? { tagName: tags[3] } : {},
+                        tags[4] ? { tagName: tags[4] } : {},
+                    ],
+                },
+                {
+                    headers: {
+                        Authorization: `${localStorage.getItem("loginToken")}`,
+                    },
+                }
+            )
+            .catch((error) => {
+                console.error(error.response.data);
+            });
+    };
+
+    useEffect(() => {
+        axios
+            .get("http://prepro31.iptime.org:8080/questions/?page=1&size=10")
+            .then((res) => {
+                setData(res.data.data);
+            });
+    }, [data]);
 
     const onChange = (event) => {
         setText(event.target.value);
+    };
+
+    const inputTextChange = (event) => {
+        setInputText(event.target.value);
     };
 
     const removeTags = (removeIdx) => {
@@ -575,10 +661,31 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
         ) {
             setTags([...tags, event]);
             setText("");
+            setIsActive(true);
+            setTagError(false);
+            setTagErrorClick(false);
         }
         if (window.event.keyCode === 32 && tags.includes(event)) {
             setText("");
         }
+    };
+
+    const discardDraft = () => {
+        setText("");
+        setNextStepFirst(false);
+        setNextStepSecond(false);
+        setNextStepThird(false);
+        setContent("");
+        setTitleSidebox(true);
+        setBodySidebox(false);
+        setTagSidebox(false);
+        setInputText("");
+        setInputError(false);
+        setTags([]);
+        setTagError(false);
+        setTagErrorClick(false);
+        setEditorError(false);
+        window.scrollTo({ top: 0 });
     };
 
     return (
@@ -649,18 +756,42 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                         setTitleSidebox(true);
                                         setBodySidebox(false);
                                         setTagSidebox(false);
-                                        setIsActive(false);
+                                        setIsActive(true);
+                                        setTagErrorClick(false);
                                     }}
-                                ></input>
+                                    onChange={inputTextChange}
+                                    value={inputText}
+                                    className={
+                                        inputError === true ? "inputError" : ""
+                                    }
+                                />
+                                {inputError === true ? (
+                                    <div className="errorMsg">
+                                        Title is missing.
+                                    </div>
+                                ) : null}
                             </div>
-                            {nextStepFirst === true ? null : (
+                            {nextStepFirst === true &&
+                            inputError === false ? null : (
                                 <div className="button">
                                     <button
                                         className="buttonLink btnPrimary"
                                         onClick={() => {
-                                            setNextStepFirst(true);
-                                            setTitleSidebox(false);
-                                            setBodySidebox(true);
+                                            if (inputText === "") {
+                                                setInputError(true);
+                                                setTitleSidebox(true);
+                                            } else {
+                                                setInputError(false);
+                                            }
+                                            if (inputError === true) {
+                                                setNextStepFirst(false);
+                                                setTitleSidebox(true);
+                                                setBodySidebox(false);
+                                            } else {
+                                                setNextStepFirst(true);
+                                                setTitleSidebox(false);
+                                                setBodySidebox(true);
+                                            }
                                         }}
                                     >
                                         Next
@@ -699,7 +830,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                     </TitleContainer>
 
                     <BodyContainer>
-                        {nextStepFirst === true ? (
+                        {nextStepFirst === true && inputError === false ? (
                             <>
                                 <Body>
                                     <div className="title">
@@ -717,25 +848,69 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                             setBodySidebox(true);
                                             setTagSidebox(false);
                                             setIsActive(false);
+                                            setTagErrorClick(false);
+                                            if (content.length < 20) {
+                                                setEditorError(true);
+                                            } else {
+                                                setEditorError(false);
+                                            }
                                         }}
                                     >
-                                        <TextEdit setContent={setContent} />
+                                        <TextEdit
+                                            className={
+                                                editorError ? "editorError" : ""
+                                            }
+                                            setContent={setContent}
+                                            editorError={editorError}
+                                        />
                                     </div>
-                                    {nextStepSecond === true ? null : (
-                                        <div className="button">
-                                            <button
-                                                className="buttonLink btnPrimary"
-                                                onClick={() => {
-                                                    setNextStepSecond(true);
-                                                    setBodySidebox(false);
-                                                    setTagSidebox(true);
-                                                    setTitleSidebox(false);
-                                                }}
-                                            >
-                                                Next
-                                            </button>
-                                        </div>
-                                    )}
+                                    <div className="bodyBottom">
+                                        {content.length < 20 ? (
+                                            <div className="errorMsg">
+                                                Problem must be at least 20
+                                                characters.
+                                            </div>
+                                        ) : null}
+                                        {nextStepSecond === true ? null : (
+                                            <div className="button">
+                                                <button
+                                                    className="buttonLink btnPrimary"
+                                                    onClick={() => {
+                                                        if (
+                                                            content.length < 20
+                                                        ) {
+                                                            setNextStepSecond(
+                                                                false
+                                                            );
+                                                            setTagSidebox(true);
+                                                            setTitleSidebox(
+                                                                false
+                                                            );
+                                                            setEditorError(
+                                                                true
+                                                            );
+                                                        } else {
+                                                            setNextStepSecond(
+                                                                true
+                                                            );
+                                                            setBodySidebox(
+                                                                false
+                                                            );
+                                                            setTagSidebox(true);
+                                                            setTitleSidebox(
+                                                                false
+                                                            );
+                                                            setEditorError(
+                                                                false
+                                                            );
+                                                        }
+                                                    }}
+                                                >
+                                                    Next
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
                                 </Body>
                                 {bodySidebox === true ? null : (
                                     <div className="bodySideBlank"></div>
@@ -774,7 +949,12 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                         characters.
                                     </div>
                                     <div className="editor">
-                                        <TextEdit setContent={setContent} />
+                                        <TextEdit
+                                            setContent={setContent}
+                                            className={
+                                                editorError ? "editorError" : ""
+                                            }
+                                        />
                                     </div>
                                 </BodyOpacity>
 
@@ -798,9 +978,22 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                             setTitleSidebox(false);
                                             setBodySidebox(false);
                                             setTagSidebox(true);
-                                            setIsActive(true);
+                                            if (tagError) {
+                                                setIsActive(false);
+                                                setTagErrorClick(true);
+                                            } else {
+                                                setIsActive(true);
+                                            }
                                         }}
-                                        className={isActive ? 'selected' : ''}
+                                        className={
+                                            (isActive && tagError === false
+                                                ? "selected"
+                                                : "") +
+                                            (tagError ? "tagErrorBorder" : "") +
+                                            (tagErrorClick
+                                                ? "tagErrorBorder tagErrorShadow"
+                                                : "")
+                                        }
                                     >
                                         <ul className="tags">
                                             {tags.map((tag, index) => (
@@ -830,13 +1023,24 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                             placeholder="e.g. (asp.net wordpress mongodb)"
                                         ></input>
                                     </TagsInput>
+                                    {/* {console.log(tags)} */}
+                                    {tagError === true ? (
+                                        <div className="errorMsg">
+                                            Please enter at least one tag.
+                                        </div>
+                                    ) : null}
                                     {nextStepThird === true ? null : (
                                         <div className="button">
                                             <button
                                                 className="buttonLink btnPrimary"
-                                                onClick={() =>
-                                                    setNextStepThird(true)
-                                                }
+                                                onClick={() => {
+                                                    if (tags.length === 0) {
+                                                        setTagError(true);
+                                                        setNextStepThird(false);
+                                                    } else {
+                                                        setNextStepThird(true);
+                                                    }
+                                                }}
                                             >
                                                 Next
                                             </button>
@@ -898,22 +1102,26 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                             placeholder="e.g. (asp.net wordpress mongodb)"
                                         ></input>
                                     </TagsInput>
-                                    {/* button 조건문 */}
                                 </TagsOpacity>
                                 <div className="opacityTagSideBlank"></div>
                             </>
                         )}
-                        {/* {tagSidebox === true ? null : (
-                            <div className="tagSideBlank"></div>
-                        )} */}
                     </TagContainer>
 
                     {nextStepThird === true ? (
                         <BottomButton>
-                            <button className="buttonLink btnPrimary">
-                                Review your question
-                            </button>
-                            <button className="btnDiscard">
+                            <Link to={`/questions/${data.questionId}`}>
+                                <button
+                                    className="buttonLink btnPrimary"
+                                    onClick={dataSubmit}
+                                >
+                                    Review your question
+                                </button>
+                            </Link>
+                            <button
+                                className="btnDiscard"
+                                onClick={discardDraft}
+                            >
                                 Discard draft
                             </button>
                         </BottomButton>
