@@ -10,8 +10,8 @@ public enum ExceptionCode {
     PROFILE_NOT_FOUND(404, "Profile not found"),
     EDIT_NOT_ALLOWED(400, "Edit not allowed"),
     NO_PERMISSION(400, "No permission"),
-    ANSWER_NOT_FOUND(404, "Answer not found"),
-    ALREADY_LIKE_ADDED(404, "Already added to like"),
+//    ANSWER_NOT_FOUND(404, "Answer not found"),
+//    ALREADY_LIKE_ADDED(404, "Already added to like"),
     DELETE_NOT_ALLOWED(400, "No permission"),
     QUESTION_NOT_FOUND(404, "Question not found");
     @Getter

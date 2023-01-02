@@ -3,16 +3,13 @@ package com.codestates.backend.pre_project.post.answer.controller;
 
 import com.codestates.backend.pre_project.exception.BusinessLogicException;
 import com.codestates.backend.pre_project.exception.ExceptionCode;
-import com.codestates.backend.pre_project.likes.answer.AnswerLikesService;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.member.repository.MemberRepository;
-import com.codestates.backend.pre_project.member.service.MemberService;
 import com.codestates.backend.pre_project.post.answer.dto.AnswerDto;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.answer.mapper.AnswerMapper;
 import com.codestates.backend.pre_project.post.answer.service.AnswerService;
 import com.codestates.backend.pre_project.response.SingleResponseDto;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -80,9 +77,6 @@ public class AnswerController {
     @PatchMapping("/answers/{answer-id}/edit")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") long answerId,
                                       @Valid @RequestBody AnswerDto.Patch requestBody) {
-//        if (requestBody.getAnswerId() != answerId)
-//            throw new BusinessLogicException(ExceptionCode.EDIT_NOT_ALLOWED);
-        // post로 받는 아이디값이 파라미터로 받는 아이디값과 다르면 예외 빵
 
         requestBody.setAnswerId(answerId);
 

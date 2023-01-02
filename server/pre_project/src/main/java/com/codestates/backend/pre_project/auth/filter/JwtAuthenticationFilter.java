@@ -5,7 +5,6 @@ import com.codestates.backend.pre_project.auth.jwt.JwtTokenizer;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

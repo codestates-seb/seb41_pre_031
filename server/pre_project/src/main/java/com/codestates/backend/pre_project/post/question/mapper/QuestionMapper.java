@@ -5,15 +5,11 @@ import com.codestates.backend.pre_project.post.question.Question;
 import com.codestates.backend.pre_project.post.question.QuestionTag;
 import com.codestates.backend.pre_project.post.question.dto.QuestionDto;
 import com.codestates.backend.pre_project.post.question.dto.QuestionTagResponseDto;
-import com.codestates.backend.pre_project.utils.CustomBeanUtils;
-import org.aspectj.apache.bcel.classfile.Module;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -36,28 +32,24 @@ public interface QuestionMapper {
         question.setQuestionTags(questionTags);
         question.setQuestionBody(requestBody.getQuestionBody());
         question.setQuestionTitle(requestBody.getQuestionTitle());
-        question.setQuestionLastDate(LocalDateTime.now());
-        question.setQuestionRegDate(LocalDateTime.now());
 
         return question;
     }
 
    default Question questionPatchDtoToQuestion(QuestionDto.Patch requestBody){
-       Question question = new Question();
-
-
+    Question question = new Question();
        List<QuestionTag> questionTags = requestBody.getQuestionTags().stream()
                .map(questionTagDto -> {
-                   QuestionTag questionTag = new QuestionTag();
-                   questionTag.setQuestion(question);
-                   questionTag.setTagName(questionTagDto.getTagName());
+                   QuestionTag questionTag = QuestionTag.builder()
+                           .question(question)
+                                   .tagName(questionTagDto.getTagName())
+                                           .build();
                    return questionTag;
                }).collect(Collectors.toList());
        question.setQuestionId(requestBody.getQuestionId());
        question.setQuestionTitle(requestBody.getQuestionTitle());
        question.setQuestionBody(requestBody.getQuestionBody());
        question.setQuestionTags(questionTags);
-       question.setQuestionLastDate(LocalDateTime.now());
 
        return question;
    }
@@ -75,33 +67,23 @@ public interface QuestionMapper {
                         ));
             }
             QuestionDto.Response questionResponseDto =
-                    new QuestionDto.Response(
-                            question.getQuestionId(),
-                            question.getMemberName(),
-                            question.getQuestionTitle(),
-                            question.getQuestionBody(),
-                            questionTagResponseDtos,
-                            question.getQuestionRegDate(),
-                            question.getQuestionLastDate(),
-                            question.getQuestionLikes(),
-                            question.getQuestionView(),
-                            question.getIsSelectAnswer());
-
+                    QuestionDto.Response.builder()
+                            .questionId(question.getQuestionId())
+                            .questionBody(question.getMemberName())
+                            .questionTitle(question.getQuestionTitle())
+                            .questionLikes(question.getQuestionLikes())
+                            .questionBody(question.getQuestionBody())
+                            .questionBody(question.getQuestionBody())
+                            .questionView(question.getQuestionView())
+                            .questionTags(questionTagResponseDtos)
+                            .createdAt(question.getCreatedAt())
+                            .modifiedAt(question.getModifiedAt())
+                            .isSelectAnswer(question.getIsSelectAnswer())
+                            .build();
 
             return questionResponseDto;
     }
 
-
-
     List<QuestionDto.Response> questionToQuestionResponse(List<Question> questions);
-//    {
-//        List<QuestionDto.Response> responses = new LinkedList<>();
-//        for(int i =0; i>questions.size(); i++){
-//            responses.add(questionToQuestionResponseDto(questions.get(i)));
-//        }
-//        return responses;
-//    }
-
-
 
 }
