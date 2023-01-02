@@ -42,4 +42,5 @@ https://www.notion.so/codestates/BR31-76fe3ba7fa5647b0852a4cf81ac8aa59
 <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
 <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
 
-### Backend
+### Backend  
+<img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
