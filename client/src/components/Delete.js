@@ -82,7 +82,7 @@ const Delete = ({ id }) => {
 	const userDelete = () => {
 		const config = {
 			method: "delete",
-			url: `http://prepro31.iptime.org:8080/members/${id}`,
+			url: `http://34.64.176.88:8080/members/${id}`,
 			headers: {
 				Authorization: localStorage.getItem("loginToken"),
 			},

@@ -147,7 +147,7 @@ const SearchWrap = styled.div`
 		left: 15px;
 		transform: translateY(-50%);
 	}
-	input {
+	input[type="text"] {
 		width: 100%;
 		padding-left: 32px;
 	}

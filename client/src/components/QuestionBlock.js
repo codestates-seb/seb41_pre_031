@@ -295,7 +295,7 @@ const QuestionBlock = ({ type, data, comment, quId }) => {
 
         var config = {
           method: "post",
-          url: `http://prepro31.iptime.org:8080/questions/${quId}/comments`,
+          url: `http://34.64.176.88:8080/questions/${quId}/comments`,
           headers: {
             Authorization: token,
             "Content-Type": "application/json",
