@@ -32,12 +32,6 @@ public class ProfileService {
         this.beanUtils = beanUtils;
     }
 
-    // 멤버 생성하면 자동으로 프로필은 생성되는듯
-//    public Profile createProfile(Profile profile) {
-//        verifyExistsMemberId(profile.getMember().getMemberId());
-//        return profileRepository.save(profile);
-//    }
-
     public Profile updateProfile(Profile profile) {
         Profile findProfile = findVerifiedProfile(profile.getProfileId());
         Member postMember = memberService.findVerifiedMember(findProfile.getMember().getMemberId());
@@ -71,9 +65,4 @@ public class ProfileService {
         return profileRepository.findAll();
     }
 
-//    private void verifyExistsMemberId(long memberId) {
-//        Optional<Profile> profile = profileRepository.findById(memberId);
-//        if(profile.isPresent())
-//            throw new BusinessLogicException(ExceptionCode.PROFILE_EXISTS);
-//    }
 }

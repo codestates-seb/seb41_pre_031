@@ -1100,7 +1100,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                             }}
                                             onChange={onChange}
                                             value={text}
-                                            placeholder="e.g. (asp.net wordpress mongodb)"
+                                            placeholder="태그를 두 개 이상 작성해야 질문이 등록됩니다"
                                         ></input>
                                     </TagsInput>
                                 </TagsOpacity>

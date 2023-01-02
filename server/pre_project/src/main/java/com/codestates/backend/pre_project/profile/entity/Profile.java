@@ -1,5 +1,6 @@
 package com.codestates.backend.pre_project.profile.entity;
 
+import com.codestates.backend.pre_project.audit.Auditable;
 import com.codestates.backend.pre_project.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Profile {
+public class Profile extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long profileId;
@@ -41,9 +42,6 @@ public class Profile {
 
     @Nullable
     private long profileView;
-
-    @CreatedDate
-    private LocalDateTime profileRegDate;
 
     @OneToOne
     @JoinColumn(name ="MEMBER_ID")

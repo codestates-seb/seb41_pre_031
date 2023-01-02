@@ -29,6 +29,6 @@ public class ProfileDto {
         private String about;
         private long profileView;
         private int point;
-        private LocalDateTime profileRegDate;
+        private LocalDateTime createdAt;
     }
 }
