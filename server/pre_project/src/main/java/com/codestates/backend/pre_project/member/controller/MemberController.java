@@ -4,9 +4,7 @@ import com.codestates.backend.pre_project.member.dto.MemberDto;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.member.mapper.MemberMapper;
 import com.codestates.backend.pre_project.member.service.MemberService;
-import com.codestates.backend.pre_project.response.MultiResponseDto;
 import com.codestates.backend.pre_project.response.SingleResponseDto;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +17,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/members")
 @Validated
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @CrossOrigin
 public class MemberController {
     private final MemberService memberService;
@@ -34,8 +31,6 @@ public class MemberController {
     @PostMapping("/signup")
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody){
         Member member = mapper.memberPostDtoToMember(requestBody);
-        //member.setProfile(new Profile());
-        //member.setPoint(new Point());
 
         Member createdMember = memberService.createMember(member);
 

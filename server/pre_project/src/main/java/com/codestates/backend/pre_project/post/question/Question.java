@@ -1,5 +1,6 @@
 package com.codestates.backend.pre_project.post.question;
 
+import com.codestates.backend.pre_project.audit.Auditable;
 import com.codestates.backend.pre_project.likes.question.QuestionLikes;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
@@ -8,12 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -21,7 +19,7 @@ import java.util.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Question {
+public class Question extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,12 +40,6 @@ public class Question {
     @Column(nullable = false)
     private Long questionLikes; //게시판 좋아요 수
 
-    @CreatedDate
-    private LocalDateTime questionRegDate;
-
-    @LastModifiedDate
-    private LocalDateTime questionLastDate;
-
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
@@ -61,22 +53,15 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Comment> comments;
-    //= new ArrayList<>();
-    //TODO
 
     @OneToMany(mappedBy = "question")
     private List<QuestionLikes> questionLikesList;
-    //= new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<QuestionTag> questionTags;
-    //= new LinkedList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers;
-    //= new ArrayList<>();
-//    @Column(nullable = false)
-//    private long memberId;
 
     @PrePersist
     public void prePersist() {
@@ -93,9 +78,6 @@ public class Question {
 
     public void setMember(Member member) {
         this.member = member;
-       // if(!this.member.getQuestions().contains(this)){
-         //   this.member.getQuestions().add(this);
-        //}
     }
 
 }

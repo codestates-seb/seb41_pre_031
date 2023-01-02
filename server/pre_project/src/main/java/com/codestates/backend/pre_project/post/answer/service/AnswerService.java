@@ -6,27 +6,20 @@ import com.codestates.backend.pre_project.likes.answer.AnswerLikes;
 import com.codestates.backend.pre_project.likes.answer.AnswerLikesService;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.member.service.MemberService;
-import com.codestates.backend.pre_project.post.answer.controller.AnswerController;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.answer.repository.AnswerRepository;
 import com.codestates.backend.pre_project.post.question.Question;
-import com.codestates.backend.pre_project.post.question.QuestionTag;
 import com.codestates.backend.pre_project.post.question.repository.QuestionRepository;
 import com.codestates.backend.pre_project.post.question.service.QuestionService;
 import com.codestates.backend.pre_project.profile.entity.Profile;
 import com.codestates.backend.pre_project.profile.service.ProfileService;
 import com.codestates.backend.pre_project.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.codestates.backend.pre_project.member.repository.MemberRepository;
-
-import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.Optional;
 
@@ -114,18 +107,12 @@ public class AnswerService {
             }
         }
 
-
-//        Member pointMember = memberService.findMember(answer.getMember().getMemberId());
-//        pointMember.setProfile(findProfile);
         answerLikes.setAnswer(answer);
         answerLikes.setMember(member);
         answerLikesService.saveAnswerLikes(answerLikes);
         profileService.updatePoint(findProfile);
 
         profileService.updatePoint(requestMember.getProfile());
-
-//        Question question = answer.getQuestion();
-//        questionService.downViewCount(question); 조회수 2개씩 올라가는 버그 있으면 사용
         answerRepository.save(answer);
     }
 
@@ -153,10 +140,6 @@ public class AnswerService {
         answerLikes.setAnswer(answer);
         answerLikes.setMember(member);
         answerLikesService.saveAnswerLikes(answerLikes);
-//        Question question = answer.getQuestion();
-
-//        questionService.downViewCount(question); 조회수 2개씩 올라가는 버그 있으면 사용
-        //
         profileService.updatePoint(findProfile);
         profileService.updatePoint(requestMember.getProfile());
         answerRepository.save(answer);

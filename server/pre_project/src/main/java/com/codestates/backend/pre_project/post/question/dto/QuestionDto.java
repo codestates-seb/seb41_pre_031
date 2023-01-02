@@ -1,10 +1,7 @@
 package com.codestates.backend.pre_project.post.question.dto;
 
 import com.codestates.backend.pre_project.post.question.QuestionTag;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -47,6 +44,7 @@ public class QuestionDto {
     @Getter
     @AllArgsConstructor
     @Setter
+    @Builder
     public static class Response{
         private long questionId;
 
@@ -59,9 +57,9 @@ public class QuestionDto {
         @Valid
         private List<QuestionTagResponseDto> questionTags;
 
-        private LocalDateTime questionRegDate;
+        private LocalDateTime createdAt;
 
-        private LocalDateTime questionLastDate;
+        private LocalDateTime modifiedAt;
 
         private long questionLikes;
 

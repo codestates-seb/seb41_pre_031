@@ -38,22 +38,12 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
 
-//    public SecurityConfiguration(JwtTokenizer jwtTokenizer,
-//                                 CorsFilter corsFilter,
-//                                 CustomAuthorityUtils authorityUtils) {
-//        this.jwtTokenizer = jwtTokenizer;
-//        this.corsFilter = corsFilter;
-//
-//        this.authorityUtils = authorityUtils;
-//    }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .headers().frameOptions().sameOrigin()
             .and()
             .csrf().disable()
-            //.cors(withDefaults())
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .formLogin().disable()
@@ -68,7 +58,6 @@ public class SecurityConfiguration {
                     .antMatchers(HttpMethod.POST, "/*/members").permitAll()
                     .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
                     .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
-//                    .mvcMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
                     .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.DELETE, "/*/members/**").hasAnyRole("USER", "ADMIN")
                     .antMatchers(HttpMethod.POST, "/*/questions").hasAnyRole("ADMIN", "USER")
@@ -88,11 +77,6 @@ public class SecurityConfiguration {
             );
         return http.build();
     }
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

@@ -2,6 +2,7 @@ package com.codestates.backend.pre_project.member.mapper;
 
 import com.codestates.backend.pre_project.member.dto.MemberDto;
 import com.codestates.backend.pre_project.member.entity.Member;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -9,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-12-30T22:11:10+0900",
-    comments = "version: 1.5.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Amazon.com Inc.)"
+    date = "2023-01-02T10:18:54+0900",
+    comments = "version: 1.5.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 18.0.2 (Amazon.com Inc.)"
 )
 @Component
 public class MemberMapperImpl implements MemberMapper {
@@ -54,12 +55,16 @@ public class MemberMapperImpl implements MemberMapper {
         long memberId = 0L;
         String email = null;
         String memberName = null;
+        LocalDateTime createdAt = null;
+        LocalDateTime modifiedAt = null;
 
         memberId = member.getMemberId();
         email = member.getEmail();
         memberName = member.getMemberName();
+        createdAt = member.getCreatedAt();
+        modifiedAt = member.getModifiedAt();
 
-        MemberDto.Response response = new MemberDto.Response( memberId, email, memberName );
+        MemberDto.Response response = new MemberDto.Response( memberId, email, memberName, createdAt, modifiedAt );
 
         return response;
     }
