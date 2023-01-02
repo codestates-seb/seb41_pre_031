@@ -14,6 +14,7 @@ import TopQuestions from "./pages/TopQuestions";
 import AskQuestion from "./pages/AskQuestion";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import { useEffect } from "react";
 
 const Wrap = styled.div`
 	display: flex;
@@ -56,6 +57,13 @@ const Section = styled.div`
 `;
 
 function App() {
+	useEffect(() => {
+		if (window.localStorage.getItem("loginToken")) {
+			setIsLogin(true);
+		} else {
+			setIsLogin(false);
+		}
+	}, []);
 	const [flag, setFlag] = useState(true); //왼쪽 side nav 유무 조작: 각 page 컴포넌트에서 useEffect 사용하세용
 	const [isLogin, setIsLogin] = useState(false); //로그인 여부 판별
 	const [isFooter, setIsFooter] = useState(true); //footer 유무 조작
