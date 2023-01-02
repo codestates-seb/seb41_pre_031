@@ -10,6 +10,7 @@ import LoginSignupDesc from "../components/LoginSignupDesc";
 import { BREAK_POINT_TABLET } from "../data/breakpoints";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ROOT_URL } from "./../data/rootUrl";
 
 const Wrap = styled(LoginSignUpStyle.Wrap)`
 	flex-direction: row;
@@ -208,7 +209,7 @@ const SignUp = ({ setFlag, setIsFooter }) => {
 			return;
 		}
 		return axios
-			.post("http://34.64.176.88:8080/members/signup", form)
+			.post(`${ROOT_URL}/members/signup`, form)
 			.then((res) => {
 				alert("가입을 환영합니다!");
 				navigate("/login");

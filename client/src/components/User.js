@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { ROOT_URL } from "./../data/rootUrl";
 
 const UserBox = styled.div`
 	padding: 5px 6px 7px 7px;
@@ -50,7 +51,7 @@ const User = ({ data }) => {
 	const [userLocation, setUserLocation] = useState(null);
 	const [userPoint, setUserPoint] = useState(null);
 	useEffect(() => {
-		axios.get(`http://34.64.176.88:8080/profiles/${data.memberId}`).then((res) => {
+		axios.get(`${ROOT_URL}/profiles/${data.memberId}`).then((res) => {
 			setUserLocation(res.data.data.location);
 			setUserPoint(res.data.data.point);
 		});
