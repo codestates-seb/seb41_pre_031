@@ -6,6 +6,7 @@ import LoginSignUpStyle from "../components/LoginSignUpStyle";
 import LoginSignupDesc from "../components/LoginSignupDesc";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ROOT_URL } from "./../data/rootUrl";
 
 const LogoWrap = styled.div`
 	margin-bottom: 24px;
@@ -48,7 +49,7 @@ const Login = ({ setFlag, setIsFooter, setIsLogin, setUserInfo }) => {
 			setErrorPWMsg("");
 		}
 		return axios
-			.put("http://34.64.176.88:8080/auth/login", { username, password })
+			.put(`${ROOT_URL}/auth/login`, { username, password })
 			.then((res) => {
 				localStorage.setItem("loginToken", res.headers.authorization);
 				setIsLogin(true);

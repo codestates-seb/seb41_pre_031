@@ -6,6 +6,7 @@ import Question from "../components/Question";
 import Pagination from "../components/Pagination";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { ROOT_URL } from "./../data/rootUrl";
 
 const Container = styled.div`
 	.content {
@@ -86,7 +87,7 @@ const AllQuestions = ({ setFlag, setIsFooter }) => {
 	const [limit, setLimit] = useState(15);
 
 	useEffect(() => {
-		axios.get("http://34.64.176.88:8080/questions/?page=1&size=10").then((res) => {
+		axios.get(`${ROOT_URL}/questions/?page=1&size=10`).then((res) => {
 			setData(res.data.data);
 			// console.log(res.data.data);
 		});

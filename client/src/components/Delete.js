@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import styled from "styled-components";
 import axios from "axios";
+import { ROOT_URL } from "./../data/rootUrl";
 
 const MainHeader = styled.div`
 	display: flex;
@@ -82,7 +83,7 @@ const Delete = ({ id }) => {
 	const userDelete = () => {
 		const config = {
 			method: "delete",
-			url: `http://34.64.176.88:8080/members/${id}`,
+			url: `${ROOT_URL}/members/${id}`,
 			headers: {
 				Authorization: localStorage.getItem("loginToken"),
 			},

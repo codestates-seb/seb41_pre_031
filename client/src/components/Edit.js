@@ -5,6 +5,7 @@ import TextEdit from "./TextEdit";
 import IconGithub from "../icons/IconGithub";
 import axios from "axios";
 import { BREAK_POINT_MOBILE } from "./../data/breakpoints";
+import { ROOT_URL } from "./../data/rootUrl";
 
 const MainHeader = styled.div`
 	display: flex;
@@ -128,7 +129,7 @@ const Edit = ({ userData, id }) => {
 	const profileUpdate = () => {
 		const config = {
 			method: "patch",
-			url: `http://34.64.176.88:8080/profiles/${id}`,
+			url: `${ROOT_URL}/profiles/${id}`,
 			headers: {
 				Authorization: localStorage.getItem("loginToken"),
 			},

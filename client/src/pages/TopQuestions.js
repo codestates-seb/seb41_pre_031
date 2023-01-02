@@ -5,6 +5,7 @@ import dummyQuestions from "../data/dummyQuestions";
 import Question from "../components/Question";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { ROOT_URL } from "./../data/rootUrl";
 
 const Container = styled.div`
 	width: 100%;
@@ -47,7 +48,7 @@ const TopQuestions = ({ setFlag, setIsFooter }) => {
 	}, []);
 
 	useEffect(() => {
-		axios.get("http://34.64.176.88:8080/questions/?page=1&size=10").then((res) => {
+		axios.get(`${ROOT_URL}/questions/?page=1&size=10`).then((res) => {
 			setData(res.data.data);
 		});
 	});

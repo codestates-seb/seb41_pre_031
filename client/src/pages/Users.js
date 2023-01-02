@@ -4,6 +4,7 @@ import { BREAK_POINT_TABLET } from "../data/breakpoints";
 import User from "../components/User";
 import Pagination from "../components/Pagination";
 import axios from "axios";
+import { ROOT_URL } from "./../data/rootUrl";
 
 const UsersBox = styled.div`
 	width: 100%;
@@ -43,7 +44,7 @@ const Users = ({ setFlag, setIsFooter }) => {
 
 	const [userList, setUserList] = useState(undefined);
 	useEffect(() => {
-		axios.get("http://34.64.176.88:8080/members").then((res) => {
+		axios.get(`${ROOT_URL}/members`).then((res) => {
 			setUserList(res.data.data);
 		});
 	}, []);

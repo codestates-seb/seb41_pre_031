@@ -4,6 +4,7 @@ import styled from "styled-components";
 import QuestionBlock from "./QuestionBlock";
 import TextEdit from "./TextEdit";
 import { answerData, userAnComment } from "../API/ServerAPI";
+import { ROOT_URL } from "./../data/rootUrl";
 
 const AnswerBox = styled.div`
 	width: 100%;
@@ -50,7 +51,7 @@ const AnswerBlock = ({ id }) => {
 		});
 		var config = {
 			method: "post",
-			url: `http://34.64.176.88:8080/questions/${id}/answers/post`,
+			url: `${ROOT_URL}/questions/${id}/answers/post`,
 			headers: {
 				"Authorization": token,
 				"Content-Type": "application/json",

@@ -1,6 +1,7 @@
 import axios from "axios";
+import { ROOT_URL } from "./../data/rootUrl";
 
-const host = "http://34.64.176.88:8080";
+const host = ROOT_URL;
 
 export async function userProfileData(id) {
 	const member = await axios.get(`${host}/members/${id}`);

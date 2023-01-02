@@ -6,6 +6,7 @@ import PencilIconSearch from "../icons/askPageIconSearch";
 import { BREAK_POINT_TABLET } from "../data/breakpoints";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ROOT_URL } from "./../data/rootUrl";
 
 const Container = styled.div`
 	display: flex;
@@ -607,7 +608,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
 		try {
 			axios
 				.post(
-					"http://34.64.176.88:8080/questions",
+					`${ROOT_URL}/questions`,
 					{
 						questionTitle: inputText,
 						questionBody: content,
@@ -630,7 +631,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
 	};
 
 	useEffect(() => {
-		axios.get("hhttp://34.64.176.88:8080/questions/?page=1&size=10").then((res) => {
+		axios.get(`${ROOT_URL}/questions/?page=1&size=10`).then((res) => {
 			setData(res.data.data);
 		});
 	}, [data]);
