@@ -5,7 +5,7 @@ import TextEdit from "../components/TextEdit";
 import PencilIconSearch from "../icons/askPageIconSearch";
 import { BREAK_POINT_TABLET } from "../data/breakpoints";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     display: flex;
@@ -603,33 +603,34 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
     const [tagErrorClick, setTagErrorClick] = useState(false);
     const [editorError, setEditorError] = useState(false);
     const [data, setData] = useState(undefined);
+    const navigate = useNavigate();
 
     const dataSubmit = () => {
-        axios
-            .post(
-                "http://prepro31.iptime.org:8080/questions",
-                {
-                    questionTitle: inputText,
-                    questionBody: content,
-                    questionTags: [
-                        {
-                            tagName: tags[0],
-                        },
-                        tags[1] ? { tagName: tags[1] } : {},
-                        tags[2] ? { tagName: tags[2] } : {},
-                        tags[3] ? { tagName: tags[3] } : {},
-                        tags[4] ? { tagName: tags[4] } : {},
-                    ],
-                },
-                {
-                    headers: {
-                        Authorization: `${localStorage.getItem("loginToken")}`,
+        try {
+            axios
+                .post(
+                    "http://prepro31.iptime.org:8080/questions",
+                    {
+                        questionTitle: inputText,
+                        questionBody: content,
+                        questionTags: tags,
                     },
-                }
-            )
-            .catch((error) => {
-                console.error(error.response.data);
-            });
+                    {
+                        headers: {
+                            Authorization: `${localStorage.getItem(
+                                "loginToken"
+                            )}`,
+                        },
+                    }
+                )
+                .then(() => {
+                    alert("질문이 등록되었습니다");
+                    navigate(`/questions/${data.questionId}`);
+                });
+        } catch (error) {
+            alert("질문 등록에 실패했습니다");
+            console.error(error.response.data);
+        }
     };
 
     useEffect(() => {
@@ -659,7 +660,7 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
             event !== "" &&
             !tags.includes(event)
         ) {
-            setTags([...tags, event]);
+            setTags([...tags, { tagName: event }]);
             setText("");
             setIsActive(true);
             setTagError(false);
@@ -996,10 +997,10 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
                                         }
                                     >
                                         <ul className="tags">
-                                            {tags.map((tag, index) => (
+                                            {tags.map((el, index) => (
                                                 <li key={index} className="tag">
                                                     <span className="tagContent">
-                                                        {tag}
+                                                        {el.tagName}
                                                     </span>
                                                     <span
                                                         className="tagRemove"
@@ -1110,14 +1111,12 @@ const AskQuestion = ({ setFlag, setIsFooter }) => {
 
                     {nextStepThird === true ? (
                         <BottomButton>
-                            <Link to={`/questions/${data.questionId}`}>
-                                <button
-                                    className="buttonLink btnPrimary"
-                                    onClick={dataSubmit}
-                                >
-                                    Review your question
-                                </button>
-                            </Link>
+                            <button
+                                className="buttonLink btnPrimary"
+                                onClick={dataSubmit}
+                            >
+                                Review your question
+                            </button>
                             <button
                                 className="btnDiscard"
                                 onClick={discardDraft}
