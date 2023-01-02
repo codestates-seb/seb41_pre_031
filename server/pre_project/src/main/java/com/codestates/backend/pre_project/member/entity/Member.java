@@ -8,8 +8,6 @@ import com.codestates.backend.pre_project.post.question.Question;
 import com.codestates.backend.pre_project.profile.entity.Profile;
 
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -44,30 +42,19 @@ public class Member extends Auditable {
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
     private Profile profile;
-    // = new Profile();
-//    warning: @Builder will ignore the initializing expression entirely. If you want the initializing expression to serve as default, add @Builder.Default. If it is not supposed to be settable during building, make the field final.
-//    private Profile profile = Profile.builder().build();
-
-//    public void setProfile(Profile profile) {
-//        this.profile = profile;
-//    }
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<AnswerLikes> likeMembers;
-    //= new Likes(this);
 
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Question> questions;
-    //= new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Comment> comments;
-    //= new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Answer> answers;
-    //= new ArrayList<>();
 
     public Member(long memberId, String email, String password, String memberName) {
         this.memberId = memberId;

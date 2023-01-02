@@ -1,20 +1,13 @@
 package com.codestates.backend.pre_project.post.answer.dto;
 
-import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
-
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Range;
-
-import javax.validation.constraints.NotBlank;
 
 public class AnswerDto {
 
@@ -58,8 +51,4 @@ public class AnswerDto {
         private LocalDateTime modifiedAt;
 
     }
-//
-//    public void setComments(List<Comment> comments){
-//        this.setComments(comments);
-//    }
 }

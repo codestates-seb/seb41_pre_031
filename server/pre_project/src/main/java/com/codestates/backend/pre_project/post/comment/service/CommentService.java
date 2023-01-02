@@ -11,15 +11,11 @@ import com.codestates.backend.pre_project.post.comment.repository.CommentReposit
 import com.codestates.backend.pre_project.post.question.Question;
 import com.codestates.backend.pre_project.post.question.service.QuestionService;
 import com.codestates.backend.pre_project.utils.CustomBeanUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import com.codestates.backend.pre_project.member.entity.Member;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 

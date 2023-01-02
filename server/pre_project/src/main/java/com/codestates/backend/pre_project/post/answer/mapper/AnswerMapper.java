@@ -1,15 +1,10 @@
 package com.codestates.backend.pre_project.post.answer.mapper;
 
-import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.answer.dto.AnswerDto;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
-import com.codestates.backend.pre_project.post.comment.dto.CommentDto;
-import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.question.Question;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,27 +63,4 @@ public interface AnswerMapper {
 
 
     }
-//    default AnswerResponseDto answerToAnswerResponseDto(Answer answer) {
-//        Member member = answer.getMember();
-//        List<Comment> comments = answer.getComments();
-//
-//        List<CommentDto.Response> commentResponse
-//                = comments.stream().map(comment ->
-//                        new CommentDto.Response(comment.getCommentId(),
-//                                userToUserResponseDto(comment.getUser()),
-//                                comment.getBody(),
-//                                comment.getCreatedAt(),
-//                                comment.getModifiedAt(),
-//                                comment.getCommentType()))
-//                .collect(Collectors.toList());
-//        Comment 구현 후 작성
-//
-//        return AnswerResponseDto.builder()
-//                .answerId(answer.getAnswerId())
-//                .questionId(answer.getQuestion().getQuestionId())
-//                .body(answer.getBody())
-//                .createdAt(answer.getCreatedAt())
-//                .modifiedAt(answer.getModifiedAt())
-//                .build();
-//    }
 }

@@ -5,15 +5,11 @@ import com.codestates.backend.pre_project.post.question.Question;
 import com.codestates.backend.pre_project.post.question.QuestionTag;
 import com.codestates.backend.pre_project.post.question.dto.QuestionDto;
 import com.codestates.backend.pre_project.post.question.dto.QuestionTagResponseDto;
-import com.codestates.backend.pre_project.utils.CustomBeanUtils;
-import org.aspectj.apache.bcel.classfile.Module;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -88,17 +84,6 @@ public interface QuestionMapper {
             return questionResponseDto;
     }
 
-
-
     List<QuestionDto.Response> questionToQuestionResponse(List<Question> questions);
-//    {
-//        List<QuestionDto.Response> responses = new LinkedList<>();
-//        for(int i =0; i>questions.size(); i++){
-//            responses.add(questionToQuestionResponseDto(questions.get(i)));
-//        }
-//        return responses;
-//    }
-
-
 
 }

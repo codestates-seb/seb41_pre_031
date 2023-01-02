@@ -8,13 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -34,13 +31,6 @@ public class Comment extends Auditable {
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
-
-    //private long answerId;
-
-    //private long questionId;
-
-    @CreatedDate
-    private LocalDateTime commentRegDate;
 
     @ManyToOne
     @JoinTable(name = "QUESTION_ID")

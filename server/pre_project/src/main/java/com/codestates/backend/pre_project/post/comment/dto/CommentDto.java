@@ -1,14 +1,9 @@
 package com.codestates.backend.pre_project.post.comment.dto;
 
-import com.codestates.backend.pre_project.member.entity.Member;
-import com.codestates.backend.pre_project.post.answer.entity.Answer;
-import com.codestates.backend.pre_project.post.question.Question;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
@@ -91,6 +86,6 @@ public class CommentDto {
         private long questionId;
         private String memberName;
         private String commentBody;
-        private LocalDateTime commentRegDate;
+        private LocalDateTime createdAt;
     }
 }

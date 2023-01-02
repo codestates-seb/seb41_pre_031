@@ -1,5 +1,6 @@
 package com.codestates.backend.pre_project.likes.answer;
 
+import com.codestates.backend.pre_project.audit.Auditable;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.question.Question;
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AnswerLikes {
+public class AnswerLikes extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

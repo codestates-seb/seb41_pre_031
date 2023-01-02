@@ -2,7 +2,6 @@ package com.codestates.backend.pre_project.likes.question;
 
 import com.codestates.backend.pre_project.audit.Auditable;
 import com.codestates.backend.pre_project.member.entity.Member;
-import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.post.question.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class QuestionLikes {
+public class QuestionLikes extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +33,5 @@ public class QuestionLikes {
     @Column
     @Nullable
     private Boolean isClicked;
+
 }

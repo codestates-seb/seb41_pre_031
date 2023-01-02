@@ -5,7 +5,6 @@ import com.codestates.backend.pre_project.exception.BusinessLogicException;
 import com.codestates.backend.pre_project.exception.ExceptionCode;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.member.repository.MemberRepository;
-import com.codestates.backend.pre_project.post.answer.entity.Answer;
 import com.codestates.backend.pre_project.profile.entity.Profile;
 import com.codestates.backend.pre_project.utils.CustomBeanUtils;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +23,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
     private final CustomBeanUtils<Member> beanUtils;
-
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
 

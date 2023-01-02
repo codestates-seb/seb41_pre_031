@@ -4,14 +4,9 @@ import com.codestates.backend.pre_project.post.answer.service.AnswerService;
 import com.codestates.backend.pre_project.post.comment.dto.CommentDto;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.comment.mapper.CommentMapper;
-import com.codestates.backend.pre_project.post.comment.repository.CommentRepository;
 import com.codestates.backend.pre_project.post.comment.service.CommentService;
-import com.codestates.backend.pre_project.post.question.Question;
-import com.codestates.backend.pre_project.post.question.repository.QuestionRepository;
 import com.codestates.backend.pre_project.post.question.service.QuestionService;
-import com.codestates.backend.pre_project.response.MultiResponseDto;
 import com.codestates.backend.pre_project.response.SingleResponseDto;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -125,8 +120,3 @@ public class CommentController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
-
-
-//    public ResponseEntity getComments2() {
-//        return CommentRepository.findAll();
-//    }

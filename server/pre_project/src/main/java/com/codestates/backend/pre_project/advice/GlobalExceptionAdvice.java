@@ -87,14 +87,6 @@ public class GlobalExceptionAdvice {
 
         return response;
     }
-
-//    @ExceptionHandler
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    public ErrorResponse handleFindAnswerException(Exception e) {
-//        log.error("# handle Exception", e);
-//
-//        final ErrorResponse response = ErrorResponse.of(HttpStatus.BAD_REQUEST);
-//
-//        return response;
-//    }
 }
+
+

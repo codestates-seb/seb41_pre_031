@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 
@@ -27,15 +26,4 @@ public class QuestionTag extends Auditable {
     @Column(nullable = false)
     private String tagName;
 
-
-//    public void setQuestion(Question question) {
-//
-//        if(question==null){
-//            this.question = question;
-//        }
-//        for(int i =0; i <question.getQuestionTags().size(); i++){
-//            this.setTagName(question.getQuestionTags().get(i).getTagName());
-//        }
-//
-//    }
 }
