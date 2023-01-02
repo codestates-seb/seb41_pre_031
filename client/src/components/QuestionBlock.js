@@ -335,8 +335,8 @@ const QuestionBlock = ({ type, data, comment, quId }) => {
           console.log(error);
         });
     }
-    console.log(commentText);
   };
+  console.log(data);
   return (
     <QuestionBox>
       <div className="layout">
@@ -405,7 +405,7 @@ const QuestionBlock = ({ type, data, comment, quId }) => {
                   <img src="https://i.stack.imgur.com/yZM8h.png?s=64&g=1" />
                 </div>
                 <div className="userData">
-                  <Link to="/users/profile/12">
+                  <Link to={`/users/profile/${data && data.user[0].memberId}`}>
                     {data && data.user[0].memberName}
                   </Link>
                   <div className="score">{data && data.userprofile.point}</div>
