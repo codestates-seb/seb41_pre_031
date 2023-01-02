@@ -246,9 +246,8 @@ const QuestionComment = styled.div`
   .btnPrimary {
     font-size: 13px;
     background-color: #333333;
-    padding: 2px;
+    padding: 10px;
     width: 120px;
-    height: 28px;
   }
 
   @media screen and (max-width: ${BREAK_POINT_TABLET}px) {

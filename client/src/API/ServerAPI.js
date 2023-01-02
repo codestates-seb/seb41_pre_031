@@ -13,8 +13,27 @@ export async function userProfileData(id) {
   const 내질문 = questionsList.data.data.filter(
     (data) => data.memberName === member.data.data.memberName
   );
-    // console.log(내질문);
-    console.log(내답변);
+  const 내답변필터 = 내답변.map(data => {
+    const 타이틀 = questionsList.data.data.filter(data2 => {
+        return data2.questionId === data.questionId
+    })
+    return{
+        answerId: data.answerId,
+        RegDate: data.answerRegDate,
+        questionId: data.questionId,
+        title: 타이틀[0].questionTitle
+    }
+  })
+  const 내질문필터 = 내질문.map(data => {
+    const 타이틀 = questionsList.data.data.filter(data2 => {
+        return data2.questionId === data.questionId
+    })
+    return{
+        RegDate: data.questionRegDate,
+        questionId: data.questionId,
+        title: 타이틀[0].questionTitle
+    }
+  })
   return {
     name: member.data.data.memberName,
     profileTitle: profile.data.data.profileTitle,
@@ -23,8 +42,8 @@ export async function userProfileData(id) {
     profileRegDate: profile.data.data.profileRegDate,
     profileView: profile.data.data.profileView,
     about: profile.data.data.about,
-    myquestions: 내질문,
-    myanswers: 내답변,
+    myquestions: 내질문필터,
+    myanswers: 내답변필터,
     point: profile.data.data.point,
   };
 }
