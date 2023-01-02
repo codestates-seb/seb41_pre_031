@@ -48,7 +48,7 @@ const Login = ({ setFlag, setIsFooter, setIsLogin, setUserInfo }) => {
 			setErrorPWMsg("");
 		}
 		return axios
-			.put("http://prepro31.iptime.org:8080/auth/login", { username, password })
+			.put("http://34.64.176.88:8080/auth/login", { username, password })
 			.then((res) => {
 				localStorage.setItem("loginToken", res.headers.authorization);
 				setIsLogin(true);

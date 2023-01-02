@@ -208,7 +208,7 @@ const SignUp = ({ setFlag, setIsFooter }) => {
 			return;
 		}
 		return axios
-			.post("http://prepro31.iptime.org:8080/members/signup", form)
+			.post("http://34.64.176.88:8080/members/signup", form)
 			.then((res) => {
 				alert("가입을 환영합니다!");
 				navigate("/login");

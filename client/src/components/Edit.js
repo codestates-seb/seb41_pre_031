@@ -128,7 +128,7 @@ const Edit = ({ userData, id }) => {
 	const profileUpdate = () => {
 		const config = {
 			method: "patch",
-			url: `http://prepro31.iptime.org:8080/profiles/${id}`,
+			url: `http://34.64.176.88:8080/profiles/${id}`,
 			headers: {
 				Authorization: localStorage.getItem("loginToken"),
 			},

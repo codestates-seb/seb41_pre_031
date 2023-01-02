@@ -43,7 +43,7 @@ const Users = ({ setFlag, setIsFooter }) => {
 
 	const [userList, setUserList] = useState(undefined);
 	useEffect(() => {
-		axios.get("http://prepro31.iptime.org:8080/members").then((res) => {
+		axios.get("http://34.64.176.88:8080/members").then((res) => {
 			setUserList(res.data.data);
 		});
 	}, []);
