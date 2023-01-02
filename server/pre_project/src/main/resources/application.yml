@@ -15,7 +15,7 @@ spring:
     datasource:
 
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://arn:aws:rds:us-east-1:244230392773:db:database-1 # 포트넘버, 스키마이름
+        url: jdbc:mysql://arn:aws:rds:us-east-1:244230392773:db:database-1/test?characterEncording=UTF-8&serverTimezone=UTC # 포트넘버, 스키마이름
         username: ${MYSQL_NAME} #root # 환경변수로 넣었습니다.
         password: ${MYSQL_SECRET} #Rlawjdgml78*
 server:
