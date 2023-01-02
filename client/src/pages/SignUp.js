@@ -210,6 +210,7 @@ const SignUp = ({ setFlag, setIsFooter }) => {
 		return axios
 			.post("http://prepro31.iptime.org:8080/members/signup", form)
 			.then((res) => {
+				alert("가입을 환영합니다!");
 				navigate("/login");
 			})
 			.catch((err) => alert("회원가입에 실패하였습니다."));
