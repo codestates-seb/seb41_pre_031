@@ -10,7 +10,7 @@ spring:
         #database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/test?allowPublicKeyRetrieval=true&characterEncoding=UTF-8 # 포트넘버, 스키마이름
+        url: jdbc:mysql://database-1.cfrhtfepaybk.us-east-1.rds.amazonaws.com/test?allowPublicKeyRetrieval=true&characterEncoding=UTF-8 # 포트넘버, 스키마이름
         username: ${MYSQL_NAME} #root # 환경변수로 넣었습니다.
         password: ${MYSQL_SECRET} #Rlawjdgml78*
 server:
