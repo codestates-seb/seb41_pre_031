@@ -147,7 +147,10 @@ const UserProfile = ({ setFlag, setIsFooter }) => {
 			<ProfileHeader>
 				<div className="memberDataBox">
 					<a className="memberImg">
-						<img src="https://i.stack.imgur.com/hMDvl.jpg?s=256&g=1" alt="user profile image" />
+						<img
+							src="https://static.wikia.nocookie.net/pokemon/images/1/18/%EB%82%98%EC%98%A4%ED%95%98_%EA%B3%B5%EC%8B%9D_%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.png/revision/latest/scale-to-width-down/1200?cb=20220301123010&path-prefix=ko"
+							alt="user profile image"
+						/>
 					</a>
 					<div className="memberData">
 						<div className="memberName">{userData && userData.name}</div>
