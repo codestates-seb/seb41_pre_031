@@ -33,7 +33,7 @@ https://www.notion.so/codestates/BR31-76fe3ba7fa5647b0852a4cf81ac8aa59
 - Git commit 컨벤션
 
 
-## 기술 스택
+## 🛠 기술 스택
 ### Frontend
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
 <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white">
