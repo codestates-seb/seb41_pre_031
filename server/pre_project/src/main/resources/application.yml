@@ -14,6 +14,10 @@ spring:
         username: ${MYSQL_NAME} #root # 환경변수로 넣었습니다.
         password: ${MYSQL_SECRET} #Rlawjdgml78*
 server:
+    ssl:
+        key-store: localhost.p12
+        key-store-type: PKCS12
+        key-password: changeit
     servlet:
         encoding:
             force-response: true
