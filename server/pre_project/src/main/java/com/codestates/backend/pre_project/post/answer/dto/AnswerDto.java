@@ -49,6 +49,7 @@ public class AnswerDto {
     @Builder
     public static class Response {
         private long answerId;
+        private long questionId;
         private String memberName;
         private String answerBody;
         private int answerLikes;
