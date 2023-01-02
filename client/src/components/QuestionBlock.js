@@ -259,11 +259,14 @@ const QuestionComment = styled.div`
 
 const QuestionBlock = ({ type, data, comment, quId }) => {
   const [answerComment, setAnswerComment] = useState();
+//   const [answerID, setAnswerID] = useState();
+
   useEffect(() => {
     const comment2 = userAnComment(data && data.answersId);
     comment2.then((res) => {
       setAnswerComment(res);
     });
+    // setAnswerID(data && data.answersId);
   }, []);
   const commentInput = useRef();
   const [showOption, setShowOption] = useState(false);
@@ -302,6 +305,7 @@ const QuestionBlock = ({ type, data, comment, quId }) => {
 
         axios(config)
           .then(function (response) {
+            window.location.replace(`/questions/${quId}`);
             console.log(JSON.stringify(response.data));
           })
           .catch(function (error) {
@@ -312,31 +316,34 @@ const QuestionBlock = ({ type, data, comment, quId }) => {
       }
     } else {
       console.log("답글에 댓글");
-      let data = JSON.stringify({
-        commentBody: commentText,
-      });
-      const token = window.localStorage.getItem("loginToken");
-      const config = {
-        method: "post",
-        url: `http://prepro31.iptime.org:8080/questions/${
-          data && data.answersId
-        }/comments`,
-        headers: {
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-        data: data,
-      };
-      axios(config)
-        .then(function (res) {
-          console.log("성공");
-        })
-        .catch(function (error) {
-          console.log(error);
+      try {
+        var data = JSON.stringify({
+          commentBody: commentText,
         });
+        const token = window.localStorage.getItem("loginToken");
+
+        // const config = {
+        //   method: "post",
+        //   url: `http://prepro31.iptime.org:8080/questions/${answerID}/comments`,
+        //   headers: {
+        //     Authorization: token,
+        //     "Content-Type": "application/json",
+        //   },
+        //   data: data,
+        // };
+        axios(config)
+          .then(function (res) {
+            window.location.replace(`/questions/${quId}`);
+            console.log("성공");
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } catch (error) {
+        console.error(error.response.data);
+      }
     }
   };
-  console.log(data);
   return (
     <QuestionBox>
       <div className="layout">

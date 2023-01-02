@@ -67,6 +67,7 @@ export async function questionData(id) {
   const 마지막날짜 = lastDay < 1 ? "today" : Math.ceil(lastDay) + " ago";
 
   return {
+    answersId:undefined,
     questionTitle: question.data.data.questionTitle,
     questionRegDate: 첫날짜,
     questionLastDate: 마지막날짜,
