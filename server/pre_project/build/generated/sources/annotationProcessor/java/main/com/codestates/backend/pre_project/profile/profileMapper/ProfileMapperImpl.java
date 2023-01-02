@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-12-30T22:11:10+0900",
-    comments = "version: 1.5.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.17 (Amazon.com Inc.)"
+    date = "2023-01-02T10:18:54+0900",
+    comments = "version: 1.5.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 18.0.2 (Amazon.com Inc.)"
 )
 @Component
 public class ProfileMapperImpl implements ProfileMapper {
@@ -47,7 +47,7 @@ public class ProfileMapperImpl implements ProfileMapper {
         String about = null;
         long profileView = 0L;
         int point = 0;
-        LocalDateTime profileRegDate = null;
+        LocalDateTime createdAt = null;
 
         profileId = profile.getProfileId();
         profileTitle = profile.getProfileTitle();
@@ -56,9 +56,9 @@ public class ProfileMapperImpl implements ProfileMapper {
         about = profile.getAbout();
         profileView = profile.getProfileView();
         point = profile.getPoint();
-        profileRegDate = profile.getProfileRegDate();
+        createdAt = profile.getCreatedAt();
 
-        ProfileDto.Response response = new ProfileDto.Response( profileId, profileTitle, homepage, location, about, profileView, point, profileRegDate );
+        ProfileDto.Response response = new ProfileDto.Response( profileId, profileTitle, homepage, location, about, profileView, point, createdAt );
 
         return response;
     }

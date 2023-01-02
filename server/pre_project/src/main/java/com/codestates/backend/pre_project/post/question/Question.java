@@ -1,5 +1,6 @@
 package com.codestates.backend.pre_project.post.question;
 
+import com.codestates.backend.pre_project.audit.Auditable;
 import com.codestates.backend.pre_project.likes.question.QuestionLikes;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
@@ -21,7 +22,7 @@ import java.util.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Question {
+public class Question extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,12 +42,6 @@ public class Question {
 
     @Column(nullable = false)
     private Long questionLikes; //게시판 좋아요 수
-
-    @CreatedDate
-    private LocalDateTime questionRegDate;
-
-    @LastModifiedDate
-    private LocalDateTime questionLastDate;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")

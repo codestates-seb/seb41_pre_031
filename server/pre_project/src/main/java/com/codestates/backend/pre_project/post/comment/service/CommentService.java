@@ -47,7 +47,6 @@ public class CommentService {
     public Comment createAnswerComment(Comment comment) {
         Member member = memberService.findMember(getCurrentMember().getMemberId());
         comment.setMember(member);
-        comment.setCommentRegDate(LocalDateTime.now());
         Answer answer = answerService.findAnswer(comment.getAnswer().getAnswerId());
         comment.setAnswer(answer);
         return commentRepository.save(comment);
@@ -58,7 +57,6 @@ public class CommentService {
         comment.setMember(member);
         Question question = questionService.findQuestion(comment.getQuestion().getQuestionId());
         comment.setQuestion(question);
-        comment.setCommentRegDate(LocalDateTime.now());
         return commentRepository.save(comment);
     }
 

@@ -36,28 +36,24 @@ public interface QuestionMapper {
         question.setQuestionTags(questionTags);
         question.setQuestionBody(requestBody.getQuestionBody());
         question.setQuestionTitle(requestBody.getQuestionTitle());
-        question.setQuestionLastDate(LocalDateTime.now());
-        question.setQuestionRegDate(LocalDateTime.now());
 
         return question;
     }
 
    default Question questionPatchDtoToQuestion(QuestionDto.Patch requestBody){
-       Question question = new Question();
-
-
+    Question question = new Question();
        List<QuestionTag> questionTags = requestBody.getQuestionTags().stream()
                .map(questionTagDto -> {
-                   QuestionTag questionTag = new QuestionTag();
-                   questionTag.setQuestion(question);
-                   questionTag.setTagName(questionTagDto.getTagName());
+                   QuestionTag questionTag = QuestionTag.builder()
+                           .question(question)
+                                   .tagName(questionTagDto.getTagName())
+                                           .build();
                    return questionTag;
                }).collect(Collectors.toList());
        question.setQuestionId(requestBody.getQuestionId());
        question.setQuestionTitle(requestBody.getQuestionTitle());
        question.setQuestionBody(requestBody.getQuestionBody());
        question.setQuestionTags(questionTags);
-       question.setQuestionLastDate(LocalDateTime.now());
 
        return question;
    }
@@ -75,18 +71,19 @@ public interface QuestionMapper {
                         ));
             }
             QuestionDto.Response questionResponseDto =
-                    new QuestionDto.Response(
-                            question.getQuestionId(),
-                            question.getMemberName(),
-                            question.getQuestionTitle(),
-                            question.getQuestionBody(),
-                            questionTagResponseDtos,
-                            question.getQuestionRegDate(),
-                            question.getQuestionLastDate(),
-                            question.getQuestionLikes(),
-                            question.getQuestionView(),
-                            question.getIsSelectAnswer());
-
+                    QuestionDto.Response.builder()
+                            .questionId(question.getQuestionId())
+                            .questionBody(question.getMemberName())
+                            .questionTitle(question.getQuestionTitle())
+                            .questionLikes(question.getQuestionLikes())
+                            .questionBody(question.getQuestionBody())
+                            .questionBody(question.getQuestionBody())
+                            .questionView(question.getQuestionView())
+                            .questionTags(questionTagResponseDtos)
+                            .createdAt(question.getCreatedAt())
+                            .modifiedAt(question.getModifiedAt())
+                            .isSelectAnswer(question.getIsSelectAnswer())
+                            .build();
 
             return questionResponseDto;
     }

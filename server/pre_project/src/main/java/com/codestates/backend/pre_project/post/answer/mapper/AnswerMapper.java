@@ -18,38 +18,28 @@ public interface AnswerMapper {
     Answer answerPatchDtoToAnswer(AnswerDto.Patch answerPatchDto);
 
     default AnswerDto.Response answerToAnswerResponseDto(Answer answer){
-        AnswerDto.Response answer1 = new AnswerDto.Response();
-//        Member member = new Member();
-//        Question question = new Question();
-//
-//        question.setQuestionId(answer.getQuestion().getQuestionId());
-//        member.setMemberName(answer.getMember().getMemberName());
+        AnswerDto.Response answer1 = AnswerDto.Response.builder()
+                        .answerId(answer.getQuestion().getQuestionId())
+                        .answerBody(answer.getAnswerBody())
+                        .answerLikes(answer.getAnswerLikes())
+                        .memberName(answer.getMember().getMemberName())
+                        .answerSelected(answer.getAnswerSelected())
+                        .build();
 
-        answer1.setAnswerId(answer.getAnswerId());
-        answer1.setAnswerBody(answer.getAnswerBody());
-        answer1.setAnswerLikes(answer.getAnswerLikes());
-        answer1.setMemberName(answer.getMember().getMemberName());
-        answer1.setAnswerSelected(answer.getAnswerSelected());  //test
-        answer1.setAnswerRegDate(LocalDateTime.now());
-        answer1.setAnswerLastDate(LocalDateTime.now());
+
         return answer1;
 
     }
 
     default AnswerDto.Response answerPatchToAnswerResponseDto(Answer answer){
-        AnswerDto.Response answer1 = new AnswerDto.Response();
-//        Member member = new Member();
-//        Question question = new Question();
-//
-//        question.setQuestionId(answer.getQuestion().getQuestionId());
-//        member.setMemberName(answer.getMember().getMemberName());
+        AnswerDto.Response answer1 = AnswerDto.Response.builder()
+                        .answerBody(answer.getAnswerBody())
+                        .answerId(answer.getAnswerId())
+                        .answerSelected(answer.getAnswerSelected())
+                        .answerLikes(answer.getAnswerLikes())
+                        .memberName(answer.getMember().getMemberName())
+                        .build();
 
-        answer1.setAnswerId(answer.getAnswerId());
-        answer1.setAnswerBody(answer.getAnswerBody());
-        answer1.setAnswerLikes(answer.getAnswerLikes());
-        answer1.setMemberName(answer.getMember().getMemberName());
-        //answer1.setAnswerRegDate(LocalDateTime.now());
-        answer1.setAnswerLastDate(LocalDateTime.now());
         return answer1;
 
     }
@@ -73,9 +63,6 @@ public interface AnswerMapper {
                         .memberName(answer.getMember().getMemberName())
                         .answerBody(answer.getAnswerBody())
                         .answerLikes(answer.getAnswerLikes())
-                        .answerRegDate(answer.getAnswerRegDate())
-                        .answerLastDate(answer.getAnswerLastDate())
-                        //.comments(answer.getComments())
                         .build()
                 ).collect(Collectors.toList());
 

@@ -1,5 +1,6 @@
 package com.codestates.backend.pre_project.post.question;
 
+import com.codestates.backend.pre_project.audit.Auditable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class QuestionTag {
+public class QuestionTag extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long questionTagId;

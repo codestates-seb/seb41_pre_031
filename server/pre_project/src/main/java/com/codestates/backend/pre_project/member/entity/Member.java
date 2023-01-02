@@ -1,5 +1,6 @@
 package com.codestates.backend.pre_project.member.entity;
 
+import com.codestates.backend.pre_project.audit.Auditable;
 import com.codestates.backend.pre_project.likes.answer.AnswerLikes;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.answer.entity.Answer;
@@ -14,8 +15,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +24,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Member {
+public class Member extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private long memberId;
@@ -42,12 +41,6 @@ public class Member {
     @NotBlank
     @Column(nullable = false, length = 30)
     private String memberName;
-
-    @CreatedDate
-    private LocalDateTime memberRegDate;
-
-    @LastModifiedDate
-    private LocalDateTime memberLastDate;
 
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
     private Profile profile;
@@ -85,4 +78,6 @@ public class Member {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
+
+
 }

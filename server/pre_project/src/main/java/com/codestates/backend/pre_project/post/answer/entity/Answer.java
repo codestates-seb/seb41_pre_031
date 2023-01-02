@@ -1,7 +1,6 @@
 package com.codestates.backend.pre_project.post.answer.entity;
 
-import com.codestates.backend.pre_project.likes.answer.AnswerLikes;
-import com.codestates.backend.pre_project.likes.question.QuestionLikes;
+import com.codestates.backend.pre_project.audit.Auditable;
 import com.codestates.backend.pre_project.member.entity.Member;
 import com.codestates.backend.pre_project.post.comment.entity.Comment;
 import com.codestates.backend.pre_project.post.question.Question;
@@ -22,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @EntityListeners(AuditingEntityListener.class)
-public class Answer {
+public class Answer extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long answerId;
@@ -37,12 +36,6 @@ public class Answer {
     @Column
     @Nullable
     private Boolean answerSelected;
-
-    @CreatedDate
-    private LocalDateTime answerRegDate;
-
-    @LastModifiedDate
-    private LocalDateTime answerLastDate;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")

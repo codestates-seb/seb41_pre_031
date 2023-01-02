@@ -53,8 +53,8 @@ public class AnswerDto {
         private String answerBody;
         private int answerLikes;
         private Boolean answerSelected;
-        private LocalDateTime answerRegDate;
-        private LocalDateTime answerLastDate;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
 
     }
 //
