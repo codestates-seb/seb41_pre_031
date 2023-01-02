@@ -48,10 +48,12 @@ const UserBox = styled.div`
 
 const User = ({data}) => {
     const [userLocation, setUserLocation] = useState(null);
+    const [userPoint, setUserPoint] = useState(null);
     useEffect(() => {
         axios.get(`http://prepro31.iptime.org:8080/profiles/${data.memberId}`)
         .then(res => {
             setUserLocation(res.data.data.location);
+            setUserPoint(res.data.data.point)
         })
     },[])
   return (
@@ -71,7 +73,7 @@ const User = ({data}) => {
         </Link>
         <span className="userLocation">{userLocation}</span>
         <div className="userPoint">
-          <span className="pointNum">1545</span>
+          <span className="pointNum">{userPoint}</span>
         </div>
       </div>
       <div className="userTags"></div>

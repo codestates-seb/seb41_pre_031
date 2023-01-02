@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -168,66 +169,16 @@ const List = styled.div`
 	}
 `;
 const Profile = ({ userData }) => {
+    console.log(userData.myanswers)
 	const [userDataList, setUserDataList] = useState([
 		{
-			reputation: "779,635",
+			reputation: userData.point,
 			reached: userData.profileView,
-			answers: "29,756",
+			answers: userData.myanswers.length,
 			questions: userData.myquestions.length,
 		},
 	]);
-	const questionsList = [
-		{
-			reputation: 87,
-			title: "Aggregation in Pandas",
-			date: "Dec 14, 2018",
-		},
-		{
-			reputation: 55,
-			title: "List with duplicated values and suffix",
-			date: "Jul 15, 2017",
-		},
-		{
-			reputation: 33,
-			title: "Python - Flatten the list of dictionaries",
-			date: "Feb 9, 2018",
-		},
-		{
-			reputation: 22,
-			title: "Nested list to dict",
-			date: "Apr 5, 2017",
-		},
-		{
-			reputation: 18,
-			title: "Extract text with multiple separators",
-			date: "Feb 8, 2017",
-		},
-		{
-			reputation: 13,
-			title: "Python: Merge list with range list",
-			date: "Feb 19, 2016",
-		},
-		{
-			reputation: 13,
-			title: "After rename column get keyerror",
-			date: "Apr 8, 2017",
-		},
-		{
-			reputation: 12,
-			title: "Convert dict of nested lists to list of tuples",
-			date: "Jul 21, 2017",
-		},
-		{
-			reputation: 10,
-			title: "Max value per diagonal in 2d array",
-			date: "Dec 4, 2019",
-		},
-		{
-			reputation: 8,
-			title: "Top N values in 2d array with duplicates to mask",
-			date: "Apr 30, 2020",
-		},
-	];
+    const [title, setTitle] = useState('');
 	return (
 		<ProfileBox>
 			<ProfileNav>
@@ -272,15 +223,19 @@ const Profile = ({ userData }) => {
 								</div>
 							</div>
 							<div className="listBox">
-								{userData.myquestions.map((data, index) => {
+								{[...userData.myquestions,...userData.myanswers].map((data, index) => {
 									const date = new Date(data.questionRegDate);
+                                    // axios.get(`http://prepro31.iptime.org:8080/questions/${data.questionId}`).then(res => {
+                                    //     console.log(res.data.data.questionTitle);
+                                    //     setTitle(res.data.data.questionTitle);
+                                    // });
 									return (
 										<List key={index}>
 											<div className="listIn">
 												<div className="icon"></div>
 												<div className="point">30</div>
 												<Link to={`/questions/${data.questionId}`}>
-													<div className="listTitle">{data.questionTitle}</div>
+													<div className="listTitle">{title}</div>
 												</Link>
 												<div className="date">{date.toDateString()}</div>
 											</div>

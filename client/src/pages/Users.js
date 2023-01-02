@@ -41,13 +41,10 @@ const Users = ({ setFlag, setIsFooter }) => {
 	const [limit, setLimit] = useState(36);
 	const offset = (page - 1) * limit;
 
-	//데이터 추가시 삭제
-	// const test = Array(1000).fill("0");
 	const [userList, setUserList] = useState(undefined);
 	useEffect(() => {
 		axios.get("http://prepro31.iptime.org:8080/members").then((res) => {
 			setUserList(res.data.data);
-			//console.log(res.data.data);
 		});
 	}, []);
 
