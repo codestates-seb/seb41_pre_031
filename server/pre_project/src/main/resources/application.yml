@@ -1,0 +1,35 @@
+spring:
+    sql:
+        init:
+            mode: always
+            platform: h2
+    jpa:
+        hibernate:
+            ddl-auto:update  # 스키마 자동 생성
+        show-sql: true      # SQL 쿼리 출력
+        properties:
+            hibernate:
+                format_sql: true  # SQL pretty print
+        database: mysql   # 추가 해준 부분
+        #database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    datasource:
+
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://arn:aws:rds:us-east-1:244230392773:db:database-1/test?characterEncording=UTF-8&serverTimezone=UTC # 포트넘버, 스키마이름
+        username: ${MYSQL_NAME} #root # 환경변수로 넣었습니다.
+        password: ${MYSQL_SECRET} #Rlawjdgml78*
+server:
+    servlet:
+        encoding:
+            force-response: true
+    ssl:
+        key-store-type: PKCS12
+        key-store: classpath:localhost.p12
+        key-password: changeit
+mail:
+    address:
+        admin: admin@gmail.com
+jwt:
+    key: ${JWT_SECRET_KEY} #환경변수 설정
+    access-token-expiration-minutes: 40
+    refresh-token-expiration-minutes: 420

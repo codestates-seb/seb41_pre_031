@@ -1,0 +1,174 @@
+:root {
+	/* colors */
+	--lightgray: #babfc4;
+	--lightgray2: #e3e6e8;
+	--gray: #6a737c;
+	--darkgray: #525960;
+	--darkgray2: #9199a1;
+	--darkgray3: #9fa6ad;
+	--darkblack: #3b4045;
+	--black: #0c0d0e;
+	--dark: #232629;
+	--white: #fff;
+	--white2: #f1f2f3;
+	--white3: #f8f9f9;
+	--blue: #0a95ff;
+	--darkblue: #0074cc;
+	--darkblue2: #39739d;
+	--grayblue: #7aa7c7;
+	--lightblue: #cde9fe;
+	--skyblue: #e1ecf4;
+	--darkskyblue: #b3d3ea;
+	--navy: #2c5877;
+	--orange: #f48225;
+	--orange2: #f2740d;
+	--lightorange: #fee3cd;
+	--red: #d0393e;
+	--green: #5eba7d;
+	/* main colors */
+	--primary-color: var(--blue);
+	--primary2-color: var(--skyblue);
+	--secondary-color: var(--orange);
+	/* ui colors */
+	--bg-color: var(--white);
+	--bg-on-color: var(--black);
+	--bg-login-color: var(--white2);
+	--bg-on-login-color: var(--dark);
+	--error-color: var(--red);
+	--button-primary-color: var(--primary-color);
+	--button-primary-on-color: var(--white);
+	--button-primary-hover-color: var(--darkblue);
+	--button-secondary-color: var(--skyblue);
+	--button-secondary-on-color: var(--darkblue2);
+	--button-secondary-border-color: var(--grayblue);
+	--button-secondary-hover-color: var(--darkskyblue);
+	--button-secondary-hover-on-color: var(--navy);
+	--link-color: var(--darkblue);
+	--link-hover-color: var(--blue);
+	--nav-link-color: var(--darkgray);
+	--nav-link-hover-color: var(--lightgray2);
+	--border-color: var(--lightgray);
+	--caption-color: var(--gray);
+	--label-color: var(--black);
+	--footer-bg-color: var(--dark);
+	--footer-bg-on-color: var(--darkgray2);
+	--error-color: var(--red);
+	/* box shadow */
+	--button-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4);
+	/* border-radius */
+	--border-radius-sm: 3px;
+	--border-radius-md: 5px;
+	--border-radius-lg: 7px;
+	/* line-height */
+	--lh-initial: 13;
+	--line-height-sm: calc((var(--lh-initial) + 2) / var(--lh-initial));
+	--line-height-md: calc((var(--lh-initial) + 4) / var(--lh-initial));
+	--line-height-lg: calc((var(--lh-initial) + 8) / var(--lh-initial));
+	/* font size */
+	--font-head1-size: 27px;
+	--font-head3-size: 17px;
+	--font-title-size: 21px;
+	--font-body1-size: 13px;
+	--font-caption-size: 12px;
+	--font-button-size: 13px;
+	--font-label-size: 15px;
+	/* font weight */
+	--font-normal: 400;
+	--font-medium: 600;
+	--font-bold: 700;
+}
+/* layout */
+html {
+	height: 100%;
+	font-size: 13px;
+}
+body {
+	height: 100%;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif;
+	font-weight: var(--font-normal);
+	font-size: var(--font-body1-size);
+}
+#root {
+	height: 100%;
+}
+.container {
+	margin: 0 auto;
+	max-width: 1264px;
+	width: 100%;
+}
+/* input */
+input {
+	border-radius: 3px;
+	background-color: var(--bg-color);
+	border: 1px solid var(--border-color);
+	color: var(--bg-on-color);
+}
+label,
+.label {
+	padding: 0 2px;
+	color: var(--label-color);
+	font-weight: var(--font-medium);
+	font-size: var(--font-label-size);
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+.initialInput {
+	padding: 8px 9px;
+	margin: 2px 0;
+	line-height: var(--line-height-sm);
+	font-size: var(--font-button-size);
+}
+.caption {
+	line-height: var(--line-height-sm);
+	font-size: var(--font-caption-size);
+	color: var(--caption-color);
+}
+.errorInput {
+	border-color: var(--error-color);
+}
+.errorMessage {
+	margin: 2px 0;
+	line-height: var(--line-height-sm);
+	font-size: var(--font-caption-size);
+	color: var(--error-color);
+}
+/* anchor */
+a {
+	font-size: var(--font-body1-size);
+	color: var(--dark);
+	text-decoration: none;
+}
+/* button */
+button,
+.buttonLink {
+	border-radius: 3px;
+	line-height: var(--line-height-sm);
+	font-size: var(--font-button-size);
+	padding: 10px;
+}
+.btnPrimary {
+	background-color: var(--button-primary-color);
+	color: var(--button-primary-on-color);
+	border: 1px solid transparent;
+	box-shadow: var(--button-shadow);
+}
+.btnPrimary:hover {
+	background-color: var(--button-primary-hover-color);
+}
+.btnSecondary {
+	border: 1px solid var(--button-secondary-border-color);
+	background-color: var(--button-secondary-color);
+	color: var(--button-secondary-on-color);
+	box-shadow: var(--button-shadow);
+}
+.btnSecondary:hover {
+	background-color: var(--button-secondary-hover-color);
+	color: var(--button-secondary-hover-on-color);
+}
+.link {
+	color: var(--link-color);
+}
+.link:hover {
+	color: var(--link-hover-color);
+}
